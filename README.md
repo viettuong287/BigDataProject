@@ -1,6 +1,6 @@
 # Olist E-commerce · Analytics → Presentation
 
-Đồ án học phần **Nhập môn Dữ liệu lớn** — nhóm phụ trách quy trình con **Analytics → Presentation**.
+Đồ án học phần **Nhập môn Dữ liệu lớn** (thầy Sang – chiều thứ 4) — nhóm phụ trách quy trình con **Analytics → Presentation**.
 
 Nhận output Parquet của nhóm Analytics (bộ dữ liệu thương mại điện tử Olist, Brazil, 2016–2018), nạp vào
 **Neon Postgres** (serverless, AWS Singapore), xây **tầng ngữ nghĩa** bằng view SQL và trình bày trên dashboard
