@@ -32,7 +32,7 @@ Velocity không phải đặc trưng chính: dữ liệu được làm mới the
 
 **Nguồn và cách thu thập:** các bảng do nhóm Analytics bàn giao được sao chép nguyên vẹn vào `data/analytics/` của repo nhóm. **Định dạng:** Parquet nén Snappy, mỗi bảng một thư mục kiểu Spark (`part-00000-*.snappy.parquet`, kèm `_SUCCESS`). **Tốc độ phát sinh:** theo lô (lần chạy Analytics hiện tại: 29/10/2026). **Quy mô:** {{var:n_tables}} bảng, {{var:total_rows}} dòng, {{var:total_cols}} cột, {{var:total_kb}} KB nén; phân bố rất lệch — hai bảng cấp khách hàng (`rfm_scores`, `customer_segments`, mỗi bảng 94.983 dòng) và `seller_pareto` (3.053 dòng) chiếm hơn 99% số dòng, 13 bảng còn lại chỉ 2–715 dòng. Danh sách bảng, grain, khoá ở Mục 3.5; schema từng cột, quy mô chi tiết và ví dụ bản ghi ở Phụ lục C. Ví dụ rút gọn một dòng của `kpi_monthly`: `{purchase_year: 2017, purchase_month: 11, orders: 7421, revenue: 1003862.14, avg_order_value: 157.96, late_delivery_pct: 14.31, avg_review_score: 3.95, revenue_mom_pct: 52.06, revenue_rank: 1, is_black_friday_month: true}`.
 
-**Đầu vào bổ sung – tầng gold.** Bảng Analytics có grain cố định nên không trả lời được câu hỏi lọc chéo như "AOV và % trễ của bang SP trong quý I/2018 với khách trả bằng boleto". Vì vậy nhóm nạp thêm {{var:n_gold}} bảng gold ({{var:gold_rows}} dòng, đầu vào của Analytics, đã đối chiếu 11/11). Hai bảng fact phân vùng Hive theo `purchase_year=YYYY/purchase_month=M/`; loader đọc bằng `pyarrow.dataset(..., partitioning="hive")` để khôi phục cột phân vùng. Gold chỉ dùng để **lọc và cộng lại**; mọi KPI phân tích (Pareto, RFM, K-Means, watchlist) vẫn lấy nguyên từ Analytics, và bộ kiểm tra nhất quán (Mục 6.4) chứng minh tổng từ gold khớp tổng của `kpi_monthly`.
+**Đầu vào bổ sung – tầng gold.** Bảng Analytics có grain cố định nên không trả lời được câu hỏi lọc chéo như "AOV và % trễ của bang SP trong quý I/2018 với khách trả bằng boleto". Vì vậy nhóm nạp thêm {{var:n_gold}} bảng gold ({{var:gold_rows}} dòng, đầu vào của Analytics, đã đối chiếu 11/11). Hai bảng fact phân vùng Hive theo `purchase_year=YYYY/purchase_month=M/`; loader đọc bằng `pyarrow.dataset(..., partitioning="hive")` để khôi phục cột phân vùng. Gold chỉ dùng để **lọc và cộng lại**; mọi KPI phân tích (Pareto, RFM, K-Means, watchlist) vẫn lấy nguyên từ Analytics, và bộ kiểm tra nhất quán (Mục 6.2) chứng minh tổng từ gold khớp tổng của `kpi_monthly`.
 
 ## 3.4. Output
 
@@ -45,7 +45,7 @@ Bảng: Các thành phần đầu ra của giai đoạn Presentation
 | Gợi ý quyết định | `v_decision_hints` (7 luật), `v_seller_watchlist` (ĐỎ/VÀNG) | Giai đoạn Decision/Action | 153 người bán kèm lý do, hành động |
 | Minh chứng | `evidence/`: log nạp, đối chiếu, độ trễ, ảnh | Giảng viên, nhóm | `load_log.csv`, `validation.json` |
 
-Ví dụ đầu ra: view `v_kpi_overview` (một dòng) cho các thẻ số neo — doanh thu gold toàn kỳ 13.494.400,74 BRL, doanh thu khung 20 tháng 13.449.529,68 BRL, tháng đỉnh `2017-11` (MoM 52,06%), review đơn trễ 2,56 so với đúng hạn 4,29, 2.887 khách mua lại (3,04%), 539/3.053 người bán tạo 80% doanh thu, 153 người bán trong watchlist. Một dòng của `v_decision_hints`: *ưu tiên 2, mức CAO, chủ đề Giao hàng, tín hiệu "Đơn trễ kéo review xuống", giá trị 1,73, ngưỡng "chênh lệch > 1 sao", hành động "Cảnh báo seller khi đơn trễ 1–3 ngày"*.
+Ví dụ một dòng của `v_decision_hints`: *ưu tiên 2, mức CAO, chủ đề Giao hàng, tín hiệu "Đơn trễ kéo review xuống", giá trị 1,73, ngưỡng "chênh lệch > 1 sao", hành động "Cảnh báo seller khi đơn trễ 1–3 ngày"*.
 
 ## 3.5. Data contract giữa Analytics và Presentation
 
@@ -65,19 +65,7 @@ Các điều khoản:
 
 ## 3.6. Yêu cầu chức năng và phi chức năng
 
-Bảng: Yêu cầu chức năng (F) và phi chức năng (N)
-| Mã | Yêu cầu | Cách đáp ứng / chỉ tiêu |
-|---|---|---|
-| F1 | Nạp toàn bộ bảng vào tầng phục vụ, đúng kiểu dữ liệu | Loader pyarrow + COPY, DDL tự sinh |
-| F2 | Nhật ký mỗi lần nạp | Bảng `analytics.load_log` + `evidence/load_log.csv` |
-| F3 | KPI thống nhất, tổng hợp đúng | View `presentation.v_*` |
-| F4 | Dashboard: thẻ KPI, xu hướng, Pareto, bản đồ, bảng chi tiết, bộ lọc tháng/bang/danh mục/phân khúc | Superset, native filters |
-| F5 | Gợi ý quyết định cho giai đoạn sau | `v_decision_hints`, `v_seller_watchlist` |
-| N1 | Tính đúng đắn | 100% số dòng và số neo khớp Parquet |
-| N2 | Độ trễ truy vấn khi compute đang chạy | Trung vị < 300 ms, lớn nhất < 500 ms |
-| N3 | Tái lập | Một lệnh Docker Compose + một lệnh nạp |
-| N4 | Bảo mật | TLS bắt buộc; bí mật chỉ trong `.env` (không commit) |
-| N5 | Chi phí và mở rộng | Gói miễn phí Neon, compute ngủ khi không dùng; không đổi kiến trúc khi dữ liệu ×10 |
+**Chức năng:** (F1) nạp toàn bộ bảng vào tầng phục vụ đúng kiểu dữ liệu; (F2) ghi nhật ký mỗi lần nạp; (F3) định nghĩa KPI thống nhất, tổng hợp đúng; (F4) dashboard có thẻ KPI, xu hướng, Pareto, bản đồ, bảng chi tiết và bộ lọc theo tháng, bang, danh mục, phân khúc; (F5) cung cấp gợi ý quyết định cho giai đoạn sau. **Phi chức năng:** (N1) đúng đắn 100% so với Parquet và số neo; (N2) truy vấn dashboard trung vị < 300 ms, p95 < 500 ms; (N3) tái lập bằng Docker Compose và script; (N4) TLS bắt buộc, bí mật chỉ trong `.env`; (N5) nằm trong gói miễn phí Neon và không đổi kiến trúc khi dữ liệu ×10. Mức đáp ứng được đánh giá ở Mục 6.7.
 
 ## 3.7. Định nghĩa KPI
 

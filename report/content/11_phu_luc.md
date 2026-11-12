@@ -1,168 +1,131 @@
 # Phụ lục A. Hướng dẫn chạy
 
-## A.1. Yêu cầu hệ thống
-
-- Docker Desktop (Windows/macOS) hoặc Docker Engine + Compose v2 (Linux); khoảng 4 GB RAM trống cho Superset.
-- Tài khoản Neon (gói miễn phí) và chuỗi kết nối tới database `olist_analytics`.
-- Mã nguồn: `git clone {{var:repo_url}}`. Dữ liệu đầu vào đã nằm trong `data/analytics/` (sao chép từ repo Analytics); nếu thiếu, sao chép thư mục `data/analytics/` của repo Analytics vào cùng vị trí.
-- Không cần cài Python trên máy host (mọi script chạy trong container `tools`).
-
-## A.2. Các bước chạy
+**Yêu cầu:** Docker Desktop (đã thử với Docker 29), Git, Internet, một database Neon (gói miễn phí đủ dùng). Không cần cài Python trên máy host.
 
 ```powershell
-# 1. Cấu hình
-Copy-Item .env.example .env
-#    điền NEON_DATABASE_URL (endpoint pooled, sslmode=require), SUPERSET_SECRET_KEY, mật khẩu admin
+git clone https://github.com/viettuong287/BigDataProject.git
+cd BigDataProject
+copy .env.example .env      # điền NEON_DATABASE_URL (endpoint pooled), SUPERSET_SECRET_KEY, mật khẩu admin
 
-# 2. Dựng image, khởi động Superset
-docker compose build
-docker compose up -d superset
-docker compose ps                     # superset ở trạng thái healthy
-```
+# 1. Nạp dữ liệu vào Neon (~6 phút, phụ thuộc băng thông tải lên) và kiểm chứng
+docker compose build tools
+docker compose run --rm tools python loader/load_to_neon.py   # schema, COPY 23 bảng, index, view
+docker compose run --rm tools python loader/validate.py       # 23 bảng + 19 số neo
+docker compose run --rm tools python loader/apply_sql.py      # (tuỳ chọn) chỉ tạo lại view
 
-{{run_commands}}
+# 2. Bật Superset (metadata Postgres 16) và dựng dashboard từ code (~4 phút lần đầu)
+docker compose up -d superset-db superset
+docker compose run --rm tools python superset/build_dashboard.py
+#    mở http://localhost:8088/superset/dashboard/olist-presentation/  (admin / mật khẩu trong .env)
+#    dự phòng: docker compose run --rm tools python superset/import_dashboard.py
 
-Mở `http://localhost:8088`, đăng nhập bằng `SUPERSET_ADMIN_USER` / `SUPERSET_ADMIN_PASSWORD`. Dừng hệ thống: `docker compose down` (giữ volume metadata) — chỉ dùng `docker compose down -v` khi muốn xoá cả metadata Superset.
+# 3. Tái tạo minh chứng (tuỳ chọn)
+docker compose run --rm tools python scripts/measure_latency.py
+docker compose run --rm tools python scripts/scale_experiment.py
+docker compose run --rm tools python scripts/neon_inventory.py
+docker exec olist-superset bash -c 'rm -rf /app/superset_home/cache/*'
+docker compose run --rm screenshots                       # ảnh + thời gian tải cold/cache
+docker compose run --rm screenshots python scripts/render_diagrams.py
 
-## A.3. Sinh lại báo cáo này
-
-```powershell
-# Cách 1: Python trên máy (đã cài Python 3.12)
-python -m venv report\.venv
-report\.venv\Scripts\python -m pip install -r report\requirements.txt
+# 4. Sinh lại báo cáo (Python 3.12 trên máy hoặc trong Docker)
+python -m venv report\.venv; report\.venv\Scripts\python -m pip install -r report\requirements.txt
 report\.venv\Scripts\python report\build_report.py
-
-# Cách 2: không cài Python, dùng Docker
-docker run --rm -v "${PWD}:/work" -v "D:\Analytics-main:/upstream:ro" -e ANALYTICS_REPO=/upstream `
-  -w /work python:3.12-slim sh -c "pip install -q -r report/requirements.txt && python report/build_report.py"
+powershell -ExecutionPolicy Bypass -File report\tools\word_stats.ps1 -Pdf   # cập nhật mục lục, xuất PDF
 ```
 
-Mở tệp `report/BaoCao_DoAn_BigData.docx` bằng Word, nhấn **Ctrl+A rồi F9** để cập nhật mục lục, danh mục hình và danh mục bảng (Word cũng hỏi cập nhật trường khi mở tệp). Ảnh đặt vào `evidence/` hoặc `docs/` sẽ được tự động chèn vào đúng chương theo từ khoá trong tên tệp (`dashboard`, `filter`, `neon`, `load`, `latency`, `sql`, `watchlist`, `architecture`…); chú thích có thể ghi đè trong `report/content/captions.json`.
+Tắt hệ thống: `docker compose down` (thêm `-v` sẽ xoá metadata Superset; dữ liệu trên Neon không bị ảnh hưởng). Nếu đang mở dashboard trong trình duyệt khi chạy lại `build_dashboard.py`, hãy tải lại trang để tránh ghi đè cấu hình bộ lọc. Trong Word, nhấn Ctrl+A rồi F9 để cập nhật mục lục và danh mục hình/bảng.
 
-## A.4. Xử lý sự cố thường gặp
+# Phụ lục B. So sánh phương án công nghệ
 
-Bảng: Sự cố thường gặp khi chạy lại hệ thống
-| Hiện tượng | Cách xử lý |
-|---|---|
-| `docker` không được nhận trong PowerShell | Thêm `%LOCALAPPDATA%\Programs\DockerDesktop\resources\bin` vào `PATH` hoặc mở lại terminal sau khi khởi động Docker Desktop |
-| Loader báo "Thiếu NEON_DATABASE_URL" | Kiểm tra tệp `.env` ở thư mục gốc và tên biến |
-| Kết nối Neon timeout lần đầu | Compute đang ngủ (scale-to-zero); chạy lại hoặc tăng `connect_timeout` |
-| Superset không lên (unhealthy) | `docker compose logs superset`; kiểm tra `SUPERSET_SECRET_KEY` đã đặt |
-| Dashboard trống sau khi nạp lại | Chạy lại script tạo view (view bị xoá theo `DROP ... CASCADE`) |
+Bảng: So sánh công cụ trình bày (BI) cho giai đoạn Presentation
+| Tiêu chí | Apache Superset | Power BI | Tableau | Grafana | Metabase |
+|---|---|---|---|---|---|
+| Giấy phép | Mã nguồn mở (Apache 2.0) | Thương mại (chia sẻ cần Pro) | Thương mại | Mã nguồn mở (AGPL) | Mã nguồn mở / thương mại |
+| Triển khai | Docker, tự host | Windows Desktop + cloud | Desktop + Server/Cloud | Docker | Docker |
+| Thế mạnh | BI SQL-native, nhiều chart, native filter, REST API | Mô hình DAX, thân thiện | Trực quan hoá linh hoạt | Chuỗi thời gian, giám sát | Dễ dùng |
+| Hạn chế | Cấu hình ban đầu phức tạp | Khó tái lập bằng mã | Chi phí bản quyền | Yếu với phân tích theo danh mục | Ít loại biểu đồ, bộ lọc hạn chế |
+| Dashboard-as-code | Có (REST API, export YAML) | Hạn chế (.pbix nhị phân) | Hạn chế | Có (JSON) | Một phần |
 
-# Phụ lục B. Cấu hình
+Bảng: So sánh phương án tầng lưu trữ phục vụ
+| Tiêu chí | Neon Serverless Postgres | Postgres cục bộ (Docker) | ClickHouse | Đọc thẳng Parquet (DuckDB) |
+|---|---|---|---|---|
+| Mô hình lưu trữ | Hàng + chỉ mục | Hàng + chỉ mục | Cột (MergeTree) | Cột (tệp) |
+| Phù hợp quy mô | Hàng chục–trăm triệu dòng tổng hợp | Giới hạn một máy | Hàng tỷ dòng chi tiết | Lớn, nhưng không phục vụ đồng thời |
+| Chia sẻ cho nhóm/giảng viên | Có, qua Internet + TLS | Không | Cần tự host trên cloud | Phải chia sẻ tệp |
+| Vận hành | Được quản lý, scale-to-zero | Tự quản lý | Tự quản lý / trả phí | Không có dịch vụ |
+| Tương thích BI | Rất tốt (chuẩn Postgres) | Rất tốt | Tốt (driver riêng) | Trung bình |
 
-Các tệp cấu hình dưới đây được trích nguyên văn từ repo tại thời điểm sinh báo cáo. Tệp `.env` chứa bí mật nên **không** được đưa vào báo cáo; chỉ trích `.env.example`.
-
-{{file:.env.example|ini|40}}
-
-{{file:docker-compose.yml|yaml|80}}
-
-{{file:superset/superset_config.py|python|60}}
-
-{{file:superset/Dockerfile|docker|30}}
-
-{{file:loader/Dockerfile|docker|30}}
-
-{{file:loader/requirements.txt|text|20}}
-
-{{file:loader/load_to_neon.py|python|120}}
-
-# Phụ lục C. Schema dữ liệu
-
-## C.1. Ánh xạ kiểu và ví dụ bản ghi
+# Phụ lục C. Data contract chi tiết
 
 {{type_mapping}}
 
-Ví dụ bản ghi thực tế đọc từ Parquet (một dòng của ba bảng tiêu biểu):
-
-{{sample_records}}
-
-## C.2. Quy mô các bảng đầu vào
-
-{{size_table}}
-
-{{chart:table_sizes|Số dòng của từng bảng Analytics (thang log): hai bảng cấp khách hàng chiếm gần như toàn bộ khối lượng}}
-
 {{gold_table}}
 
-## C.3. Schema 16 bảng Analytics
+{{schema_compact}}
 
-Schema chi tiết của {{var:n_tables}} bảng Parquet đầu vào và kiểu PostgreSQL tương ứng trong schema `analytics` (sinh tự động bằng pyarrow khi tạo báo cáo).
+# Phụ lục D. Danh mục đối tượng tầng ngữ nghĩa
 
-{{schema_appendix}}
-
-# Phụ lục D. Tầng ngữ nghĩa: danh mục view và mã SQL
+Mã SQL đầy đủ: `sql/10_presentation_views.sql` (tầng ngữ nghĩa) và `sql/90_anchor_checks.sql` (19 kiểm tra số neo) trong repo.
 
 {{views}}
 
-{{sql_files}}
-
 # Phụ lục E. Minh chứng thực nghiệm chi tiết
 
-## E.1. Kết quả và log nạp dữ liệu
+## E.1. Kết quả nạp từng bảng
 
 {{load_log}}
 
-{{file:evidence/load_run.log|text|40}}
+## E.2. Kiểm tra số neo và nhất quán
 
-## E.2. Log áp dụng tầng ngữ nghĩa
+{{validation:anchors}}
 
-{{file:evidence/apply_sql.log|text|40}}
+## E.3. Độ trễ 22 truy vấn dashboard
 
-## E.3. Đối chiếu số dòng và giá trị kỳ vọng
+{{latency:query_latency}}
 
-{{validation:rows}}
+## E.4. Ảnh chụp bổ sung
 
-{{expected_checks}}
+{{shot:evidence/dashboard_tab2_danh_muc_mua_vu.png|270,170,1590,1200|Tab 2 "Danh mục & mùa vụ": Pareto top 25, heatmap mùa vụ 2017, tỷ lệ ship/doanh thu|h=10}}
 
-## E.4. Danh sách tệp minh chứng
+{{shot:evidence/dashboard_tab4_khach_hang_rfm.png|270,170,1590,1200|Tab 4 "Khách hàng & RFM": thẻ khách hàng, phân khúc RFM, cụm K-Means|h=10}}
+
+{{shot:evidence/neon_tables_inventory.png||Kiểm kê Neon sinh từ catalog database: 25 bảng, 22 view, số dòng, dung lượng, 0,25 CU, PostgreSQL 18|h=13}}
+
+## E.5. Danh sách tệp minh chứng
 
 {{evidence_files}}
 
-# Phụ lục F. Mã nguồn
+# Phụ lục F. Mã nguồn và cấu hình
 
 - Kho mã nguồn của nhóm: {{var:repo_url}}
-- Repo giai đoạn trước (Analytics): [[CẬP NHẬT: URL repo Analytics]]; repo Processing: https://github.com/NguyenAlpha/big-data
-- Thư mục dữ liệu đầu vào được dùng khi sinh báo cáo: `{{var:analytics_dir}}`
+- Đầu vào upstream: repo `Analytics-main` do nhóm Analytics cung cấp (tài liệu bàn giao sao chép trong `docs/upstream/`); repo Processing: https://github.com/NguyenAlpha/big-data
+- `docker-compose.yml` gồm các dịch vụ `superset-db` (Postgres 16, metadata), `superset` (4.1.2, cổng 8088, 4 worker), `tools` (Python 3.12: loader, kiểm chứng, dựng dashboard, đo đạc) và `screenshots` (Playwright).
 
 {{source_tree}}
 
-Bảng: Vị trí các thành phần trong repo
-| Thành phần | Đường dẫn |
-|---|---|
-| Loader Parquet → Neon | `loader/` |
-| Mã SQL tầng ngữ nghĩa | `sql/` |
-| Cấu hình và script Superset | `superset/` |
-| Script tiện ích (đo latency, chụp ảnh, kiểm tra) | `scripts/` |
-| Minh chứng (log, số đo, ảnh) | `evidence/` |
-| Tài liệu, sơ đồ, tài liệu bàn giao upstream | `docs/` |
-| Báo cáo (script sinh, nội dung, hình) | `report/` |
+{{file:superset/superset_config.py|python|40}}
+
+Biến môi trường (`.env.example`, tệp `.env` thật không được commit): `NEON_DATABASE_URL` (endpoint pooled, `sslmode=require`), `NEON_PROJECT_ID`, `SUPERSET_SECRET_KEY`, `SUPERSET_ADMIN_USER`, `SUPERSET_ADMIN_PASSWORD`.
 
 # Phụ lục G. Bảng phân công và đóng góp
 
 {{team_table}}
 
 Bảng: Ma trận đóng góp theo sản phẩm bàn giao (C = chính, H = hỗ trợ)
-| Sản phẩm | TV1 | TV2 | TV3 | TV4 | TV5 |
-|---|---|---|---|---|---|
-| Project Neon, loader, load_log | C | H | | H | |
-| View ngữ nghĩa, định nghĩa KPI | H | C | H | | |
-| Superset Docker, dashboard, bộ lọc | | H | C | H | |
-| Đo hiệu năng, kiểm thử, ảnh minh chứng | H | | H | C | |
-| Báo cáo, sơ đồ, README | | H | | H | C |
-
-[[CẬP NHẬT: điều chỉnh ma trận theo phân công thực tế và tỷ lệ % đóng góp đã thống nhất trong nhóm]]
+| Sản phẩm | Võ Việt Tường | Nguyễn Hoàng Phi Long | Mai Hồng Phong |
+|---|---|---|---|
+| Kiến trúc, ranh giới, data contract | C | H | H |
+| Project Neon, loader, `load_log`, `validate.py` | C | H | |
+| Tầng ngữ nghĩa: 22 view, KPI, luật quyết định | H | C | |
+| Superset Docker, dashboard 7 tab, 7 bộ lọc | H | C | H |
+| Đo độ trễ, tải dashboard, thí nghiệm ×10 | H | | C |
+| Ảnh minh chứng, kiểm thử bộ lọc, kiểm kê Neon | | H | C |
+| Báo cáo, README, tài liệu tham khảo | H | H | C |
+| Tích hợp Docker Compose, GitHub | C | | H |
+| **Mức đóng góp** | **33%** | **33%** | **34%** |
 
 # Phụ lục H. Ghi chú sử dụng công cụ AI
 
-Theo Mục 8 của yêu cầu đồ án, nhóm ghi nhận việc sử dụng AI tạo sinh như sau:
+Theo Mục 8 của yêu cầu đồ án, nhóm xin cam kết như sau. Trong quá trình thực hiện, nhóm có sử dụng trợ lý lập trình AI (các agent trong trình soạn thảo Cursor) để hỗ trợ: gợi ý khung mã cho loader, script dựng dashboard qua REST API, script đo đạc và Dockerfile; gợi ý câu lệnh SQL cho tầng ngữ nghĩa; dựng script sinh báo cáo và bản nháp nội dung báo cáo từ tài liệu bàn giao và các tệp minh chứng.
 
-Bảng: Ghi nhận sử dụng công cụ AI
-| Công cụ | Mục đích sử dụng | Phần nhóm đã kiểm tra / chỉnh sửa |
-|---|---|---|
-| Trợ lý lập trình AI trong Cursor | Gợi ý cấu trúc mã loader, script dựng dashboard qua REST API, Dockerfile | [[CẬP NHẬT: thành viên kiểm tra, nội dung đã sửa]] |
-| Trợ lý lập trình AI trong Cursor | Sinh script `report/build_report.py`, biểu đồ matplotlib và bản nháp nội dung báo cáo từ tài liệu bàn giao | [[CẬP NHẬT: thành viên kiểm tra số liệu, đã đối chiếu với analytics_report.md]] |
-| [[CẬP NHẬT: công cụ khác nếu có]] | [[CẬP NHẬT]] | [[CẬP NHẬT]] |
-
-Mọi số liệu trong báo cáo được lấy trực tiếp từ tệp Parquet, log và tệp đo của hệ thống (không do AI tự tạo); các quyết định kỹ thuật (chọn Neon, Superset, thiết kế schema, định nghĩa KPI, tiêu chí đánh giá) đã được nhóm thảo luận và có lập luận ở Chương 2, 4 và 6. Nhóm chịu trách nhiệm hoàn toàn về nội dung nộp và có thể giải thích từng thành phần của hệ thống.
+Nhóm đã tự chạy toàn bộ hệ thống, đọc và chỉnh sửa mã, kiểm tra lại số liệu: mọi con số trong báo cáo được lấy trực tiếp từ tệp Parquet, log và tệp đo trong `evidence/` (không do AI tự tạo), được đối chiếu với 19 số neo của nhóm Analytics và với ảnh chụp dashboard. Các quyết định kỹ thuật — chọn Neon và Superset, thiết kế schema, định nghĩa KPI, luật gợi ý quyết định và tiêu chí đánh giá — do nhóm thảo luận và có lập luận ở Chương 2, 4 và 6. Nhóm chịu trách nhiệm hoàn toàn về nội dung nộp và có thể giải thích từng thành phần của hệ thống.

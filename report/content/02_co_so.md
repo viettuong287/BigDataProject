@@ -16,11 +16,9 @@ Dữ liệu lớn được mô tả bằng các chữ V: **Volume** (khối lư�
 
 Các bảng đầu vào được sinh bởi **Apache Spark** [3], [4] — công cụ xử lý phân tán trong bộ nhớ, kế thừa MapReduce [2] nhưng biểu diễn tính toán thành DAG các phép biến đổi trên dữ liệu phân vùng. *Driver* lập kế hoạch, *executor* trên worker chạy *task* trên từng *partition*; `GROUP BY`, `JOIN`, window function sinh bước *shuffle*; trình tối ưu Catalyst chọn broadcast hoặc sort-merge join.
 
-Nhóm Analytics chạy job trên cụm Docker 1 master + 2 worker (tổng 4 core), Spark 3.5.3, `spark.sql.shuffle.partitions = 16`. Job mất {{var:spark_total_s}} giây (SQL {{var:spark_sql_s}} giây, K-Means {{var:spark_kmeans_s}} giây); bảng KPI nhỏ được `coalesce(1)` thành một tệp. Hai hình dưới là ảnh Spark UI do nhóm Analytics cung cấp, chứng minh job chạy phân tán. Lưu ý cho tầng Presentation: các window toàn cục (Pareto cộng dồn, NTILE của RFM) đã được Spark tính; nếu dashboard tính lại trên dữ liệu đã lọc sẽ ra kết quả khác, nên nhóm coi chúng là **thuộc tính đã chốt**.
+Nhóm Analytics chạy job trên cụm Docker 1 master + 2 worker (tổng 4 core), Spark 3.5.3, `spark.sql.shuffle.partitions = 16`. Job mất {{var:spark_total_s}} giây (SQL {{var:spark_sql_s}} giây, K-Means {{var:spark_kmeans_s}} giây); bảng KPI nhỏ được `coalesce(1)` thành một tệp. Hình 2.1 là ảnh Spark UI do nhóm Analytics cung cấp, chứng minh job chạy phân tán. Lưu ý cho tầng Presentation: các window toàn cục (Pareto cộng dồn, NTILE của RFM) đã được Spark tính; nếu dashboard tính lại trên dữ liệu đã lọc sẽ ra kết quả khác, nên nhóm coi chúng là **thuộc tính đã chốt**.
 
-{{image:UPSTREAM:evidence/spark-ui-8080.png|Spark Master UI (cổng 8080) của nhóm Analytics: 2 worker ALIVE, 4 core, ứng dụng olist-analytics FINISHED}}
-
-{{image:UPSTREAM:evidence/spark-ui-8081-worker.png|Spark Worker UI (cổng 8081): worker 2 core và executor của ứng dụng Analytics}}
+{{image:UPSTREAM:evidence/spark-ui-8080.png|Spark Master UI (cổng 8080) của nhóm Analytics: 2 worker ALIVE, 4 core, ứng dụng olist-analytics FINISHED|h=6.5}}
 
 ## 2.4. OLAP, bảng tổng hợp và tầng phục vụ
 
@@ -46,20 +44,4 @@ Thiết kế dựa trên nguyên tắc **"overview first, zoom and filter, then 
 
 ## 2.8. Các phương án công nghệ thay thế
 
-Bảng: So sánh công cụ trình bày (BI) cho giai đoạn Presentation
-| Tiêu chí | Apache Superset | Power BI | Tableau | Grafana | Metabase |
-|---|---|---|---|---|---|
-| Giấy phép | Mã nguồn mở (Apache 2.0) | Thương mại (chia sẻ cần Pro) | Thương mại | Mã nguồn mở (AGPL) | Mã nguồn mở / thương mại |
-| Triển khai | Docker, tự host | Windows Desktop + cloud | Desktop + Server/Cloud | Docker | Docker |
-| Thế mạnh | BI SQL-native, nhiều chart, native filter, REST API | Mô hình DAX, thân thiện | Trực quan hoá linh hoạt | Chuỗi thời gian, giám sát | Dễ dùng |
-| Hạn chế | Cấu hình ban đầu phức tạp | Khó tái lập bằng mã | Chi phí bản quyền | Yếu với phân tích theo danh mục | Ít loại biểu đồ, bộ lọc hạn chế |
-| Dashboard-as-code | Có (REST API, export YAML) | Hạn chế (.pbix nhị phân) | Hạn chế | Có (JSON) | Một phần |
-
-Bảng: So sánh phương án tầng lưu trữ phục vụ
-| Tiêu chí | Neon Serverless Postgres | Postgres cục bộ (Docker) | ClickHouse | Đọc thẳng Parquet (DuckDB) |
-|---|---|---|---|---|
-| Mô hình lưu trữ | Hàng + chỉ mục | Hàng + chỉ mục | Cột (MergeTree) | Cột (tệp) |
-| Phù hợp quy mô | Hàng chục–trăm triệu dòng tổng hợp | Giới hạn một máy | Hàng tỷ dòng chi tiết | Lớn, nhưng không phục vụ đồng thời |
-| Chia sẻ cho nhóm/giảng viên | Có, qua Internet + TLS | Không | Cần tự host trên cloud | Phải chia sẻ tệp |
-| Vận hành | Được quản lý, autoscaling, scale-to-zero | Tự quản lý | Tự quản lý / trả phí | Không có dịch vụ |
-| Tương thích BI | Rất tốt (chuẩn Postgres) | Rất tốt | Tốt (driver riêng) | Trung bình |
+Nhóm đã so sánh Superset với Power BI, Tableau, Grafana, Metabase và so sánh Neon với Postgres cục bộ, ClickHouse, đọc thẳng Parquet bằng DuckDB theo các tiêu chí giấy phép, triển khai, khả năng chia sẻ, vận hành và khả năng dựng dashboard bằng mã. Bảng so sánh đầy đủ ở Phụ lục B; lý do lựa chọn cuối cùng ở Mục 4.6.

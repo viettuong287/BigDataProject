@@ -44,7 +44,7 @@
 
 [22] Nhóm Storage → Processing, "big-data: pipeline làm sạch và tầng gold Olist," GitHub. [Trực tuyến]. https://github.com/NguyenAlpha/big-data
 
-[23] Nhóm Processing → Analytics, "Analytics – Olist E-commerce: 16 bảng Parquet, báo cáo và tài liệu bàn giao," [[CẬP NHẬT: URL repo Analytics]]
+[23] Nhóm Processing → Analytics, "Analytics – Olist E-commerce: 16 bảng Parquet, báo cáo và tài liệu bàn giao," repo upstream `Analytics-main` do nhóm Analytics cung cấp; bản sao tài liệu bàn giao trong `docs/upstream/` của repo nhóm.
 
 [24] A. Verbitski et al., "Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases," in *Proc. ACM SIGMOD*, 2017, pp. 1041–1052.
 

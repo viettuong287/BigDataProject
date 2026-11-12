@@ -592,7 +592,7 @@ class Renderer:
         line(t["title"], 17, True, after=6)
         line(t["subtitle"], 13, False, after=24)
         line(f"Quy trình phụ trách: **{t['process']}**", 13)
-        line(f"Lớp: {t['class']}   –   Nhóm: {t['group']}", 13)
+        line(f"Lớp: {t['class']}" + (f"   –   Nhóm: {t['group']}" if t.get("group") else ""), 13)
         line(f"Giảng viên hướng dẫn: {t['instructor']}", 13, after=16)
         rows = [[str(i + 1), m["name"], m["student_id"], m["role"]] for i, m in enumerate(t["members"])]
         self.table(["STT", "Họ và tên", "MSSV", "Vai trò chính"], rows, font_size=12, widths=[1.2, 5.5, 3.3, 6.0])
@@ -605,7 +605,7 @@ class Renderer:
                 for i, m in enumerate(t["members"])]
         self.table(["STT", "Họ và tên", "MSSV", "Vai trò", "Nhiệm vụ thực tế", "Đóng góp"], rows,
                    "Bảng phân công nhiệm vụ và mức đóng góp của các thành viên", font_size=10,
-                   widths=[1.0, 3.2, 2.2, 2.6, 5.4, 1.6])
+                   widths=[1.2, 3.0, 2.2, 2.6, 5.4, 1.6])
 
     # dữ liệu Analytics
     def d_contract_table(self, _):
@@ -618,7 +618,7 @@ class Renderer:
                      str(sum(len(t.schema) for t in tb.values())), ""])
         self.table(["Bảng (analytics.*)", "Chủ đề", "1 dòng =", "Khoá / cột định danh", "Số dòng", "Số cột",
                     "Dùng trên dashboard"], rows, "Data contract Analytics → Presentation: danh sách bảng, grain và khoá",
-                   font_size=9)
+                   font_size=8.5, widths=[3.9, 1.9, 3.0, 3.2, 1.4, 0.9, 1.7])
 
     def d_size_table(self, _):
         tb = self.ctx["tables"]
@@ -695,13 +695,15 @@ class Renderer:
             self.image_placeholder(f"biểu đồ {key} chưa sinh được", cap.strip())
 
     def d_image(self, arg):
-        path, _, cap = arg.partition("|")
-        path = path.strip().replace("UPSTREAM:", str(I.UPSTREAM_DIR) + "/").replace("PROJECT:", str(I.PROJECT_DIR) + "/")
+        parts = [x.strip() for x in arg.split("|")]
+        path, cap = parts[0], (parts[1] if len(parts) > 1 else "")
+        h = float(parts[2].split("=")[1]) if len(parts) > 2 and "=" in parts[2] else 9.0
+        path = path.replace("UPSTREAM:", str(I.UPSTREAM_DIR) + "/").replace("PROJECT:", str(I.PROJECT_DIR) + "/")
         p = Path(path)
         if p.exists():
-            self.image(p, cap.strip(), max_h=9)
+            self.image(p, cap, max_h=h)
         else:
-            self.image_placeholder(f"không tìm thấy ảnh {path}", cap.strip())
+            self.image_placeholder(f"không tìm thấy ảnh {path}", cap)
 
     def d_evidence(self, arg):
         parts = arg.split("|")
@@ -787,8 +789,78 @@ class Renderer:
                   "client_p95_ms": "Client p95 (ms)", "server_exec_ms": "Server thực thi (ms)", "slice_name": "Chart",
                   "viz_type": "Loại", "median_ms": "Trung vị (ms)", "min_ms": "Nhỏ nhất (ms)", "rows": "Số dòng"}
 
-    def d_latency(self, _):
-        files = [f for f in I.latency_files(self.ctx["files"]["latency"]) if f.is_table]
+    def d_shot(self, arg):
+        """{{shot:evidence/x.png|x0,y0,x1,y1|chú thích|h=cm}} – ảnh minh chứng (tuỳ chọn cắt vùng)."""
+        parts = [p.strip() for p in arg.split("|")]
+        src = I.PROJECT_DIR / parts[0]
+        box = parts[1] if len(parts) > 1 else ""
+        cap = parts[2] if len(parts) > 2 else I.image_caption(src, self.ctx["captions"])
+        h = float(parts[3].split("=")[1]) if len(parts) > 3 and "=" in parts[3] else 11.0
+        if not src.exists():
+            self.image_placeholder(f"thiếu ảnh {parts[0]}", cap)
+            return
+        path = src
+        if box:
+            x0, y0, x1, y1 = (int(v) for v in box.split(","))
+            I.FIG_DIR.mkdir(parents=True, exist_ok=True)
+            path = I.FIG_DIR / f"shot_{src.stem}_{y0}_{y1}.png"
+            Image.open(src).crop((x0, y0, x1, y1)).save(path)
+        self.image(path, cap, max_h=h)
+        self.used_images.add(src.resolve())
+
+    def d_dashload(self, arg):
+        rows = I.evidence_csv("dashboard_load_time.csv")
+        if not rows:
+            self.paragraph(I.placeholder("thiếu evidence/dashboard_load_time.csv"), indent=False)
+            return
+        if arg == "filters":
+            names = {"filter_tab1_thoi_gian_2018_bang_SP": "Tab 1: khoảng thời gian 2018 + bang SP",
+                     "filter_tab2_danh_muc_bed_bath_health_watches": "Tab 2: 3 danh mục (bed_bath, health_beauty, watches)",
+                     "filter_tab3_vung_nordeste": "Tab 3: vùng Nordeste",
+                     "filter_tab4_rfm_khach_mua_lai_bang_RJ": "Tab 4: phân khúc khách mua lại + bang RJ",
+                     "filter_tab5_bang_seller_SP": "Tab 5: bang seller SP",
+                     "filter_tab6_pttt_boleto": "Tab 6: phương thức thanh toán boleto"}
+            body = [[names.get(r["scenario"], r["scenario"]), r["components"], I.fmt_num(float(r["cold_s"]), 2),
+                     r["errors"] or "0", "Đạt" if (r["errors"] or "0") == "0" else "Không đạt"]
+                    for r in rows if r["kind"] == "filter"]
+            self.table(["Kịch bản bộ lọc native", "Thành phần", "Thời gian áp dụng (s)", "Lỗi", "Kết quả"], body,
+                       "Kiểm thử bộ lọc native (ảnh `evidence/filter_*.png`, thời gian từ `dashboard_load_time.csv`)",
+                       widths=[8.4, 2.0, 2.6, 1.2, 1.8])
+            return
+        tabs = [r for r in rows if r["kind"] == "tab"]
+        body = [[r["scenario"].replace("_", " "), r["components"], I.fmt_num(float(r["cold_s"]), 2),
+                 I.fmt_num(float(r["warm_s"]), 2)] for r in tabs]
+        v = self.ctx["vars"]
+        body.append(["**Trung vị / tổng 7 tab**", v.get("dash_components", ""),
+                     f"**{v.get('dash_tab_cold_median', '')} / {v.get('dash_tabs_cold_total', '')}**",
+                     f"**{v.get('dash_tab_warm_median', '')} / {v.get('dash_tabs_warm_total', '')}**"])
+        self.table(["Tab", "Thành phần", "Cold – không cache (s)", "Có cache (s)"], body,
+                   "Thời gian hiển thị từng tab dashboard: cold và có cache (`evidence/dashboard_load_time.csv`)",
+                   widths=[7.0, 2.2, 3.6, 3.2])
+
+    def d_scale(self, _):
+        rows = I.evidence_csv("scale_experiment.csv")
+        if not rows:
+            self.paragraph(I.placeholder("thiếu evidence/scale_experiment.csv"), indent=False)
+            return
+        body = [[f"×{r['factor']}", I.fmt_int(r["rows"]), I.fmt_num(float(r["size_mb"]), 1), I.fmt_num(float(r["generate_s"]), 2),
+                 I.fmt_num(float(r["raw_month_category_ms"]), 1), I.fmt_num(float(r["raw_filtered_indexed_ms"]), 1),
+                 I.fmt_num(float(r["preaggregated_view_ms"]), 1)] for r in rows]
+        self.table(["Hệ số", "Số dòng", "MB", "Sinh dữ liệu (s)", "Tổng hợp từ dữ liệu thô (ms)", "Lọc có index (ms)",
+                    "View tổng hợp sẵn (ms)"], body,
+                   "Thí nghiệm mở rộng trên Neon 0,25 CU: nhân bản `gold.fact_order_items` ×N (`evidence/scale_experiment.csv`)",
+                   font_size=10)
+
+    def d_schema_compact(self, _):
+        rows = []
+        for n, ti in self.ctx["tables"].items():
+            cols = ", ".join(f"{f.name} ({I.pg_type(f.type).lower()})" for f in ti.schema)
+            rows.append([f"`{n}`", I.fmt_int(ti.rows), cols])
+        self.table(["Bảng `analytics.*`", "Số dòng", "Cột (kiểu PostgreSQL)"], rows,
+                   "Schema 16 bảng Analytics trên Neon (sinh tự động từ Parquet)", font_size=8.5, widths=[3.4, 1.6, 11.0])
+
+    def d_latency(self, arg):
+        files = [f for f in I.latency_files(self.ctx["files"]["latency"]) if f.is_table and (not arg or arg in f.path.name)]
         if not files:
             self._datafile_block(self.ctx["files"]["latency"], "Độ trễ truy vấn",
                                  "chưa có evidence/*latency*.csv|md – chạy script đo latency (cold/warm, p50/p95) rồi chạy lại build_report.py")
@@ -1013,6 +1085,7 @@ def collect_context(make_charts: bool) -> dict:
     v.update(I.summarize_load(files["load"]))
     v.update(I.summarize_latency(files["latency"]))
     v.update(I.latency_md_facts(files["latency"]))
+    v.update(I.extra_vars())
     v.update(I.summarize_validation(files["validate"]))
     views = I.detect_views()
     v["n_views"] = str(sum(1 for x in views if x.kind != "TABLE")) if views else str(len(PLANNED_VIEWS))
@@ -1026,7 +1099,7 @@ def collect_context(make_charts: bool) -> dict:
                 images=I.find_images(), captions=I.load_caption_overrides())
 
 
-def build(make_charts: bool = True) -> Path:
+def build(make_charts: bool = True, out: Path = OUT_DOCX) -> Path:
     ctx = collect_context(make_charts)
     doc = new_document()
     r = Renderer(doc, ctx)
@@ -1034,10 +1107,10 @@ def build(make_charts: bool = True) -> Path:
         r.render_markdown(md.read_text(encoding="utf-8"))
     doc.core_properties.title = ctx["team"]["title"]
     doc.core_properties.subject = ctx["team"]["course"]
-    doc.core_properties.author = ctx["team"]["group"]
+    doc.core_properties.author = ", ".join(m["name"] for m in ctx["team"]["members"])
     doc.core_properties.language = "vi-VN"
-    doc.save(OUT_DOCX)
-    return OUT_DOCX
+    doc.save(out)
+    return out
 
 
 def verify(path: Path) -> dict:
@@ -1065,8 +1138,9 @@ def verify(path: Path) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-charts", action="store_true", help="không vẽ lại biểu đồ matplotlib")
+    ap.add_argument("--out", help="đường dẫn docx đầu ra (mặc định report/BaoCao_DoAn_BigData.docx)")
     a = ap.parse_args()
-    out = build(make_charts=not a.no_charts)
+    out = build(make_charts=not a.no_charts, out=Path(a.out) if a.out else OUT_DOCX)
     st = verify(out)
     print(f"Đã sinh: {out}")
     for k, v in st.items():

@@ -562,13 +562,68 @@ def source_tree(max_depth: int = 2) -> str:
         for i, p in enumerate(items):
             last = i == len(items) - 1
             lines.append(f"{prefix}{'└── ' if last else '├── '}{p.name}{'/' if p.is_dir() else ''}")
-            if p.is_dir() and depth < max_depth:
+            if p.is_dir() and depth < max_depth and p.name not in ("evidence", "report", "export"):
                 walk(p, prefix + ("    " if last else "│   "), depth + 1)
 
     walk(PROJECT_DIR, "", 1)
     if (PROJECT_DIR / "data").exists():
         lines.insert(1, "├── data/            (Parquet nhận từ Analytics: analytics/, gold/)")
     return "\n".join(lines)
+
+
+def evidence_csv(name: str) -> list[dict[str, str]]:
+    p = EVIDENCE_DIR / name
+    if not p.exists():
+        return []
+    return list(csv.DictReader(io.StringIO(p.read_text(encoding="utf-8-sig"))))
+
+
+def evidence_json(name: str) -> dict:
+    p = EVIDENCE_DIR / name
+    if not p.exists():
+        return {}
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except ValueError:
+        return {}
+
+
+def extra_vars() -> dict[str, str]:
+    """Số liệu từ các tệp minh chứng bổ sung: tải dashboard, thí nghiệm scale, project Neon."""
+    v: dict[str, str] = {}
+    s = evidence_json("dashboard_load_summary.json")
+    if s:
+        v.update(
+            dash_tab_cold_median=fmt_num(s["tab_cold_median_s"], 2), dash_tab_warm_median=fmt_num(s["tab_warm_median_s"], 2),
+            dash_tabs_cold_total=fmt_num(s["tabs_cold_total_s"], 2), dash_tabs_warm_total=fmt_num(s["tabs_warm_total_s"], 2),
+            dash_shell_cold=fmt_num(s["dashboard_shell_s"]["cold"], 1),
+            chart_force_median=fmt_int(s["chart_force_median_ms"]), chart_cache_median=fmt_int(s["chart_cache_median_ms"]),
+            charts_ok=f"{s['charts_ok']}/{s['charts_measured']}",
+            chart_speedup=fmt_int(s["chart_force_median_ms"] / s["chart_cache_median_ms"]),
+        )
+    rows = evidence_csv("dashboard_load_time.csv")
+    tabs = [r for r in rows if r.get("kind") == "tab"]
+    flt = [r for r in rows if r.get("kind") == "filter"]
+    if tabs:
+        worst = max(tabs, key=lambda r: float(r["cold_s"]))
+        v.update(dash_tabs=str(len(tabs)), dash_components=str(sum(int(r["components"]) for r in tabs)),
+                 dash_cold_max=fmt_num(float(worst["cold_s"]), 2), dash_errors=str(sum(int(r["errors"] or 0) for r in rows)))
+    if flt:
+        t = [float(r["cold_s"]) for r in flt]
+        v.update(filter_n=str(len(flt)), filter_min=fmt_num(min(t), 2), filter_max=fmt_num(max(t), 2),
+                 filter_ok=f"{sum(1 for r in flt if (r['errors'] or '0') == '0')}/{len(flt)}")
+    sc = evidence_csv("scale_experiment.csv")
+    if sc:
+        lo, hi = sc[0], sc[-1]
+        v.update(scale_max=hi["factor"], scale_rows=fmt_int(hi["rows"]), scale_raw_lo=fmt_num(float(lo["raw_month_category_ms"]), 1),
+                 scale_raw_hi=fmt_num(float(hi["raw_month_category_ms"]), 1), scale_view=fmt_num(float(hi["preaggregated_view_ms"]), 1),
+                 scale_idx_hi=fmt_num(float(hi["raw_filtered_indexed_ms"]), 1))
+    nj = evidence_json("neon_project.json")
+    if nj:
+        v.update(neon_cu=nj.get("autoscaling_cu", "").replace(".", ","), neon_plan=nj.get("plan", ""),
+                 neon_project_id=nj.get("id", ""), neon_branch_gib=str(nj.get("branch_logical_size_limit_gib", "")),
+                 neon_compute_s=fmt_int(nj.get("compute_time_seconds", 0)), neon_active_s=fmt_int(nj.get("active_time_seconds", 0)))
+    return v
 
 
 def read_project_file(rel: str) -> str | None:

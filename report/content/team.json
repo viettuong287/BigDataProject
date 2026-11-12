@@ -1,50 +1,49 @@
 {
-  "school": "[[CẬP NHẬT: Tên trường]]",
-  "faculty": "[[CẬP NHẬT: Tên khoa]]",
+  "school": "Trường Đại học Sài Gòn",
+  "faculty": "Khoa Công nghệ Thông tin",
   "course": "Nhập môn Dữ liệu lớn",
   "title": "TRÌNH BÀY KẾT QUẢ PHÂN TÍCH DỮ LIỆU THƯƠNG MẠI ĐIỆN TỬ OLIST BẰNG NEON SERVERLESS POSTGRES VÀ APACHE SUPERSET",
   "subtitle": "Giai đoạn Analytics → Presentation trong pipeline dữ liệu lớn",
   "process": "Analytics → Presentation",
-  "class": "[[CẬP NHẬT: Mã lớp]]",
-  "group": "[[CẬP NHẬT: Tên/số nhóm]]",
-  "instructor": "[[CẬP NHẬT: Giảng viên hướng dẫn]]",
-  "place": "[[CẬP NHẬT: Thành phố]]",
-  "date": "tháng 11 năm 2026",
+  "class": "DCT123C5",
+  "group": "",
+  "instructor": "Vũ Ngọc Thanh Sang",
+  "place": "Thành phố Hồ Chí Minh",
+  "date": "năm 2026",
   "members": [
     {
-      "name": "[[CẬP NHẬT: Họ tên TV1]]",
-      "student_id": "[[CẬP NHẬT: MSSV]]",
-      "role": "Nạp dữ liệu & Neon (trưởng nhóm)",
-      "tasks": ["Khởi tạo project Neon, database, schema", "Viết loader Parquet → Neon (COPY)", "Bảng load_log, kiểm tra số dòng"],
-      "contribution": "[[CẬP NHẬT: %]]"
+      "name": "Võ Việt Tường",
+      "student_id": "3123411334",
+      "role": "Nhóm trưởng – kiến trúc, Neon & loader, tích hợp",
+      "tasks": [
+        "Thiết kế kiến trúc và ranh giới với nhóm Analytics/Decision",
+        "Khởi tạo project Neon, schema analytics/gold/presentation",
+        "Viết loader Parquet → Neon (COPY, khoá chính, load_log) và script kiểm chứng",
+        "Docker Compose, tích hợp toàn hệ thống, quản lý repo GitHub"
+      ],
+      "contribution": "33%"
     },
     {
-      "name": "[[CẬP NHẬT: Họ tên TV2]]",
-      "student_id": "[[CẬP NHẬT: MSSV]]",
-      "role": "Semantic layer & SQL",
-      "tasks": ["Thiết kế schema presentation", "Viết các view v_* và định nghĩa KPI", "Đối chiếu số liệu với Analytics"],
-      "contribution": "[[CẬP NHẬT: %]]"
+      "name": "Nguyễn Hoàng Phi Long",
+      "student_id": "3123411180",
+      "role": "Semantic layer SQL & dashboard Superset",
+      "tasks": [
+        "Thiết kế tầng ngữ nghĩa: 22 view, dim_state, định nghĩa KPI",
+        "Luật gợi ý quyết định (v_decision_hints, v_seller_watchlist)",
+        "Dựng dashboard 7 tab, 45 chart bằng REST API; cấu hình 7 bộ lọc native"
+      ],
+      "contribution": "33%"
     },
     {
-      "name": "[[CẬP NHẬT: Họ tên TV3]]",
-      "student_id": "[[CẬP NHẬT: MSSV]]",
-      "role": "Dashboard Superset",
-      "tasks": ["Triển khai Superset bằng Docker", "Tạo datasets, charts, dashboard", "Cấu hình native filters, gợi ý quyết định"],
-      "contribution": "[[CẬP NHẬT: %]]"
-    },
-    {
-      "name": "[[CẬP NHẬT: Họ tên TV4]]",
-      "student_id": "[[CẬP NHẬT: MSSV]]",
-      "role": "Minh chứng & kiểm thử",
-      "tasks": ["Đo thời gian nạp, độ trễ truy vấn", "Kiểm thử bộ lọc, chụp ảnh minh chứng", "Kịch bản demo"],
-      "contribution": "[[CẬP NHẬT: %]]"
-    },
-    {
-      "name": "[[CẬP NHẬT: Họ tên TV5]]",
-      "student_id": "[[CẬP NHẬT: MSSV]]",
-      "role": "Báo cáo & tài liệu",
-      "tasks": ["Viết báo cáo, sơ đồ kiến trúc", "README, hướng dẫn chạy", "Tổng hợp tài liệu tham khảo"],
-      "contribution": "[[CẬP NHẬT: %]]"
+      "name": "Mai Hồng Phong",
+      "student_id": "3123411225",
+      "role": "Thực nghiệm, minh chứng & báo cáo",
+      "tasks": [
+        "Đo độ trễ truy vấn, thời gian tải dashboard, thí nghiệm mở rộng ×10",
+        "Chụp ảnh minh chứng, kiểm thử bộ lọc, kiểm kê Neon",
+        "Viết báo cáo, tài liệu hướng dẫn chạy, tổng hợp tài liệu tham khảo"
+      ],
+      "contribution": "34%"
     }
   ]
 }
