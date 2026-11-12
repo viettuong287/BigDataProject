@@ -1,0 +1,36 @@
+slice_name: "H\u1ED3 s\u01A1 c\u1EE5m K-Means"
+description: "Ngu\u1ED3n: presentation.v_cluster_profile"
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: raw
+  all_columns:
+  - cluster_name
+  - customers
+  - avg_recency
+  - avg_frequency
+  - avg_monetary
+  - champions
+  - loyal
+  - at_risk
+  order_by_cols:
+  - '["cluster", true]'
+  row_limit: 1000
+  server_page_length: 10
+  include_search: true
+  show_cell_bars: true
+  allow_rearrange_columns: true
+  table_timestamp_format: '%Y-%m'
+  column_config:
+    customers:
+      d3NumberFormat: ',.0f'
+  conditional_formatting: []
+  adhoc_filters: []
+  datasource: 16__table
+query_context: null
+cache_timeout: 600
+uuid: def60b15-6cae-4722-823d-773530dd91c0
+version: 1.0.0
+dataset_uuid: 83654e53-cd7e-4363-b603-79e808f0800d

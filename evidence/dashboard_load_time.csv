@@ -1,0 +1,14 @@
+kind,scenario,components,cold_s,warm_s,errors
+tab,1 · tong_quan_xu_huong,11,6.39,0.91,0
+tab,2 · danh_muc_mua_vu,4,2.24,0.94,0
+tab,3 · dia_ly_logistics,5,12.66,0.95,0
+tab,4 · khach_hang_rfm,10,9.93,1.18,0
+tab,5 · seller,7,5.16,2.08,0
+tab,6 · giao_tre_review_thanh_toan,6,5.24,1.06,0
+tab,7 · goi_y_quyet_dinh_nguon_du_lieu,4,2.51,1.04,0
+filter,filter_tab1_thoi_gian_2018_bang_SP,11,2.5,,0
+filter,filter_tab2_danh_muc_bed_bath_health_watches,11,0.88,,0
+filter,filter_tab3_vung_nordeste,11,1.84,,0
+filter,filter_tab4_rfm_khach_mua_lai_bang_RJ,11,1.55,,0
+filter,filter_tab5_bang_seller_SP,11,0.88,,0
+filter,filter_tab6_pttt_boleto,11,1.52,,0

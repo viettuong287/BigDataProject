@@ -1,0 +1,5 @@
+factor,rows,size_mb,generate_s,index_s,rows_per_s_server,raw_month_category_ms,raw_filtered_indexed_ms,preaggregated_view_ms
+1,112101,12.7,0.18,0.25,607063,47.0,2.5,1.1
+2,224202,24.2,0.25,0.36,892497,93.5,4.8,1.1
+5,560505,59.2,0.57,0.73,984986,272.9,11.3,1.1
+10,1121010,117.7,1.16,1.4,968083,506.6,18.5,1.1

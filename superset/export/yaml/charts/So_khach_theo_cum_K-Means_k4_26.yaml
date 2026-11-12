@@ -1,0 +1,39 @@
+slice_name: "S\u1ED1 kh\xE1ch theo c\u1EE5m K-Means (k=4)"
+description: "Ngu\u1ED3n: presentation.v_rfm_customers"
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: cluster_name
+  metrics:
+  - expressionType: SQL
+    sqlExpression: COUNT(*)
+    label: "S\u1ED1 kh\xE1ch"
+    hasCustomLabel: true
+    optionName: "metric_s\u1ED1_kh\xE1ch"
+  groupby: []
+  adhoc_filters: []
+  row_limit: 10
+  truncate_metric: true
+  show_legend: false
+  legendOrientation: top
+  rich_tooltip: true
+  y_axis_format: ',.0f'
+  x_axis_time_format: '%Y-%m'
+  markerEnabled: true
+  zoomable: false
+  color_scheme: supersetColors
+  only_total: true
+  order_desc: true
+  x_axis_sort: "S\u1ED1 kh\xE1ch"
+  x_axis_sort_asc: true
+  orientation: horizontal
+  show_value: true
+  xAxisLabelRotation: 0
+  datasource: 9__table
+query_context: null
+cache_timeout: 600
+uuid: ea508c87-8cd1-467a-965d-9b1ea6c3263a
+version: 1.0.0
+dataset_uuid: 4cfabe6e-b829-4f15-9af8-bd3084d4435c

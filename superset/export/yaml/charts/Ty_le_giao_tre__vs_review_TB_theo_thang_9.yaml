@@ -1,0 +1,61 @@
+slice_name: "T\u1EF7 l\u1EC7 giao tr\u1EC5 (%) vs review TB theo th\xE1ng"
+description: "Ngu\u1ED3n: presentation.v_kpi_monthly"
+certified_by: null
+certification_details: null
+viz_type: mixed_timeseries
+params:
+  viz_type: mixed_timeseries
+  x_axis: month_date
+  metrics:
+  - expressionType: SQL
+    sqlExpression: MAX(late_delivery_pct)
+    label: "% giao tr\u1EC5"
+    hasCustomLabel: true
+    optionName: "metric__giao_tr\u1EC5"
+  metrics_b:
+  - expressionType: SQL
+    sqlExpression: MAX(avg_review_score)
+    label: Review TB
+    hasCustomLabel: true
+    optionName: metric_review_tb
+  groupby: []
+  groupby_b: []
+  adhoc_filters:
+  - clause: WHERE
+    subject: month_date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  adhoc_filters_b:
+  - clause: WHERE
+    subject: month_date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  seriesType: bar
+  seriesTypeB: line
+  yAxisIndex: 0
+  yAxisIndexB: 1
+  y_axis_format: ',.1f'
+  y_axis_format_secondary: ',.2f'
+  show_legend: true
+  legendOrientation: top
+  rich_tooltip: true
+  markerEnabled: true
+  row_limit: 10000
+  row_limit_b: 10000
+  truncate_metric: true
+  zoomable: false
+  x_axis_time_format: '%Y-%m'
+  color_scheme: supersetColors
+  show_value: false
+  show_valueB: true
+  order_desc: true
+  order_desc_b: true
+  time_grain_sqla: P1M
+  datasource: 11__table
+query_context: null
+cache_timeout: 600
+uuid: 6a4ec6cb-6e6d-4605-963f-5bee6a0ce915
+version: 1.0.0
+dataset_uuid: f21db043-e9c3-4b07-810d-e4fb226e9afe

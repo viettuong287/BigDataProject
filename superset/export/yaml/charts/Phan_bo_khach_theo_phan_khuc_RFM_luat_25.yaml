@@ -1,0 +1,36 @@
+slice_name: "Ph\xE2n b\u1ED1 kh\xE1ch theo ph\xE2n kh\xFAc RFM (lu\u1EADt)"
+description: "Ngu\u1ED3n: presentation.v_rfm_customers"
+certified_by: null
+certification_details: null
+viz_type: pie
+params:
+  viz_type: pie
+  groupby:
+  - rfm_segment
+  metric:
+    expressionType: SQL
+    sqlExpression: COUNT(*)
+    label: "S\u1ED1 kh\xE1ch"
+    hasCustomLabel: true
+    optionName: "metric_s\u1ED1_kh\xE1ch"
+  adhoc_filters: []
+  row_limit: 100
+  sort_by_metric: true
+  show_labels: true
+  label_type: key_percent
+  labels_outside: true
+  label_line: true
+  donut: true
+  innerRadius: 35
+  outerRadius: 70
+  show_legend: true
+  legendOrientation: right
+  number_format: ',.0f'
+  color_scheme: supersetColors
+  show_total: true
+  datasource: 9__table
+query_context: null
+cache_timeout: 600
+uuid: 3f7b9c0d-5072-4e79-baaf-d5302ea081f8
+version: 1.0.0
+dataset_uuid: 4cfabe6e-b829-4f15-9af8-bd3084d4435c

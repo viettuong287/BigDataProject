@@ -1,0 +1,114 @@
+table_name: v_payment_mix
+main_dttm_col: null
+description: "View presentation.v_payment_mix tr\xEAn Neon (semantic layer)"
+default_endpoint: null
+offset: 0
+cache_timeout: 600
+catalog: olist_analytics
+schema: presentation
+sql: null
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+uuid: b55f3a1f-fda1-4719-a359-6d7a3d783d02
+metrics:
+- metric_name: count
+  verbose_name: COUNT(*)
+  metric_type: count
+  expression: COUNT(*)
+  description: null
+  d3format: null
+  currency: null
+  extra: null
+  warning_text: null
+columns:
+- column_name: avg_order_value
+  verbose_name: AOV (BRL)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(24, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: gmv
+  verbose_name: GMV (BRL)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(34, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: installment_label
+  verbose_name: "K\u1EF3 tr\u1EA3 g\xF3p"
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: pct_orders
+  verbose_name: "% \u0111\u01A1n"
+  is_dttm: false
+  is_active: true
+  type: NUMERIC
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: orders
+  verbose_name: "S\u1ED1 \u0111\u01A1n"
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: main_payment_type
+  verbose_name: PTTT
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: installment_band
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+version: 1.0.0
+database_uuid: 26587ed7-6898-4021-83c5-7263d14ce23b

@@ -1,0 +1,126 @@
+table_name: v_insight_distance
+main_dttm_col: null
+description: "View presentation.v_insight_distance tr\xEAn Neon (semantic layer)"
+default_endpoint: null
+offset: 0
+cache_timeout: 600
+catalog: olist_analytics
+schema: presentation
+sql: null
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+uuid: e822f0e6-6a5b-4493-af82-c6f6200b5c47
+metrics:
+- metric_name: count
+  verbose_name: COUNT(*)
+  metric_type: count
+  expression: COUNT(*)
+  description: null
+  d3format: null
+  currency: null
+  extra: null
+  warning_text: null
+columns:
+- column_name: avg_delay_days
+  verbose_name: "L\u1EC7ch h\u1EB9n TB (ng\xE0y)"
+  is_dttm: false
+  is_active: true
+  type: DOUBLE PRECISION
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: avg_freight
+  verbose_name: Ship TB (BRL)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(13, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: avg_delivery_days
+  verbose_name: "Ng\xE0y giao TB"
+  is_dttm: false
+  is_active: true
+  type: DOUBLE PRECISION
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: late_pct
+  verbose_name: "% tr\u1EC5"
+  is_dttm: false
+  is_active: true
+  type: DOUBLE PRECISION
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: items
+  verbose_name: "S\u1ED1 m\xF3n"
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: band_label
+  verbose_name: "Kho\u1EA3ng c\xE1ch"
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: distance_band
+  verbose_name: "Kho\u1EA3ng c\xE1ch"
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: band_order
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: INTEGER
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+version: 1.0.0
+database_uuid: 26587ed7-6898-4021-83c5-7263d14ce23b

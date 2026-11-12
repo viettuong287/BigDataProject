@@ -1,0 +1,78 @@
+name: olist-presentation
+
+services:
+  # Postgres cục bộ chỉ lưu METADATA của Superset (user, chart, dashboard, log).
+  # Dữ liệu nghiệp vụ nằm trên Neon, không nằm ở đây.
+  superset-db:
+    image: postgres:16-alpine
+    container_name: olist-superset-db
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+    volumes:
+      - superset_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U superset -d superset"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  # Apache Superset: tầng trình bày (dashboard).
+  superset:
+    build: ./superset
+    image: olist-superset:4.1.2
+    container_name: olist-superset
+    env_file: .env
+    environment:
+      SUPERSET_METADATA_URI: postgresql+psycopg2://superset:superset@superset-db:5432/superset
+      SERVER_WORKER_AMOUNT: 4
+      SERVER_THREADS_AMOUNT: 8
+      GUNICORN_TIMEOUT: 120
+    depends_on:
+      superset-db:
+        condition: service_healthy
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./superset/superset_config.py:/app/pythonpath/superset_config.py:ro
+      - superset_home:/app/superset_home
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8088/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  # Container công cụ Python: loader, validate, build dashboard, đo latency.
+  # Chạy theo yêu cầu: docker compose run --rm tools python loader/load_to_neon.py
+  tools:
+    build: ./loader
+    image: olist-tools:latest
+    profiles: ["tools"]
+    env_file: .env
+    environment:
+      SUPERSET_URL: http://superset:8088
+      TZ: Asia/Ho_Chi_Minh
+    volumes:
+      - .:/work
+    working_dir: /work
+
+  # Chụp ảnh dashboard tự động (Playwright + Chromium headless).
+  screenshots:
+    build:
+      context: ./scripts
+      dockerfile: Dockerfile.screenshots
+    image: olist-screenshots:latest
+    profiles: ["screenshots"]
+    env_file: .env
+    environment:
+      SUPERSET_URL: http://superset:8088
+    volumes:
+      - .:/work
+    working_dir: /work
+
+volumes:
+  superset_home:
+  superset_db:

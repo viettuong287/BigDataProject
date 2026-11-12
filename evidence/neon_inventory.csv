@@ -1,0 +1,48 @@
+schema,name,kind,rows,size_mb,indexes,comment
+analytics,category_pareto,table,74,0.03,1,Grain: 1 danh mục. Nguồn: data/analytics/category_pareto (Parquet)
+analytics,category_seasonality,table,715,0.11,1,Grain: 1 danh mục × 1 tháng năm 2017. Nguồn: data/analytics/category_seasonality (Parquet)
+analytics,cluster_profile,table,4,0.02,1,Grain: 1 cụm K-Means. Nguồn: data/analytics/cluster_profile (Parquet)
+analytics,customer_segments,table,94983,19.92,4,Grain: 1 khách thật + cụm K-Means. Nguồn: data/analytics/customer_segments (Parquet)
+analytics,delay_vs_review,table,5,0.03,1,Grain: 1 band ngày trễ. Nguồn: data/analytics/delay_vs_review (Parquet)
+analytics,insight_distance,table,4,0.03,1,Grain: 1 band khoảng cách. Nguồn: data/analytics/insight_distance (Parquet)
+analytics,insight_late_vs_review,table,2,0.03,1,Grain: late vs on_time. Nguồn: data/analytics/insight_late_vs_review (Parquet)
+analytics,kpi_monthly,table,20,0.02,1,Grain: 1 tháng (2017-01→2018-08). Nguồn: data/analytics/kpi_monthly (Parquet)
+analytics,load_log,table,23,0.03,1,
+analytics,payment_mix,table,10,0.03,1,Grain: PTTT × band trả góp. Nguồn: data/analytics/payment_mix (Parquet)
+analytics,repeat_categories,table,70,0.03,1,Grain: 1 danh mục của khách lặp. Nguồn: data/analytics/repeat_categories (Parquet)
+analytics,repeat_profile,table,2,0.03,1,Grain: repeat vs one_shot. Nguồn: data/analytics/repeat_profile (Parquet)
+analytics,repeat_states,table,27,0.03,1,Grain: 1 bang của khách lặp. Nguồn: data/analytics/repeat_states (Parquet)
+analytics,rfm_scores,table,94983,18.81,3,Grain: 1 khách thật. Nguồn: data/analytics/rfm_scores (Parquet)
+analytics,seller_pareto,table,3053,0.68,2,Grain: 1 seller. Nguồn: data/analytics/seller_pareto (Parquet)
+analytics,seller_watchlist,table,153,0.06,1,Grain: seller top 10% doanh thu có vận hành kém. Nguồn: data/analytics/seller_watchlist (Parquet)
+analytics,state_logistics,table,27,0.03,1,Grain: 1 bang khách hàng. Nguồn: data/analytics/state_logistics (Parquet)
+gold,agg_category_monthly,table,1282,0.24,1,Grain: 1 danh mục × 1 tháng. Nguồn: data/gold/agg_category_monthly (Parquet)
+gold,agg_customer_rfm,table,94983,15.54,1,Grain: 1 khách thật. Nguồn: data/gold/agg_customer_rfm (Parquet)
+gold,agg_customer_state,table,27,0.03,1,Grain: 1 bang khách hàng. Nguồn: data/gold/agg_customer_state (Parquet)
+gold,agg_sales_monthly,table,24,0.02,1,"Grain: 1 tháng (gồm 2016, 2018-09). Nguồn: data/gold/agg_sales_monthly (Parquet)"
+gold,agg_seller_performance,table,3053,0.72,1,Grain: 1 seller. Nguồn: data/gold/agg_seller_performance (Parquet)
+gold,fact_order_items,table,112650,46.71,5,Grain: 1 sản phẩm trong 1 đơn. Nguồn: data/gold/fact_order_items (Parquet)
+gold,fact_orders,table,99441,34.71,4,Grain: 1 đơn hàng. Nguồn: data/gold/fact_orders (Parquet)
+presentation,dim_state,table,27,0.03,1,
+presentation,v_category_monthly,view,1246,,0,
+presentation,v_category_pareto,view,74,,0,
+presentation,v_category_seasonality,view,715,,0,
+presentation,v_cluster_profile,view,4,,0,
+presentation,v_decision_hints,view,7,,0,
+presentation,v_delay_vs_review,view,5,,0,
+presentation,v_insight_distance,view,4,,0,
+presentation,v_kpi_monthly,view,20,,0,
+presentation,v_kpi_overview,view,1,,0,
+presentation,v_late_vs_review,view,2,,0,
+presentation,v_load_log,view,23,,0,
+presentation,v_orders,view,97905,,0,
+presentation,v_payment_mix,view,10,,0,
+presentation,v_repeat_categories,view,70,,0,
+presentation,v_repeat_profile,view,2,,0,
+presentation,v_repeat_states,view,27,,0,
+presentation,v_rfm_customers,view,94983,,0,
+presentation,v_rfm_segments,view,6,,0,
+presentation,v_sales_items,view,111752,,0,
+presentation,v_seller_pareto,view,3053,,0,
+presentation,v_seller_watchlist,view,153,,0,
+presentation,v_state_logistics,view,27,,0,

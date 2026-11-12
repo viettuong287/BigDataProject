@@ -1,0 +1,25 @@
+[2026-11-12 15:59:40] SQL 10_presentation_views.sql áp dụng trong 0.49s
+[2026-11-12 15:59:40]   presentation.dim_state                  BASE TABLE
+[2026-11-12 15:59:40]   presentation.v_category_monthly         VIEW
+[2026-11-12 15:59:40]   presentation.v_category_pareto          VIEW
+[2026-11-12 15:59:40]   presentation.v_category_seasonality     VIEW
+[2026-11-12 15:59:40]   presentation.v_cluster_profile          VIEW
+[2026-11-12 15:59:40]   presentation.v_decision_hints           VIEW
+[2026-11-12 15:59:40]   presentation.v_delay_vs_review          VIEW
+[2026-11-12 15:59:40]   presentation.v_insight_distance         VIEW
+[2026-11-12 15:59:40]   presentation.v_kpi_monthly              VIEW
+[2026-11-12 15:59:40]   presentation.v_kpi_overview             VIEW
+[2026-11-12 15:59:40]   presentation.v_late_vs_review           VIEW
+[2026-11-12 15:59:40]   presentation.v_load_log                 VIEW
+[2026-11-12 15:59:40]   presentation.v_orders                   VIEW
+[2026-11-12 15:59:40]   presentation.v_payment_mix              VIEW
+[2026-11-12 15:59:40]   presentation.v_repeat_categories        VIEW
+[2026-11-12 15:59:40]   presentation.v_repeat_profile           VIEW
+[2026-11-12 15:59:40]   presentation.v_repeat_states            VIEW
+[2026-11-12 15:59:40]   presentation.v_rfm_customers            VIEW
+[2026-11-12 15:59:40]   presentation.v_rfm_segments             VIEW
+[2026-11-12 15:59:40]   presentation.v_sales_items              VIEW
+[2026-11-12 15:59:40]   presentation.v_seller_pareto            VIEW
+[2026-11-12 15:59:40]   presentation.v_seller_watchlist         VIEW
+[2026-11-12 15:59:40]   presentation.v_state_logistics          VIEW
+[2026-11-12 15:59:40] 23 đối tượng trong schema presentation

@@ -1,0 +1,16 @@
+database_name: "Neon \xB7 olist_analytics"
+sqlalchemy_uri: postgresql+psycopg2://NEON_USER:XXXXXXXXXX@NEON_HOST/olist_analytics?sslmode=require
+cache_timeout: 600
+expose_in_sqllab: true
+allow_run_async: false
+allow_ctas: false
+allow_cvas: false
+allow_dml: false
+allow_file_upload: false
+extra:
+  metadata_params: {}
+  engine_params:
+    pool_pre_ping: true
+  schemas_allowed_for_file_upload: []
+uuid: 26587ed7-6898-4021-83c5-7263d14ce23b
+version: 1.0.0

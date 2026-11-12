@@ -1,0 +1,35 @@
+slice_name: "Ph\xE2n kh\xFAc RFM & h\xE0nh \u0111\u1ED9ng CRM"
+description: "Ngu\u1ED3n: presentation.v_rfm_segments"
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: raw
+  all_columns:
+  - rfm_segment
+  - customers
+  - pct_customers
+  - avg_recency_days
+  - avg_frequency
+  - avg_monetary
+  - crm_action
+  order_by_cols:
+  - '["segment_order", true]'
+  row_limit: 1000
+  server_page_length: 10
+  include_search: true
+  show_cell_bars: true
+  allow_rearrange_columns: true
+  table_timestamp_format: '%Y-%m'
+  column_config:
+    customers:
+      d3NumberFormat: ',.0f'
+  conditional_formatting: []
+  adhoc_filters: []
+  datasource: 7__table
+query_context: null
+cache_timeout: 600
+uuid: c75556de-fe92-4cae-ab05-923c54d32b14
+version: 1.0.0
+dataset_uuid: d23cb936-62ec-41f7-8b32-3c1416e351d2

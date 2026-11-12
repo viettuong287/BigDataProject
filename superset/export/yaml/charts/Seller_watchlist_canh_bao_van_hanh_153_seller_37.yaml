@@ -1,0 +1,57 @@
+slice_name: "Seller watchlist \u2013 c\u1EA3nh b\xE1o v\u1EADn h\xE0nh (153 seller)"
+description: "Ngu\u1ED3n: presentation.v_seller_watchlist"
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: raw
+  all_columns:
+  - seller_short
+  - seller_state
+  - alert_level
+  - violations
+  - reasons
+  - orders
+  - revenue
+  - avg_review_score
+  - avg_delivery_days
+  - late_delivery_pct
+  - active_months
+  - recommended_action
+  order_by_cols:
+  - '["violations", false]'
+  - '["revenue", false]'
+  row_limit: 1000
+  server_page_length: 15
+  include_search: true
+  show_cell_bars: true
+  allow_rearrange_columns: true
+  table_timestamp_format: '%Y-%m'
+  column_config:
+    revenue:
+      d3NumberFormat: ',.0f'
+  conditional_formatting:
+  - column: avg_review_score
+    operator: <
+    targetValue: 4
+    colorScheme: '#EFA1AA'
+  - column: avg_delivery_days
+    operator: '>'
+    targetValue: 15
+    colorScheme: '#FDE380'
+  - column: late_delivery_pct
+    operator: '>'
+    targetValue: 10
+    colorScheme: '#EFA1AA'
+  - column: violations
+    operator: '>='
+    targetValue: 2
+    colorScheme: '#EFA1AA'
+  adhoc_filters: []
+  datasource: 21__table
+query_context: null
+cache_timeout: 600
+uuid: 33d1038d-6405-44f5-89bf-752c8e81ffb1
+version: 1.0.0
+dataset_uuid: a6bd5a0c-740f-454e-ad9b-80f9c28e002e

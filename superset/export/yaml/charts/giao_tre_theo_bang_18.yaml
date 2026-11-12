@@ -1,0 +1,39 @@
+slice_name: "% giao tr\u1EC5 theo bang"
+description: "Ngu\u1ED3n: presentation.v_state_logistics"
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: customer_state
+  metrics:
+  - expressionType: SQL
+    sqlExpression: MAX(late_delivery_pct)
+    label: "% giao tr\u1EC5"
+    hasCustomLabel: true
+    optionName: "metric__giao_tr\u1EC5"
+  groupby: []
+  adhoc_filters: []
+  row_limit: 27
+  truncate_metric: true
+  show_legend: false
+  legendOrientation: top
+  rich_tooltip: true
+  y_axis_format: ',.1f'
+  x_axis_time_format: '%Y-%m'
+  markerEnabled: true
+  zoomable: false
+  color_scheme: supersetColors
+  only_total: true
+  order_desc: true
+  x_axis_sort: "% giao tr\u1EC5"
+  x_axis_sort_asc: false
+  orientation: vertical
+  show_value: true
+  xAxisLabelRotation: 45
+  datasource: 10__table
+query_context: null
+cache_timeout: 600
+uuid: 962f67d9-282c-4853-bc65-e429c7ba804c
+version: 1.0.0
+dataset_uuid: 1f671144-69dc-4c01-a388-d5be955f3986

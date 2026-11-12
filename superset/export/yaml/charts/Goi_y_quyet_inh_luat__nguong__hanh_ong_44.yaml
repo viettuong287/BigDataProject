@@ -1,0 +1,37 @@
+slice_name: "G\u1EE3i \xFD quy\u1EBFt \u0111\u1ECBnh (lu\u1EADt + ng\u01B0\u1EE1ng\
+  \ + h\xE0nh \u0111\u1ED9ng)"
+description: "Ngu\u1ED3n: presentation.v_decision_hints"
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: raw
+  all_columns:
+  - priority
+  - severity
+  - topic
+  - signal
+  - metric_value
+  - detail
+  - threshold
+  - action
+  order_by_cols:
+  - '["priority", true]'
+  row_limit: 1000
+  server_page_length: 10
+  include_search: true
+  show_cell_bars: true
+  allow_rearrange_columns: true
+  table_timestamp_format: '%Y-%m'
+  column_config:
+    metric_value:
+      d3NumberFormat: ',.2f'
+  conditional_formatting: []
+  adhoc_filters: []
+  datasource: 25__table
+query_context: null
+cache_timeout: 600
+uuid: bc15fc02-506e-4dad-8912-08c6770f9a16
+version: 1.0.0
+dataset_uuid: e15abe62-1497-4c68-9cd8-503014f887cc

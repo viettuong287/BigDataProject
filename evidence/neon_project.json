@@ -1,0 +1,17 @@
+{
+  "_source": "Neon API (describe_project) lúc 2026-11-12 23:40 +07, đã bỏ thông tin cá nhân",
+  "id": "muddy-wave-64763270",
+  "name": "bigdata-olist-presentation",
+  "platform": "aws",
+  "region_id": "aws-ap-southeast-1",
+  "pg_version": 18,
+  "provisioner": "k8s-neonvm",
+  "autoscaling_cu": "0.25 – 0.25",
+  "branch_logical_size_limit_gib": 1,
+  "history_retention_hours": 6,
+  "plan": "free_v3",
+  "created_at": "2026-11-12T07:36:31Z",
+  "compute_time_seconds": 1294,
+  "active_time_seconds": 5136,
+  "data_transfer_bytes": 1856053
+}

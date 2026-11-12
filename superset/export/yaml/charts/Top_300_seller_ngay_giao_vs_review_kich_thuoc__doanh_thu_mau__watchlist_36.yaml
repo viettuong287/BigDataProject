@@ -1,0 +1,48 @@
+slice_name: "Top 300 seller: ng\xE0y giao vs review (k\xEDch th\u01B0\u1EDBc = doanh\
+  \ thu, m\xE0u = watchlist)"
+description: "Ngu\u1ED3n: presentation.v_seller_pareto"
+certified_by: null
+certification_details: null
+viz_type: bubble_v2
+params:
+  viz_type: bubble_v2
+  entity: seller_short
+  series: watchlist_label
+  x:
+    expressionType: SQL
+    sqlExpression: MAX(avg_delivery_days)
+    label: "Ng\xE0y giao TB"
+    hasCustomLabel: true
+    optionName: "metric_ng\xE0y_giao_tb"
+  y:
+    expressionType: SQL
+    sqlExpression: MAX(avg_review_score)
+    label: Review TB
+    hasCustomLabel: true
+    optionName: metric_review_tb
+  size:
+    expressionType: SQL
+    sqlExpression: SUM(revenue)
+    label: Doanh thu (BRL)
+    hasCustomLabel: true
+    optionName: metric_doanh_thu_brl_
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SQL
+    sqlExpression: revenue_rank <= 300
+  row_limit: 300
+  max_bubble_size: '25'
+  x_axis_label: "Ng\xE0y giao trung b\xECnh"
+  y_axis_label: "Review trung b\xECnh"
+  xAxisFormat: ',.1f'
+  y_axis_format: ',.2f'
+  opacity: 0.6
+  show_legend: true
+  color_scheme: supersetColors
+  tooltipSizeFormat: ',.0f'
+  datasource: 20__table
+query_context: null
+cache_timeout: 600
+uuid: 1a88bf7d-257c-47dc-8cc7-baf124962356
+version: 1.0.0
+dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

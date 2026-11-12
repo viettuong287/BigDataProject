@@ -1,0 +1,24 @@
+slice_name: "KPI \xB7 Chi ti\xEAu TB / kh\xE1ch (BRL)"
+description: "Ngu\u1ED3n: presentation.v_rfm_customers"
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: AVG(monetary)
+    label: Monetary TB
+    hasCustomLabel: true
+    optionName: metric_monetary_tb
+  adhoc_filters: []
+  y_axis_format: ',.2f'
+  header_font_size: 0.3
+  subheader_font_size: 0.125
+  subheader: GMV lifetime
+  datasource: 9__table
+query_context: null
+cache_timeout: 600
+uuid: 5de8ef4c-20b2-4901-8e28-e61a3c1c4f42
+version: 1.0.0
+dataset_uuid: 4cfabe6e-b829-4f15-9af8-bd3084d4435c

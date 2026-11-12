@@ -1,0 +1,30 @@
+[2026-11-12 14:55:08] Run 20261112-145508-40efaf -> postgresql://olist_analytics_owner:****@ep-flat-king-aoupo1l3.c-2.ap-southeast-1.aws.neon.tech/olist_analytics?sslmode=require
+[2026-11-12 14:55:09] PostgreSQL 18.6 (ac70818) on aarch64-unknown-linux-gnu, compiled by gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, 64-bit
+[2026-11-12 14:55:11] OK  analytics.kpi_monthly              rows=     20  parquet=  0.01MB/ 1f  read= 0.02s copy= 0.79s idx= 0.68s         25 rows/s
+[2026-11-12 14:55:13] OK  analytics.category_pareto          rows=     74  parquet=  0.01MB/ 1f  read= 0.02s copy= 1.08s idx= 0.60s         69 rows/s
+[2026-11-12 14:55:15] OK  analytics.category_seasonality     rows=    715  parquet=  0.01MB/ 1f  read= 0.02s copy= 1.04s idx= 0.71s        689 rows/s
+[2026-11-12 14:55:16] OK  analytics.state_logistics          rows=     27  parquet=  0.01MB/ 1f  read= 0.01s copy= 0.88s idx= 0.53s         31 rows/s
+[2026-11-12 14:55:18] OK  analytics.insight_distance         rows=      4  parquet=  0.00MB/ 1f  read= 0.02s copy= 0.96s idx= 0.56s          4 rows/s
+[2026-11-12 14:55:37] OK  analytics.rfm_scores               rows= 94,983  parquet=  3.99MB/ 1f  read= 0.05s copy=18.39s idx= 1.14s      5,164 rows/s
+[2026-11-12 14:55:39] OK  analytics.repeat_profile           rows=      2  parquet=  0.00MB/ 1f  read= 0.01s copy= 0.93s idx= 0.58s          2 rows/s
+[2026-11-12 14:55:41] OK  analytics.repeat_categories        rows=     70  parquet=  0.00MB/ 1f  read= 0.02s copy= 0.97s idx= 0.59s         72 rows/s
+[2026-11-12 14:55:43] OK  analytics.repeat_states            rows=     27  parquet=  0.00MB/ 1f  read= 0.01s copy= 0.84s idx= 0.70s         32 rows/s
+[2026-11-12 14:56:11] OK  analytics.customer_segments        rows= 94,983  parquet=  4.01MB/ 1f  read= 0.05s copy=26.73s idx= 1.36s      3,553 rows/s
+[2026-11-12 14:56:12] OK  analytics.cluster_profile          rows=      4  parquet=  0.00MB/ 1f  read= 0.01s copy= 0.81s idx= 0.60s          5 rows/s
+[2026-11-12 14:56:15] OK  analytics.seller_pareto            rows=  3,053  parquet=  0.16MB/ 1f  read= 0.02s copy= 1.28s idx= 0.83s      2,386 rows/s
+[2026-11-12 14:56:16] OK  analytics.seller_watchlist         rows=    153  parquet=  0.01MB/ 1f  read= 0.02s copy= 0.84s idx= 0.70s        183 rows/s
+[2026-11-12 14:56:18] OK  analytics.insight_late_vs_review   rows=      2  parquet=  0.00MB/ 1f  read= 0.02s copy= 1.03s idx= 0.58s          2 rows/s
+[2026-11-12 14:56:22] OK  analytics.delay_vs_review          rows=      5  parquet=  0.00MB/ 1f  read= 0.02s copy= 3.38s idx= 0.59s          2 rows/s
+[2026-11-12 14:56:24] OK  analytics.payment_mix              rows=     10  parquet=  0.00MB/ 1f  read= 0.01s copy= 0.91s idx= 0.63s         11 rows/s
+[2026-11-12 14:58:07] OK  gold.fact_orders                   rows= 99,441  parquet= 13.17MB/25f  read= 0.33s copy=101.08s idx= 1.46s        984 rows/s
+[2026-11-12 15:00:45] OK  gold.fact_order_items              rows=112,650  parquet= 16.93MB/24f  read= 0.35s copy=154.98s idx= 2.83s        727 rows/s
+[2026-11-12 15:00:47] OK  gold.agg_sales_monthly             rows=     24  parquet=  0.01MB/ 1f  read= 0.02s copy= 0.93s idx= 0.58s         26 rows/s
+[2026-11-12 15:00:49] OK  gold.agg_category_monthly          rows=  1,282  parquet=  0.03MB/ 1f  read= 0.01s copy= 0.97s idx= 0.52s      1,319 rows/s
+[2026-11-12 15:00:51] OK  gold.agg_customer_state            rows=     27  parquet=  0.01MB/ 1f  read= 0.02s copy= 1.09s idx= 0.54s         25 rows/s
+[2026-11-12 15:00:52] OK  gold.agg_seller_performance        rows=  3,053  parquet=  0.20MB/ 1f  read= 0.02s copy= 1.20s idx= 0.55s      2,543 rows/s
+[2026-11-12 15:01:04] OK  gold.agg_customer_rfm              rows= 94,983  parquet=  4.32MB/ 1f  read= 0.06s copy= 9.70s idx= 1.18s      9,794 rows/s
+[2026-11-12 15:01:04] ----------------------------------------------------------------------------------------------------
+[2026-11-12 15:01:04] Tổng: 23 bảng, 505,592 dòng, Parquet 42.88 MB
+[2026-11-12 15:01:04] Thời gian nạp (đọc+COPY+index): 355.83s; riêng COPY 330.80s -> 1,528 rows/s; end-to-end 1,421 rows/s
+[2026-11-12 15:01:04] Đối chiếu số dòng Parquet vs Postgres: 23/23 khớp
+[2026-11-12 15:01:04] Tổng thời gian chạy: 355.84s

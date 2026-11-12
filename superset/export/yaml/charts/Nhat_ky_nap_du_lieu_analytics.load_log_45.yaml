@@ -1,0 +1,39 @@
+slice_name: "Nh\u1EADt k\xFD n\u1EA1p d\u1EEF li\u1EC7u (analytics.load_log)"
+description: "Ngu\u1ED3n: presentation.v_load_log"
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: raw
+  all_columns:
+  - table_fq
+  - rows
+  - parquet_rows
+  - row_count_ok
+  - parquet_files
+  - parquet_mb
+  - seconds
+  - rows_per_sec
+  - loaded_at
+  order_by_cols:
+  - '["rows", false]'
+  row_limit: 1000
+  server_page_length: 25
+  include_search: true
+  show_cell_bars: true
+  allow_rearrange_columns: true
+  table_timestamp_format: '%Y-%m-%d %H:%M'
+  column_config:
+    rows:
+      d3NumberFormat: ',.0f'
+    parquet_rows:
+      d3NumberFormat: ',.0f'
+  conditional_formatting: []
+  adhoc_filters: []
+  datasource: 26__table
+query_context: null
+cache_timeout: 600
+uuid: a95ab7df-d011-4cf2-8d55-5c7f41ba9a97
+version: 1.0.0
+dataset_uuid: 9e74f631-afb8-4c31-b9db-2bda79576b9d

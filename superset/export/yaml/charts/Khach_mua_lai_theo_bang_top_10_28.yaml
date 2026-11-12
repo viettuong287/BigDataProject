@@ -1,0 +1,39 @@
+slice_name: "Kh\xE1ch mua l\u1EA1i theo bang (top 10)"
+description: "Ngu\u1ED3n: presentation.v_repeat_states"
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: customer_state
+  metrics:
+  - expressionType: SQL
+    sqlExpression: SUM(repeat_customers)
+    label: "Kh\xE1ch mua l\u1EA1i"
+    hasCustomLabel: true
+    optionName: "metric_kh\xE1ch_mua_l\u1EA1i"
+  groupby: []
+  adhoc_filters: []
+  row_limit: 10
+  truncate_metric: true
+  show_legend: false
+  legendOrientation: top
+  rich_tooltip: true
+  y_axis_format: ',.0f'
+  x_axis_time_format: '%Y-%m'
+  markerEnabled: true
+  zoomable: false
+  color_scheme: supersetColors
+  only_total: true
+  order_desc: true
+  x_axis_sort: "Kh\xE1ch mua l\u1EA1i"
+  x_axis_sort_asc: false
+  orientation: vertical
+  show_value: true
+  xAxisLabelRotation: 45
+  datasource: 19__table
+query_context: null
+cache_timeout: 600
+uuid: d7ad376b-2cf1-41fc-ae93-262656e20e72
+version: 1.0.0
+dataset_uuid: 2c097b39-2103-4148-aea0-1aa9b3c2f547

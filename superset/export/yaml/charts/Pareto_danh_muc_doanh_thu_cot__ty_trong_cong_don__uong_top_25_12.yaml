@@ -1,0 +1,60 @@
+slice_name: "Pareto danh m\u1EE5c: doanh thu (c\u1ED9t) & t\u1EF7 tr\u1ECDng c\u1ED9\
+  ng d\u1ED3n % (\u0111\u01B0\u1EDDng) \u2013 top 25"
+description: "Ngu\u1ED3n: presentation.v_category_pareto"
+certified_by: null
+certification_details: null
+viz_type: mixed_timeseries
+params:
+  viz_type: mixed_timeseries
+  x_axis: category_label
+  metrics:
+  - expressionType: SQL
+    sqlExpression: SUM(revenue)
+    label: Doanh thu (BRL)
+    hasCustomLabel: true
+    optionName: metric_doanh_thu_brl_
+  metrics_b:
+  - expressionType: SQL
+    sqlExpression: MAX(cumulative_share_pct)
+    label: "C\u1ED9ng d\u1ED3n (%)"
+    hasCustomLabel: true
+    optionName: "metric_c\u1ED9ng_d\u1ED3n_"
+  groupby: []
+  groupby_b: []
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SQL
+    sqlExpression: revenue_rank <= 25
+  adhoc_filters_b:
+  - clause: WHERE
+    expressionType: SQL
+    sqlExpression: revenue_rank <= 25
+  seriesType: bar
+  seriesTypeB: line
+  yAxisIndex: 0
+  yAxisIndexB: 1
+  y_axis_format: ',.0f'
+  y_axis_format_secondary: ',.1f'
+  show_legend: true
+  legendOrientation: top
+  rich_tooltip: true
+  markerEnabled: true
+  row_limit: 10000
+  row_limit_b: 10000
+  truncate_metric: true
+  zoomable: false
+  x_axis_time_format: '%Y-%m'
+  color_scheme: supersetColors
+  show_value: false
+  show_valueB: true
+  order_desc: true
+  order_desc_b: true
+  x_axis_sort: category_label
+  x_axis_sort_asc: true
+  xAxisLabelRotation: 45
+  datasource: 13__table
+query_context: null
+cache_timeout: 600
+uuid: 4c9b0e48-c5d9-47d1-8b7c-2b28adf86364
+version: 1.0.0
+dataset_uuid: 59ee4502-2859-43d2-a81b-c9d3c0e276bd

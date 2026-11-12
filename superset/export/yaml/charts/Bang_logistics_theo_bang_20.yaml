@@ -1,0 +1,51 @@
+slice_name: "B\u1EA3ng logistics theo bang"
+description: "Ngu\u1ED3n: presentation.v_state_logistics"
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: raw
+  all_columns:
+  - customer_state
+  - state_name
+  - region
+  - orders
+  - revenue
+  - revenue_share_pct
+  - avg_order_value
+  - freight_pct_of_revenue
+  - avg_delivery_days
+  - late_delivery_pct
+  - avg_review_score
+  order_by_cols:
+  - '["revenue", false]'
+  row_limit: 1000
+  server_page_length: 27
+  include_search: true
+  show_cell_bars: true
+  allow_rearrange_columns: true
+  table_timestamp_format: '%Y-%m'
+  column_config:
+    revenue:
+      d3NumberFormat: ',.0f'
+  conditional_formatting:
+  - column: late_delivery_pct
+    operator: '>'
+    targetValue: 10
+    colorScheme: '#EFA1AA'
+  - column: avg_review_score
+    operator: <
+    targetValue: 4
+    colorScheme: '#FDE380'
+  - column: avg_delivery_days
+    operator: <
+    targetValue: 10
+    colorScheme: '#ACE1C4'
+  adhoc_filters: []
+  datasource: 10__table
+query_context: null
+cache_timeout: 600
+uuid: 269e88c9-d425-4e48-882a-25fdfa9fdff1
+version: 1.0.0
+dataset_uuid: 1f671144-69dc-4c01-a388-d5be955f3986

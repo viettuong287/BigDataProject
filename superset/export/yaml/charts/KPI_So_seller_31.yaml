@@ -1,0 +1,24 @@
+slice_name: "KPI \xB7 S\u1ED1 seller"
+description: "Ngu\u1ED3n: presentation.v_seller_pareto"
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: COUNT(*)
+    label: Seller
+    hasCustomLabel: true
+    optionName: metric_seller
+  adhoc_filters: []
+  y_axis_format: ',.0f'
+  header_font_size: 0.3
+  subheader_font_size: 0.125
+  subheader: ''
+  datasource: 20__table
+query_context: null
+cache_timeout: 600
+uuid: d08a9e25-acca-46ad-990d-9612acc06e2a
+version: 1.0.0
+dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

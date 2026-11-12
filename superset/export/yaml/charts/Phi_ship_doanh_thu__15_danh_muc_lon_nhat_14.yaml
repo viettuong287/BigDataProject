@@ -1,0 +1,43 @@
+slice_name: "Ph\xED ship / doanh thu (%) \u2013 15 danh m\u1EE5c l\u1EDBn nh\u1EA5\
+  t"
+description: "Ngu\u1ED3n: presentation.v_category_pareto"
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: category
+  metrics:
+  - expressionType: SQL
+    sqlExpression: MAX(freight_to_revenue_pct)
+    label: Ship/doanh thu (%)
+    hasCustomLabel: true
+    optionName: metric_ship_doanh_thu_
+  groupby: []
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SQL
+    sqlExpression: revenue_rank <= 15
+  row_limit: 15
+  truncate_metric: true
+  show_legend: false
+  legendOrientation: top
+  rich_tooltip: true
+  y_axis_format: ',.1f'
+  x_axis_time_format: '%Y-%m'
+  markerEnabled: true
+  zoomable: false
+  color_scheme: supersetColors
+  only_total: true
+  order_desc: true
+  x_axis_sort: Ship/doanh thu (%)
+  x_axis_sort_asc: true
+  orientation: horizontal
+  show_value: true
+  xAxisLabelRotation: 0
+  datasource: 13__table
+query_context: null
+cache_timeout: 600
+uuid: 4f4b2d80-ca54-4242-82a2-44a73498c790
+version: 1.0.0
+dataset_uuid: 59ee4502-2859-43d2-a81b-c9d3c0e276bd

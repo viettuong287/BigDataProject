@@ -1,0 +1,258 @@
+table_name: v_kpi_monthly
+main_dttm_col: month_date
+description: "View presentation.v_kpi_monthly tr\xEAn Neon (semantic layer)"
+default_endpoint: null
+offset: 0
+cache_timeout: 600
+catalog: olist_analytics
+schema: presentation
+sql: null
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+uuid: f21db043-e9c3-4b07-810d-e4fb226e9afe
+metrics:
+- metric_name: count
+  verbose_name: COUNT(*)
+  metric_type: count
+  expression: COUNT(*)
+  description: null
+  d3format: null
+  currency: null
+  extra: null
+  warning_text: null
+columns:
+- column_name: orders_mom_pct
+  verbose_name: "MoM s\u1ED1 \u0111\u01A1n (%)"
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(27, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: revenue_mom_pct
+  verbose_name: MoM doanh thu (%)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(35, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: revenue_yoy_pct
+  verbose_name: YoY doanh thu (%)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(35, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: late_delivery_pct
+  verbose_name: "% giao tr\u1EC5"
+  is_dttm: false
+  is_active: true
+  type: DOUBLE PRECISION
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: revenue
+  verbose_name: Doanh thu (BRL)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(32, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: freight
+  verbose_name: "Ph\xED ship (BRL)"
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(32, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: avg_delivery_days
+  verbose_name: "Ng\xE0y giao TB"
+  is_dttm: false
+  is_active: true
+  type: DOUBLE PRECISION
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: avg_order_value
+  verbose_name: AOV (BRL)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(24, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: gmv
+  verbose_name: GMV (BRL)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC(33, 2)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: avg_review_score
+  verbose_name: Review TB
+  is_dttm: false
+  is_active: true
+  type: DOUBLE PRECISION
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: revenue_rank
+  verbose_name: "H\u1EA1ng doanh thu"
+  is_dttm: false
+  is_active: true
+  type: INTEGER
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: purchase_month
+  verbose_name: "Th\xE1ng (2017)"
+  is_dttm: false
+  is_active: true
+  type: INTEGER
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: customers
+  verbose_name: "S\u1ED1 kh\xE1ch"
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: orders
+  verbose_name: "S\u1ED1 \u0111\u01A1n"
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: items
+  verbose_name: "S\u1ED1 m\xF3n"
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: month_date
+  verbose_name: "Th\xE1ng"
+  is_dttm: true
+  is_active: true
+  type: DATE
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: month_label
+  verbose_name: "Th\xE1ng"
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: is_black_friday_month
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: BOOLEAN
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: purchase_year
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: INTEGER
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+version: 1.0.0
+database_uuid: 26587ed7-6898-4021-83c5-7263d14ce23b

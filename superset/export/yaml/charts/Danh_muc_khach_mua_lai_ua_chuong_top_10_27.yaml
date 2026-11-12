@@ -1,0 +1,39 @@
+slice_name: "Danh m\u1EE5c kh\xE1ch mua l\u1EA1i \u01B0a chu\u1ED9ng (top 10)"
+description: "Ngu\u1ED3n: presentation.v_repeat_categories"
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: category
+  metrics:
+  - expressionType: SQL
+    sqlExpression: SUM(repeat_customers)
+    label: "Kh\xE1ch mua l\u1EA1i"
+    hasCustomLabel: true
+    optionName: "metric_kh\xE1ch_mua_l\u1EA1i"
+  groupby: []
+  adhoc_filters: []
+  row_limit: 10
+  truncate_metric: true
+  show_legend: false
+  legendOrientation: top
+  rich_tooltip: true
+  y_axis_format: ',.0f'
+  x_axis_time_format: '%Y-%m'
+  markerEnabled: true
+  zoomable: false
+  color_scheme: supersetColors
+  only_total: true
+  order_desc: true
+  x_axis_sort: "Kh\xE1ch mua l\u1EA1i"
+  x_axis_sort_asc: true
+  orientation: horizontal
+  show_value: true
+  xAxisLabelRotation: 0
+  datasource: 18__table
+query_context: null
+cache_timeout: 600
+uuid: 5b7410ed-0ea9-4d08-b783-130d2208f149
+version: 1.0.0
+dataset_uuid: 0d1bafe5-8b4e-4f19-91c3-f9e8b06582fe

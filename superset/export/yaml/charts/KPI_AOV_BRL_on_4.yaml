@@ -1,0 +1,29 @@
+slice_name: "KPI \xB7 AOV (BRL/\u0111\u01A1n)"
+description: "Ngu\u1ED3n: presentation.v_orders"
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: AVG(order_value)
+    label: AOV
+    hasCustomLabel: true
+    optionName: metric_aov
+  adhoc_filters:
+  - clause: WHERE
+    subject: month_date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  y_axis_format: ',.2f'
+  header_font_size: 0.3
+  subheader_font_size: 0.125
+  subheader: "GMV trung b\xECnh m\u1ED7i \u0111\u01A1n"
+  datasource: 12__table
+query_context: null
+cache_timeout: 600
+uuid: 8d363ca5-0fa9-475a-a3a5-8324d33344be
+version: 1.0.0
+dataset_uuid: 5f023a25-e62c-495f-a53c-f190c6c3f714

@@ -1,0 +1,36 @@
+slice_name: "Doanh thu th\xE1ng g\u1EA7n nh\u1EA5t & xu h\u01B0\u1EDBng"
+description: "Ngu\u1ED3n: presentation.v_kpi_monthly"
+certified_by: null
+certification_details: null
+viz_type: big_number
+params:
+  viz_type: big_number
+  x_axis: month_date
+  time_grain_sqla: P1M
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(revenue)
+    label: Doanh thu (BRL)
+    hasCustomLabel: true
+    optionName: metric_doanh_thu_brl_
+  adhoc_filters:
+  - clause: WHERE
+    subject: month_date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  show_trend_line: true
+  start_y_axis_at_zero: true
+  compare_lag: 1
+  compare_suffix: "so v\u1EDBi th\xE1ng tr\u01B0\u1EDBc"
+  y_axis_format: ',.0f'
+  header_font_size: 0.3
+  subheader_font_size: 0.125
+  rolling_type: None
+  time_format: '%Y-%m'
+  datasource: 11__table
+query_context: null
+cache_timeout: 600
+uuid: e7fec835-a001-49a9-bec1-4f35fc37e9ea
+version: 1.0.0
+dataset_uuid: f21db043-e9c3-4b07-810d-e4fb226e9afe

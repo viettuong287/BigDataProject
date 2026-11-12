@@ -1,0 +1,36 @@
+slice_name: "B\u1EA3ng payment mix"
+description: "Ngu\u1ED3n: presentation.v_payment_mix"
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: raw
+  all_columns:
+  - main_payment_type
+  - installment_label
+  - orders
+  - pct_orders
+  - gmv
+  - avg_order_value
+  order_by_cols:
+  - '["orders", false]'
+  row_limit: 1000
+  server_page_length: 10
+  include_search: true
+  show_cell_bars: true
+  allow_rearrange_columns: true
+  table_timestamp_format: '%Y-%m'
+  column_config:
+    gmv:
+      d3NumberFormat: ',.0f'
+    orders:
+      d3NumberFormat: ',.0f'
+  conditional_formatting: []
+  adhoc_filters: []
+  datasource: 24__table
+query_context: null
+cache_timeout: 600
+uuid: ed1d02b1-13ec-4ef8-8a02-07638c1b4e68
+version: 1.0.0
+dataset_uuid: b55f3a1f-fda1-4719-a359-6d7a3d783d02

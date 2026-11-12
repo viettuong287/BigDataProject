@@ -1,0 +1,185 @@
+{
+  "run": {
+    "started_at": "2026-10-29 16:07:30",
+    "master": "spark://spark-master:7077",
+    "executors": 2,
+    "default_parallelism": 4,
+    "gold_revenue": 13494400.74,
+    "sql_seconds": 44.51,
+    "kmeans_seconds": 29.5,
+    "total_seconds": 119.71
+  },
+  "tables": {
+    "kpi_monthly": {
+      "sql": "q1_kpi_monthly",
+      "grain": "1 tháng",
+      "rows": 20,
+      "seconds": 4.14,
+      "size_mb": 0.01
+    },
+    "category_pareto": {
+      "sql": "q2_category_pareto",
+      "grain": "1 danh mục",
+      "rows": 74,
+      "seconds": 3.11,
+      "size_mb": 0.01
+    },
+    "category_seasonality": {
+      "sql": "q2_category_seasonality",
+      "grain": "1 danh mục × 1 tháng (2017)",
+      "rows": 715,
+      "seconds": 2.85,
+      "size_mb": 0.01
+    },
+    "state_logistics": {
+      "sql": "q3_state_logistics",
+      "grain": "1 bang",
+      "rows": 27,
+      "seconds": 3.27,
+      "size_mb": 0.01
+    },
+    "insight_distance": {
+      "sql": "q3_distance",
+      "grain": "1 band km",
+      "rows": 4,
+      "seconds": 6.32,
+      "size_mb": 0.0
+    },
+    "rfm_scores": {
+      "sql": "q4_rfm_score",
+      "grain": "1 khách",
+      "rows": 94983,
+      "seconds": 5.5,
+      "size_mb": 3.83
+    },
+    "repeat_profile": {
+      "sql": "q4_repeat_profile",
+      "grain": "one_shot vs repeat",
+      "rows": 2,
+      "seconds": 2.89,
+      "size_mb": 0.0
+    },
+    "repeat_categories": {
+      "sql": "q4_repeat_categories",
+      "grain": "1 danh mục của khách lặp",
+      "rows": 70,
+      "seconds": 3.11,
+      "size_mb": 0.0
+    },
+    "repeat_states": {
+      "sql": "q4_repeat_states",
+      "grain": "1 bang của khách lặp",
+      "rows": 27,
+      "seconds": 2.05,
+      "size_mb": 0.0
+    },
+    "seller_pareto": {
+      "sql": "q5_seller_pareto",
+      "grain": "1 seller",
+      "rows": 3053,
+      "seconds": 1.77,
+      "size_mb": 0.16
+    },
+    "seller_watchlist": {
+      "sql": "q5_seller_watchlist",
+      "grain": "seller doanh thu cao / ops kém",
+      "rows": 153,
+      "seconds": 1.57,
+      "size_mb": 0.01
+    },
+    "insight_late_vs_review": {
+      "sql": "q6_late_vs_review",
+      "grain": "late vs on_time",
+      "rows": 2,
+      "seconds": 2.98,
+      "size_mb": 0.0
+    },
+    "delay_vs_review": {
+      "sql": "q6_delay_vs_review",
+      "grain": "1 band ngày trễ",
+      "rows": 5,
+      "seconds": 2.34,
+      "size_mb": 0.0
+    },
+    "payment_mix": {
+      "sql": "q6_payment",
+      "grain": "PTTT × kỳ trả góp",
+      "rows": 10,
+      "seconds": 2.41,
+      "size_mb": 0.0
+    }
+  },
+  "checks": [
+    {
+      "name": "Gold SUM(revenue)",
+      "got": 13494400.74,
+      "expected": 13494400.74,
+      "ok": true
+    },
+    {
+      "name": "kpi_monthly số tháng",
+      "got": 20,
+      "expected": 20,
+      "ok": true
+    },
+    {
+      "name": "rfm_scores số khách",
+      "got": 94983,
+      "expected": 94983,
+      "ok": true
+    },
+    {
+      "name": "late vs review có 2 nhóm",
+      "got": 2,
+      "expected": 2,
+      "ok": true
+    }
+  ],
+  "corr": {
+    "corr_distance_freight": 0.3924107915413591,
+    "corr_distance_delivery_days": 0.39398211323178073,
+    "corr_distance_delay_days": -0.07768512927232768
+  },
+  "cluster_profile": [
+    {
+      "cluster": 0,
+      "customers": 36442,
+      "avg_recency": 196.2,
+      "avg_frequency": 1.0,
+      "avg_monetary": "69.56",
+      "champions": 0,
+      "loyal": 0,
+      "at_risk": 0
+    },
+    {
+      "cluster": 1,
+      "customers": 2887,
+      "avg_recency": 270.4,
+      "avg_frequency": 2.114,
+      "avg_monetary": "308.35",
+      "champions": 251,
+      "loyal": 675,
+      "at_risk": 1961
+    },
+    {
+      "cluster": 2,
+      "customers": 28220,
+      "avg_recency": 224.0,
+      "avg_frequency": 1.0,
+      "avg_monetary": "320.35",
+      "champions": 0,
+      "loyal": 0,
+      "at_risk": 0
+    },
+    {
+      "cluster": 3,
+      "customers": 27434,
+      "avg_recency": 475.3,
+      "avg_frequency": 1.0,
+      "avg_monetary": "119.20",
+      "champions": 0,
+      "loyal": 0,
+      "at_risk": 0
+    }
+  ]
+}

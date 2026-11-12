@@ -1,0 +1,49 @@
+slice_name: "Doanh thu theo th\xE1ng c\u1EE7a 6 danh m\u1EE5c l\u1EDBn nh\u1EA5t (l\u1ECD\
+  c \u0111\u01B0\u1EE3c theo danh m\u1EE5c)"
+description: "Ngu\u1ED3n: presentation.v_category_monthly"
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_line
+params:
+  viz_type: echarts_timeseries_line
+  x_axis: month_date
+  metrics:
+  - expressionType: SQL
+    sqlExpression: SUM(revenue)
+    label: Doanh thu (BRL)
+    hasCustomLabel: true
+    optionName: metric_doanh_thu_brl_
+  groupby:
+  - category
+  adhoc_filters:
+  - clause: WHERE
+    subject: month_date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  row_limit: 10000
+  truncate_metric: true
+  show_legend: true
+  legendOrientation: top
+  rich_tooltip: true
+  y_axis_format: ',.0f'
+  x_axis_time_format: '%Y-%m'
+  markerEnabled: true
+  zoomable: false
+  color_scheme: supersetColors
+  only_total: true
+  order_desc: true
+  time_grain_sqla: P1M
+  series_limit: 6
+  series_limit_metric:
+    expressionType: SQL
+    sqlExpression: SUM(revenue)
+    label: Doanh thu (BRL)
+    hasCustomLabel: true
+    optionName: metric_doanh_thu_brl_
+  datasource: 15__table
+query_context: null
+cache_timeout: 600
+uuid: e6aac108-8d69-47a6-af80-481e9bf63a07
+version: 1.0.0
+dataset_uuid: 23dc535c-719c-41da-8f37-f43aa0f861fd

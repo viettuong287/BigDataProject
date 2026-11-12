@@ -1,0 +1,39 @@
+slice_name: "Review TB: giao tr\u1EC5 vs \u0111\xFAng h\u1EA1n"
+description: "Ngu\u1ED3n: presentation.v_late_vs_review"
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: delivery_label
+  metrics:
+  - expressionType: SQL
+    sqlExpression: MAX(avg_review)
+    label: Review TB
+    hasCustomLabel: true
+    optionName: metric_review_tb
+  groupby: []
+  adhoc_filters: []
+  row_limit: 5
+  truncate_metric: true
+  show_legend: false
+  legendOrientation: top
+  rich_tooltip: true
+  y_axis_format: ',.2f'
+  x_axis_time_format: '%Y-%m'
+  markerEnabled: true
+  zoomable: false
+  color_scheme: supersetColors
+  only_total: true
+  order_desc: true
+  x_axis_sort: Review TB
+  x_axis_sort_asc: false
+  orientation: vertical
+  show_value: true
+  xAxisLabelRotation: 45
+  datasource: 22__table
+query_context: null
+cache_timeout: 600
+uuid: 37ba25aa-ecae-4559-a8f5-0583b0deda53
+version: 1.0.0
+dataset_uuid: a332d7e0-4833-4d02-bd02-3732ef945b03

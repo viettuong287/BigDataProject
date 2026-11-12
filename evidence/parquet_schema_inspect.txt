@@ -1,0 +1,397 @@
+﻿docker :  Network olist-presentation_default Creating 
+At line:1 char:23
++ ... ataProject; docker compose run --rm tools python scripts/inspect_parq ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Network olist-...fault Creating :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Network olist-presentation_default Creating 
+ Network olist-presentation_default Created 
+ Network olist-presentation_default Created 
+ Container olist-presentation-tools-run-bd01fdf6c395 Creating 
+ Container olist-presentation-tools-run-bd01fdf6c395 Created 
+
+## analytics.category_pareto  rows=74
+  category: string
+  orders: int64
+  items: int64
+  revenue: decimal128(32, 2)
+  freight: decimal128(32, 2)
+  avg_price: decimal128(33, 2)
+  freight_to_revenue_pct: decimal128(35, 2)
+  revenue_share_pct: decimal128(35, 2)
+  cumulative_share_pct: decimal128(35, 2)
+         category  orders  items     revenue    freight avg_price freight_to_revenue_pct revenue_share_pct cumulative_share_pct
+0   health_beauty    8757   9585  1251145.54  181067.84    130.53                  14.47              9.30                 9.30
+1   watches_gifts    5599   5965  1194824.97   99999.46    200.31                   8.37              8.88                18.19
+2  bed_bath_table    9394  11089  1035485.07  204294.48     93.38                  19.73              7.70                25.89
+
+## analytics.category_seasonality  rows=715
+  category: string
+  purchase_month: int32
+  revenue: decimal128(32, 2)
+  orders: int64
+  pct_of_category_year: decimal128(35, 2)
+                     category  purchase_month revenue  orders pct_of_category_year
+0  agro_industry_and_commerce               1   65.97       2                 0.23
+1  agro_industry_and_commerce               2  224.84       7                 0.77
+2  agro_industry_and_commerce               3   81.99       2                 0.28
+
+## analytics.cluster_profile  rows=4
+  cluster: int32
+  customers: int64
+  avg_recency: double
+  avg_frequency: double
+  avg_monetary: decimal128(34, 2)
+  champions: int64
+  loyal: int64
+  at_risk: int64
+   cluster  customers  avg_recency  avg_frequency avg_monetary  champions  loyal  at_risk
+0        0      36442        196.2          1.000        69.56          0      0        0
+1        1       2887        270.4          2.114       308.35        251    675     1961
+2        2      28220        224.0          1.000       320.35          0      0        0
+
+## analytics.customer_segments  rows=94983
+  customer_unique_id: string
+  customer_state: string
+  first_purchase_date: date32[day]
+  last_purchase_date: date32[day]
+  recency_days: int32
+  frequency: int64
+  monetary: decimal128(33, 2)
+  avg_order_value: decimal128(24, 2)
+  r_score: int32
+  f_score: int32
+  m_score: int32
+  rfm_segment: string
+  cluster: int32
+                 customer_unique_id customer_state first_purchase_date last_purchase_date  recency_days  frequency monetary avg_order_value  r_score  f_score  m_score      rfm_segment  cluster
+0  317cfc692e3f86c45c95697c61c853a6             SP          2018-08-25         2018-08-25            53          1     9.59            9.59        5        5        1  One-shot Recent        0
+1  bd06ce0e06ad77a7f681f1a4960a3cc6             SP          2017-09-13         2017-09-13           399          1    10.07           10.07        2        2        1    One-shot Lost        0
+2  b33336f46234b24a613ad9064d13106d             SP          2018-06-21         2018-06-21           118          1    10.89           10.89        5        5        1    One-shot Warm        0
+
+## analytics.delay_vs_review  rows=5
+  delay_band: string
+  band_order: int32
+  orders: int64
+  avg_review: double
+  pct_1_star: decimal128(8, 2)
+  pct_has_comment: decimal128(8, 2)
+         delay_band  band_order  orders  avg_review pct_1_star pct_has_comment
+0  on_time_or_early           0   89020        4.29       6.60           39.17
+1         late_1_3d           1    1850        3.29      25.14           48.38
+2         late_4_7d           2    1747        2.10      58.56           59.76
+
+## analytics.insight_distance  rows=4
+  distance_band: string
+  band_order: int32
+  items: int64
+  avg_freight: decimal128(13, 2)
+  avg_delivery_days: double
+  avg_delay_days: double
+  late_pct: double
+  distance_band  band_order  items avg_freight  avg_delivery_days  avg_delay_days  late_pct
+0       0-200km           1  28060       12.66                7.0           -10.0      6.34
+1     200-500km           2  34572       19.07               11.9           -12.4      7.04
+2    500-1000km           3  29361       21.08               14.2           -12.8      8.29
+
+## analytics.insight_late_vs_review  rows=2
+  delivery: string
+  orders: int64
+  avg_review: double
+  pct_score_1_2: decimal128(8, 2)
+  pct_has_comment: decimal128(8, 2)
+  delivery  orders  avg_review pct_score_1_2 pct_has_comment
+0     late    7655        2.56         54.07           55.56
+1  on_time   87741        4.29          9.20           39.17
+
+## analytics.kpi_monthly  rows=20
+  purchase_year: int32
+  purchase_month: int32
+  orders: int64
+  customers: int64
+  items: int64
+  revenue: decimal128(32, 2)
+  freight: decimal128(32, 2)
+  gmv: decimal128(33, 2)
+  avg_order_value: decimal128(24, 2)
+  avg_review_score: double
+  avg_delivery_days: double
+  late_delivery_pct: double
+  revenue_mom_pct: decimal128(35, 2)
+  orders_mom_pct: decimal128(27, 2)
+  revenue_yoy_pct: decimal128(35, 2)
+  revenue_rank: int32
+  is_black_friday_month: bool
+   purchase_year  purchase_month  orders  customers  items     revenue    freight         gmv avg_order_value  avg_review_score  avg_delivery_days  late_delivery_pct revenue_mom_pct orders_mom_pct revenue_yoy_pct  revenue_rank  is_black_friday_month
+0           2017              11    7421       7313   8626  1003862.14  168329.54  1172191.68          157.96              3.95               15.1              14.31           52.06          63.21            None             1                   True
+1           2018               4    6919       6863   7957   993592.98  162655.91  1156248.89          167.11              4.17               11.4               5.31            1.28          -3.47          180.80             2                  False
+2           2018               5    6833       6775   7898   992871.75  152814.71  1145686.46          167.67              4.21               11.3               8.24           -0.07          -1.24           97.33             3                  False
+
+## analytics.payment_mix  rows=10
+  main_payment_type: string
+  installment_band: string
+  orders: int64
+  gmv: decimal128(34, 2)
+  avg_order_value: decimal128(24, 2)
+  main_payment_type installment_band  orders         gmv avg_order_value
+0            boleto        1_or_none   19477  2817400.08          144.65
+1       credit_card        1_or_none   23675  2386562.11          100.81
+2       credit_card              2_3   22344  3022115.22          135.25
+
+## analytics.repeat_categories  rows=70
+  category: string
+  repeat_customers: int64
+  items: int64
+  revenue: decimal128(23, 2)
+          category  repeat_customers  items   revenue
+0   bed_bath_table               595   1105  97874.43
+1   sports_leisure               401    674  74863.32
+2  furniture_decor               453    805  62692.63
+
+## analytics.repeat_profile  rows=2
+  cohort: string
+  customers: int64
+  pct: decimal128(27, 2)
+  avg_recency: double
+  avg_frequency: double
+  avg_monetary: decimal128(34, 2)
+  avg_aov: decimal128(25, 2)
+     cohort  customers    pct  avg_recency  avg_frequency avg_monetary avg_aov
+0    repeat       2887   3.04        270.4          2.114       308.35  145.83
+1  one_shot      92096  96.96        287.9          1.000       161.19  161.19
+
+## analytics.repeat_states  rows=27
+  customer_state: string
+  repeat_customers: int64
+  avg_frequency: double
+  avg_monetary: decimal128(34, 2)
+  avg_aov: decimal128(25, 2)
+  customer_state  repeat_customers  avg_frequency avg_monetary avg_aov
+0             SP              1252          2.109       284.68  135.41
+1             RJ               414          2.111       329.75  155.80
+2             MG               329          2.109       303.96  144.50
+
+## analytics.rfm_scores  rows=94983
+  customer_unique_id: string
+  customer_state: string
+  first_purchase_date: date32[day]
+  last_purchase_date: date32[day]
+  recency_days: int32
+  frequency: int64
+  monetary: decimal128(33, 2)
+  avg_order_value: decimal128(24, 2)
+  r_score: int32
+  f_score: int32
+  m_score: int32
+  rfm_segment: string
+                 customer_unique_id customer_state first_purchase_date last_purchase_date  recency_days  frequency monetary avg_order_value  r_score  f_score  m_score      rfm_segment
+0  317cfc692e3f86c45c95697c61c853a6             SP          2018-08-25         2018-08-25            53          1     9.59            9.59        5        5        1  One-shot Recent
+1  bd06ce0e06ad77a7f681f1a4960a3cc6             SP          2017-09-13         2017-09-13           399          1    10.07           10.07        2        2        1    One-shot Lost
+2  b33336f46234b24a613ad9064d13106d             SP          2018-06-21         2018-06-21           118          1    10.89           10.89        5        5        1    One-shot Warm
+
+## analytics.seller_pareto  rows=3053
+  seller_id: string
+  seller_state: string
+  orders: int64
+  revenue: decimal128(22, 2)
+  avg_review_score: double
+  avg_delivery_days: double
+  late_delivery_pct: double
+  avg_distance_km: double
+  active_months: int64
+  revenue_share_pct: decimal128(29, 2)
+  cumulative_share_pct: decimal128(35, 2)
+                          seller_id seller_state  orders    revenue  avg_review_score  avg_delivery_days  late_delivery_pct  avg_distance_km  active_months revenue_share_pct cumulative_share_pct
+0  4869f7a5dfa277a7dca6462dcf3b52b2           SP    1131  229237.63              4.13               14.9              11.59            610.0             17              1.70                 1.70
+1  53243585a1d6dc2643021fd1853d8905           BA     358  222776.05              4.08               13.3               4.00           1195.3             12              1.65                 3.35
+2  4a3ca9315b744ce9f8e9374361493884           SP    1804  200326.12              3.80               14.4              10.98            563.6             20              1.48                 4.83
+
+## analytics.seller_watchlist  rows=153
+  seller_id: string
+  seller_state: string
+  orders: int64
+  revenue: decimal128(22, 2)
+  avg_review_score: double
+  avg_delivery_days: double
+  late_delivery_pct: double
+  avg_distance_km: double
+  active_months: int64
+  revenue_pctile: double
+                          seller_id seller_state  orders    revenue  avg_review_score  avg_delivery_days  late_delivery_pct  avg_distance_km  active_months  revenue_pctile
+0  4869f7a5dfa277a7dca6462dcf3b52b2           SP    1131  229237.63              4.13               14.9              11.59            610.0             17        1.000000
+1  4a3ca9315b744ce9f8e9374361493884           SP    1804  200326.12              3.80               14.4              10.98            563.6             20        0.999345
+2  fa1c13f2614d7b5c4749cbc52fecda94           SP     584  192842.13              4.34               13.3              10.19            684.4             20        0.999017
+
+## analytics.state_logistics  rows=27
+  customer_state: string
+  orders: int64
+  customers: int64
+  revenue: decimal128(32, 2)
+  gmv: decimal128(33, 2)
+  avg_order_value: decimal128(24, 2)
+  avg_freight: decimal128(23, 2)
+  freight_pct_of_revenue: decimal128(35, 2)
+  avg_delivery_days: double
+  late_delivery_pct: double
+  avg_review_score: double
+  revenue_share_pct: decimal128(35, 2)
+  revenue_rank: int32
+  customer_state  orders  customers     revenue         gmv avg_order_value avg_freight freight_pct_of_revenue  avg_delivery_days  late_delivery_pct  avg_review_score revenue_share_pct  revenue_rank
+0             SP   41125      39747  5163867.22  5878132.06          142.93       17.37                  13.83                8.7               5.89              4.21             38.27             1
+1             RJ   12697      12241  1811623.42  2115667.56          166.63       23.95                  16.78               15.2              13.47              3.91             13.43             2
+2             MG   11496      11134  1573508.20  1843074.43          160.32       23.45                  17.13               11.9               5.61              4.16             11.66             3
+
+## gold.agg_category_monthly  rows=1282
+  purchase_year: int32
+  purchase_month: int32
+  category: string
+  orders: int64
+  items: int64
+  revenue: decimal128(22, 2)
+  freight: decimal128(22, 2)
+  avg_price: decimal128(13, 2)
+  avg_review_score: double
+   purchase_year  purchase_month         category  orders  items  revenue  freight avg_price  avg_review_score
+0           2016               9    health_beauty       1      3   134.97     8.49     44.99              1.00
+1           2016               9  furniture_decor       1      2    72.89    63.34     36.45              1.00
+2           2016              10  furniture_decor      51     67  5807.89  1244.39     86.68              3.58
+
+## gold.agg_customer_rfm  rows=94983
+  customer_unique_id: string
+  customer_state: string
+  first_purchase_date: date32[day]
+  last_purchase_date: date32[day]
+  recency_days: int32
+  frequency: int64
+  monetary: decimal128(33, 2)
+  avg_order_value: decimal128(24, 2)
+  avg_review_score: double
+                 customer_unique_id customer_state first_purchase_date last_purchase_date  recency_days  frequency monetary avg_order_value  avg_review_score
+0  0000f6ccb0745a6a4b88665a16c9f078             PA          2017-10-12         2017-10-12           370          1    43.62           43.62               4.0
+1  0004aac84e0df4da2b147fca70cf8255             SP          2017-11-14         2017-11-14           337          1   196.89          196.89               5.0
+2  00050ab1314c0e55a6ca13cf7181fecf             SP          2018-04-20         2018-04-20           180          1    35.38           35.38               4.0
+
+## gold.agg_customer_state  rows=27
+  customer_state: string
+  orders: int64
+  customers: int64
+  revenue: decimal128(32, 2)
+  gmv: decimal128(33, 2)
+  avg_order_value: decimal128(24, 2)
+  avg_freight: decimal128(23, 2)
+  freight_pct_of_revenue: decimal128(35, 2)
+  avg_delivery_days: double
+  late_delivery_pct: double
+  avg_review_score: double
+  customer_state  orders  customers     revenue         gmv avg_order_value avg_freight freight_pct_of_revenue  avg_delivery_days  late_delivery_pct  avg_review_score
+0             SP   41125      39747  5163867.22  5878132.06          142.93       17.37                  13.83                8.7               5.89              4.21
+1             RJ   12697      12241  1811623.42  2115667.56          166.63       23.95                  16.78               15.2              13.47              3.91
+2             MG   11496      11134  1573508.20  1843074.43          160.32       23.45                  17.13               11.9               5.61              4.16
+
+## gold.agg_sales_monthly  rows=24
+  purchase_year: int32
+  purchase_month: int32
+  orders: int64
+  customers: int64
+  items: int64
+  revenue: decimal128(32, 2)
+  freight: decimal128(32, 2)
+  gmv: decimal128(33, 2)
+  avg_order_value: decimal128(24, 2)
+  avg_review_score: double
+  avg_delivery_days: double
+  late_delivery_pct: double
+   purchase_year  purchase_month  orders  customers  items   revenue  freight       gmv avg_order_value  avg_review_score  avg_delivery_days  late_delivery_pct
+0           2016               9       2          2      5    207.86    71.83    279.69          139.85              1.00               55.0             100.00
+1           2016              10     290        287    342  44507.30  6847.22  51354.52          177.08              3.82               19.6               1.13
+2           2016              12       1          1      1     10.90     8.72     19.62           19.62              5.00                5.0               0.00
+
+## gold.agg_seller_performance  rows=3053
+  seller_id: string
+  seller_state: string
+  seller_city: string
+  orders: int64
+  items: int64
+  customers: int64
+  revenue: decimal128(22, 2)
+  avg_price: decimal128(13, 2)
+  avg_review_score: double
+  avg_delivery_days: double
+  late_delivery_pct: double
+  avg_distance_km: double
+  first_sale_date: date32[day]
+  last_sale_date: date32[day]
+  active_months: int64
+                          seller_id seller_state       seller_city  orders  items  customers    revenue avg_price  avg_review_score  avg_delivery_days  late_delivery_pct  avg_distance_km first_sale_date last_sale_date  active_months
+0  4869f7a5dfa277a7dca6462dcf3b52b2           SP           guariba    1131   1155       1123  229237.63    198.47              4.13               14.9              11.59            610.0      2017-03-14     2018-08-24             17
+1  53243585a1d6dc2643021fd1853d8905           BA  lauro de freitas     358    410        349  222776.05    543.36              4.08               13.3               4.00           1195.3      2017-08-28     2018-08-21             12
+2  4a3ca9315b744ce9f8e9374361493884           SP          ibitinga    1804   1985       1790  200326.12    100.92              3.80               14.4              10.98            563.6      2017-01-08     2018-08-27             20
+
+## gold.fact_order_items  rows=112650
+  order_id: string
+  order_item_id: int32
+  product_id: string
+  seller_id: string
+  customer_id: string
+  customer_unique_id: string
+  order_status: string
+  is_valid_sale: bool
+  order_purchase_timestamp: timestamp[ns]
+  purchase_date: date32[day]
+  category: string
+  price: decimal128(12, 2)
+  freight_value: decimal128(12, 2)
+  item_total: decimal128(12, 2)
+  customer_state: string
+  customer_city: string
+  seller_state: string
+  seller_city: string
+  distance_km: double
+  delivery_days: int32
+  delivery_delay_days: int32
+  is_late: bool
+  review_score: int32
+  main_payment_type: string
+  max_installments: int32
+  purchase_year: int32
+  purchase_month: int32
+                           order_id  order_item_id                        product_id                         seller_id                       customer_id                customer_unique_id order_status  is_valid_sale order_purchase_timestamp purchase_date    category   price freight_value item_total customer_state   customer_city seller_state     seller_city  distance_km  delivery_days  delivery_delay_days  is_late  review_score main_payment_type  max_installments  purchase_year  purchase_month
+0  02190241f7190a1f3c7e0df95a749c6a              2  e00d2c49504aeaf7acdc9ff7cf8a6107  46dc3b2cc0980fb8ec44634e21d2718e  55c9044401ffab0c717f24405e2e042f  d291f3a15290c4c1edb70dc04fa8f35c    delivered           True      2016-10-07 10:52:22    2016-10-07        toys  249.99         10.74     260.73             RJ  rio de janeiro           RJ  rio de janeiro         19.5             20                  -33    False           NaN            boleto                 1           2016              10
+1  05bfcf9e287cad216cadb8a850f8db5c              2  eba7488e1c67729f045ab43fac426f2e  620c87c171fb2a6dd6e8bb4dec959fc6  51cc1e38d0489d588d7a687da73b2458  ff68ad2883e793597f1c343dd6505f5d    delivered           True      2016-10-06 10:47:15    2016-10-06   perfumery  249.90         17.59     267.49             SP  ribeirao preto           RJ      petropolis        498.3             32                  -23    False           5.0       credit_card                 8           2016              10
+2  06d7e8a85f5cfef576c5303ed7d7f2e5              1  989fd236458b9c0410bc6e1cf23cde4d  c9a06ece156bb057372c68718ec8909b  57108de6e1cf238dfd0ed00e3d878096  5da3ad487547da6f4f3011269b38f324    delivered           True      2016-10-07 12:06:30    2016-10-07  cool_stuff   49.00         14.72      63.72             MG      coromandel           DF        brasilia        320.1             12                  -43    False           4.0       credit_card                 7           2016              10
+
+## gold.fact_orders  rows=99441
+  order_id: string
+  customer_id: string
+  customer_unique_id: string
+  order_status: string
+  is_valid_sale: bool
+  order_purchase_timestamp: timestamp[ns]
+  purchase_date: date32[day]
+  customer_state: string
+  customer_city: string
+  items: int64
+  sellers: int64
+  items_value: decimal128(22, 2)
+  freight_value: decimal128(22, 2)
+  order_value: decimal128(23, 2)
+  payment_total: decimal128(22, 2)
+  payment_count: int64
+  main_payment_type: string
+  max_installments: int32
+  delivery_days: int32
+  delivery_delay_days: int32
+  is_late: bool
+  review_score: int32
+  review_has_comment: bool
+  dq_delivered_without_date: bool
+  dq_carrier_before_purchase: bool
+  dq_no_items: bool
+  dq_no_payment: bool
+  purchase_year: int32
+  purchase_month: int32
+                           order_id                       customer_id                customer_unique_id order_status  is_valid_sale order_purchase_timestamp purchase_date customer_state customer_city  items  sellers items_value freight_value order_value payment_total  payment_count main_payment_type  max_installments  delivery_days  delivery_delay_days is_late  review_score  review_has_comment  dq_delivered_without_date  dq_carrier_before_purchase  dq_no_items  dq_no_payment  purchase_year  purchase_month
+0  02a0eb7c22b0616c767a45954a2a28f6  43d9a8df81f815755d9a258f2ee3135f  2b18ce67b0eecc6b8f099bfdaabf545b     invoiced           True      2016-10-09 10:34:58    2016-10-09             PE   belo jardim      1        1      119.50         25.04      144.54        144.54              1       credit_card                 4            NaN                  NaN    None             5               False                      False                       False        False          False           2016              10
+1  03128233e78ed8ade6738f2043f4cf8d  da1c9a7e7fa9de1d48ecd6d6e027313e  e59e80fa326ba8d2e055c001d4053ca3    delivered           True      2016-10-04 19:01:13    2016-10-04             RJ        bacaxa      1        1       57.90         14.61       72.51         72.51              1       credit_card                 1           27.0                -28.0   False             4                True                      False                       False        False          False           2016              10
+2  04bc36cd51141e11c2cbbd188b6e47ca  ab421b93f847af0ef7301421bb36da5e  604f317cbd59b4de7b91326f61626d90    delivered           True      2016-10-08 20:28:48    2016-10-08             SP      campinas      1        1       43.89         14.52       58.41         58.41              1       credit_card                 1            8.0                -47.0   False             5               False                      False                       False        False          False           2016              10

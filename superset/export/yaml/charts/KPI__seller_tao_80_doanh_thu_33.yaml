@@ -1,0 +1,24 @@
+slice_name: "KPI \xB7 % seller t\u1EA1o 80% doanh thu"
+description: "Ngu\u1ED3n: presentation.v_seller_pareto"
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: AVG(CASE WHEN cumulative_share_pct <= 80 THEN 1.0 ELSE 0 END)
+    label: "% seller nh\xF3m A"
+    hasCustomLabel: true
+    optionName: "metric__seller_nh\xF3m_a"
+  adhoc_filters: []
+  y_axis_format: .2%
+  header_font_size: 0.3
+  subheader_font_size: 0.125
+  subheader: "t\u1EADp trung h\u01A1n quy t\u1EAFc 20/80"
+  datasource: 20__table
+query_context: null
+cache_timeout: 600
+uuid: 916f9e9b-5035-4672-ab2c-6911f435f38f
+version: 1.0.0
+dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

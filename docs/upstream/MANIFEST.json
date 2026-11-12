@@ -1,0 +1,60 @@
+{
+  "dataset": "Olist Brazilian E-Commerce - tầng gold",
+  "packaged_at": "2026-10-28 15:11:23",
+  "gold_built_at": "2026-10-28 08:08:47",
+  "source_code": "https://github.com/NguyenAlpha/big-data",
+  "source_commit": "c5b4eee",
+  "reconciliation": "11/11 đạt",
+  "valid_revenue_brl": "13494400.74",
+  "tables": {
+    "fact_order_items": {
+      "rows": 112650,
+      "grain": "1 sản phẩm trong 1 đơn hàng",
+      "kind": "fact",
+      "size_mb": 16.27,
+      "parquet_files": 24
+    },
+    "fact_orders": {
+      "rows": 99441,
+      "grain": "1 đơn hàng",
+      "kind": "fact",
+      "size_mb": 12.66,
+      "parquet_files": 25
+    },
+    "agg_sales_monthly": {
+      "rows": 24,
+      "grain": "1 tháng",
+      "kind": "agg",
+      "size_mb": 0.0,
+      "parquet_files": 1
+    },
+    "agg_category_monthly": {
+      "rows": 1282,
+      "grain": "1 danh mục x 1 tháng",
+      "kind": "agg",
+      "size_mb": 0.03,
+      "parquet_files": 1
+    },
+    "agg_customer_state": {
+      "rows": 27,
+      "grain": "1 bang của khách hàng",
+      "kind": "agg",
+      "size_mb": 0.0,
+      "parquet_files": 1
+    },
+    "agg_seller_performance": {
+      "rows": 3053,
+      "grain": "1 người bán",
+      "kind": "agg",
+      "size_mb": 0.19,
+      "parquet_files": 1
+    },
+    "agg_customer_rfm": {
+      "rows": 94983,
+      "grain": "1 khách hàng thật",
+      "kind": "agg",
+      "size_mb": 4.15,
+      "parquet_files": 1
+    }
+  }
+}

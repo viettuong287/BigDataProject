@@ -1,0 +1,43 @@
+slice_name: "M\xF9a v\u1EE5 2017: % doanh thu n\u0103m theo th\xE1ng (top 12 danh\
+  \ m\u1EE5c)"
+description: "Ngu\u1ED3n: presentation.v_category_seasonality"
+certified_by: null
+certification_details: null
+viz_type: heatmap_v2
+params:
+  viz_type: heatmap_v2
+  x_axis: purchase_month
+  groupby: category
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(pct_of_category_year)
+    label: "% doanh thu n\u0103m"
+    hasCustomLabel: true
+    optionName: "metric__doanh_thu_n\u0103m"
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SQL
+    sqlExpression: revenue_rank <= 12
+  row_limit: 10000
+  sort_x_axis: alpha_asc
+  sort_y_axis: alpha_asc
+  normalize_across: heatmap
+  legend_type: continuous
+  linear_color_scheme: superset_seq_1
+  xscale_interval: -1
+  yscale_interval: -1
+  left_margin: auto
+  bottom_margin: auto
+  value_bounds:
+  - null
+  - null
+  y_axis_format: ',.1f'
+  show_legend: true
+  show_percentage: false
+  show_values: true
+  datasource: 14__table
+query_context: null
+cache_timeout: 600
+uuid: 76a68075-adbe-4778-b8d4-d97adf7dbc44
+version: 1.0.0
+dataset_uuid: e7729351-19ae-4197-8210-763415b357dc

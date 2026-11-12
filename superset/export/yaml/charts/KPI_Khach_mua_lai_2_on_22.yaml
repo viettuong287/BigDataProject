@@ -1,0 +1,24 @@
+slice_name: "KPI \xB7 Kh\xE1ch mua l\u1EA1i (\u22652 \u0111\u01A1n)"
+description: "Ngu\u1ED3n: presentation.v_rfm_customers"
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(CASE WHEN frequency >= 2 THEN 1 ELSE 0 END)
+    label: "Kh\xE1ch mua l\u1EA1i"
+    hasCustomLabel: true
+    optionName: "metric_kh\xE1ch_mua_l\u1EA1i"
+  adhoc_filters: []
+  y_axis_format: ',.0f'
+  header_font_size: 0.3
+  subheader_font_size: 0.125
+  subheader: "frequency \u2265 2"
+  datasource: 9__table
+query_context: null
+cache_timeout: 600
+uuid: 3bb7cfd7-b339-4d40-b113-71b9108c4545
+version: 1.0.0
+dataset_uuid: 4cfabe6e-b829-4f15-9af8-bd3084d4435c

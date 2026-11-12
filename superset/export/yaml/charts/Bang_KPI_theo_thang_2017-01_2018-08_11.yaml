@@ -1,0 +1,57 @@
+slice_name: "B\u1EA3ng KPI theo th\xE1ng (2017-01 \u2192 2018-08)"
+description: "Ngu\u1ED3n: presentation.v_kpi_monthly"
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: raw
+  all_columns:
+  - month_label
+  - orders
+  - customers
+  - revenue
+  - avg_order_value
+  - late_delivery_pct
+  - avg_review_score
+  - revenue_mom_pct
+  - revenue_yoy_pct
+  - revenue_rank
+  order_by_cols:
+  - '["month_date", true]'
+  row_limit: 1000
+  server_page_length: 20
+  include_search: true
+  show_cell_bars: true
+  allow_rearrange_columns: true
+  table_timestamp_format: '%Y-%m'
+  column_config:
+    revenue:
+      d3NumberFormat: ',.0f'
+    avg_order_value:
+      d3NumberFormat: ',.2f'
+  conditional_formatting:
+  - column: late_delivery_pct
+    operator: '>'
+    targetValue: 15
+    colorScheme: '#EFA1AA'
+  - column: avg_review_score
+    operator: <
+    targetValue: 4
+    colorScheme: '#FDE380'
+  - column: revenue_rank
+    operator: <=
+    targetValue: 3
+    colorScheme: '#ACE1C4'
+  adhoc_filters:
+  - clause: WHERE
+    subject: month_date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  datasource: 11__table
+query_context: null
+cache_timeout: 600
+uuid: 232e95e0-97bb-40b2-804f-375bfb86b070
+version: 1.0.0
+dataset_uuid: f21db043-e9c3-4b07-810d-e4fb226e9afe

@@ -1,0 +1,29 @@
+slice_name: "KPI \xB7 \u0110\u01A1n h\xE0ng h\u1EE3p l\u1EC7"
+description: "Ngu\u1ED3n: presentation.v_orders"
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: COUNT(*)
+    label: "S\u1ED1 \u0111\u01A1n"
+    hasCustomLabel: true
+    optionName: "metric_s\u1ED1_\u0111\u01A1n"
+  adhoc_filters:
+  - clause: WHERE
+    subject: month_date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  y_axis_format: ',.0f'
+  header_font_size: 0.3
+  subheader_font_size: 0.125
+  subheader: is_valid_sale
+  datasource: 12__table
+query_context: null
+cache_timeout: 600
+uuid: e7ddc7bf-0665-4b71-a283-74134ad431f1
+version: 1.0.0
+dataset_uuid: 5f023a25-e62c-495f-a53c-f190c6c3f714

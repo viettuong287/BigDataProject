@@ -1,0 +1,324 @@
+{
+  "row_counts": [
+    {
+      "table": "analytics.kpi_monthly",
+      "parquet_rows": 20,
+      "postgres_rows": 20,
+      "ok": true
+    },
+    {
+      "table": "analytics.category_pareto",
+      "parquet_rows": 74,
+      "postgres_rows": 74,
+      "ok": true
+    },
+    {
+      "table": "analytics.category_seasonality",
+      "parquet_rows": 715,
+      "postgres_rows": 715,
+      "ok": true
+    },
+    {
+      "table": "analytics.state_logistics",
+      "parquet_rows": 27,
+      "postgres_rows": 27,
+      "ok": true
+    },
+    {
+      "table": "analytics.insight_distance",
+      "parquet_rows": 4,
+      "postgres_rows": 4,
+      "ok": true
+    },
+    {
+      "table": "analytics.rfm_scores",
+      "parquet_rows": 94983,
+      "postgres_rows": 94983,
+      "ok": true
+    },
+    {
+      "table": "analytics.repeat_profile",
+      "parquet_rows": 2,
+      "postgres_rows": 2,
+      "ok": true
+    },
+    {
+      "table": "analytics.repeat_categories",
+      "parquet_rows": 70,
+      "postgres_rows": 70,
+      "ok": true
+    },
+    {
+      "table": "analytics.repeat_states",
+      "parquet_rows": 27,
+      "postgres_rows": 27,
+      "ok": true
+    },
+    {
+      "table": "analytics.customer_segments",
+      "parquet_rows": 94983,
+      "postgres_rows": 94983,
+      "ok": true
+    },
+    {
+      "table": "analytics.cluster_profile",
+      "parquet_rows": 4,
+      "postgres_rows": 4,
+      "ok": true
+    },
+    {
+      "table": "analytics.seller_pareto",
+      "parquet_rows": 3053,
+      "postgres_rows": 3053,
+      "ok": true
+    },
+    {
+      "table": "analytics.seller_watchlist",
+      "parquet_rows": 153,
+      "postgres_rows": 153,
+      "ok": true
+    },
+    {
+      "table": "analytics.insight_late_vs_review",
+      "parquet_rows": 2,
+      "postgres_rows": 2,
+      "ok": true
+    },
+    {
+      "table": "analytics.delay_vs_review",
+      "parquet_rows": 5,
+      "postgres_rows": 5,
+      "ok": true
+    },
+    {
+      "table": "analytics.payment_mix",
+      "parquet_rows": 10,
+      "postgres_rows": 10,
+      "ok": true
+    },
+    {
+      "table": "gold.fact_orders",
+      "parquet_rows": 99441,
+      "postgres_rows": 99441,
+      "ok": true
+    },
+    {
+      "table": "gold.fact_order_items",
+      "parquet_rows": 112650,
+      "postgres_rows": 112650,
+      "ok": true
+    },
+    {
+      "table": "gold.agg_sales_monthly",
+      "parquet_rows": 24,
+      "postgres_rows": 24,
+      "ok": true
+    },
+    {
+      "table": "gold.agg_category_monthly",
+      "parquet_rows": 1282,
+      "postgres_rows": 1282,
+      "ok": true
+    },
+    {
+      "table": "gold.agg_customer_state",
+      "parquet_rows": 27,
+      "postgres_rows": 27,
+      "ok": true
+    },
+    {
+      "table": "gold.agg_seller_performance",
+      "parquet_rows": 3053,
+      "postgres_rows": 3053,
+      "ok": true
+    },
+    {
+      "table": "gold.agg_customer_rfm",
+      "parquet_rows": 94983,
+      "postgres_rows": 94983,
+      "ok": true
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Gold SUM(revenue) – agg_sales_monthly",
+      "expected": "13494400.74",
+      "tol": 0.005,
+      "sql": "SELECT SUM(revenue) FROM gold.agg_sales_monthly;",
+      "got": "13494400.74",
+      "status": "ĐẠT",
+      "ms": 82.2
+    },
+    {
+      "name": "Gold SUM(price) – fact_order_items (is_valid_sale)",
+      "expected": "13494400.74",
+      "tol": 0.005,
+      "sql": "SELECT SUM(price) FROM gold.fact_order_items WHERE is_valid_sale;",
+      "got": "13494400.74",
+      "status": "ĐẠT",
+      "ms": 296.3
+    },
+    {
+      "name": "kpi_monthly có 20 tháng",
+      "expected": "20",
+      "tol": 0.0,
+      "sql": "SELECT COUNT(*) FROM analytics.kpi_monthly;",
+      "got": 20,
+      "status": "ĐẠT",
+      "ms": 76.2
+    },
+    {
+      "name": "kpi_monthly không chứa 2016 và 2018-09",
+      "expected": "0",
+      "tol": 0.0,
+      "sql": "SELECT COUNT(*) FROM analytics.kpi_monthly\nWHERE purchase_year = 2016 OR (purchase_year = 2018 AND purchase_month >= 9);",
+      "got": 0,
+      "status": "ĐẠT",
+      "ms": 100.7
+    },
+    {
+      "name": "Tổng revenue kpi_monthly (nhỏ hơn gold vì cắt tháng rỗng)",
+      "expected": "info",
+      "tol": 0.0,
+      "sql": "SELECT SUM(revenue) FROM analytics.kpi_monthly;",
+      "got": "13449529.68",
+      "status": "INFO",
+      "ms": 100.9
+    },
+    {
+      "name": "Tháng đỉnh doanh thu",
+      "expected": "2017-11",
+      "tol": 0.0,
+      "sql": "SELECT month_label FROM presentation.v_kpi_monthly ORDER BY revenue DESC LIMIT 1;",
+      "got": "2017-11",
+      "status": "ĐẠT",
+      "ms": 122.4
+    },
+    {
+      "name": "MoM tháng đỉnh (%)",
+      "expected": "52.06",
+      "tol": 0.005,
+      "sql": "SELECT revenue_mom_pct FROM presentation.v_kpi_monthly ORDER BY revenue DESC LIMIT 1;",
+      "got": "52.06",
+      "status": "ĐẠT",
+      "ms": 111.0
+    },
+    {
+      "name": "Review đơn trễ",
+      "expected": "2.56",
+      "tol": 0.005,
+      "sql": "SELECT avg_review FROM analytics.insight_late_vs_review WHERE delivery = 'late';",
+      "got": 2.56,
+      "status": "ĐẠT",
+      "ms": 117.8
+    },
+    {
+      "name": "Review đơn đúng hạn",
+      "expected": "4.29",
+      "tol": 0.005,
+      "sql": "SELECT avg_review FROM analytics.insight_late_vs_review WHERE delivery = 'on_time';",
+      "got": 4.29,
+      "status": "ĐẠT",
+      "ms": 84.3
+    },
+    {
+      "name": "Số khách mua lại (frequency ≥ 2)",
+      "expected": "2887",
+      "tol": 0.0,
+      "sql": "SELECT COUNT(*) FROM analytics.rfm_scores WHERE frequency >= 2;",
+      "got": 2887,
+      "status": "ĐẠT",
+      "ms": 169.8
+    },
+    {
+      "name": "Tổng khách thật (customer_unique_id)",
+      "expected": "94983",
+      "tol": 0.0,
+      "sql": "SELECT COUNT(DISTINCT customer_unique_id) FROM analytics.rfm_scores;",
+      "got": 94983,
+      "status": "ĐẠT",
+      "ms": 226.8
+    },
+    {
+      "name": "Tỷ lệ khách mua lại (%)",
+      "expected": "3.04",
+      "tol": 0.005,
+      "sql": "SELECT ROUND(100.0 * COUNT(*) FILTER (WHERE frequency >= 2) / COUNT(*), 2) FROM analytics.rfm_scores;",
+      "got": "3.04",
+      "status": "ĐẠT",
+      "ms": 109.3
+    },
+    {
+      "name": "Tỷ lệ frequency = 1 (%)",
+      "expected": "96.96",
+      "tol": 0.005,
+      "sql": "SELECT ROUND(100.0 * COUNT(*) FILTER (WHERE frequency = 1) / COUNT(*), 2) FROM analytics.rfm_scores;",
+      "got": "96.96",
+      "status": "ĐẠT",
+      "ms": 184.8
+    },
+    {
+      "name": "Seller watchlist",
+      "expected": "153",
+      "tol": 0.0,
+      "sql": "SELECT COUNT(*) FROM analytics.seller_watchlist;",
+      "got": 153,
+      "status": "ĐẠT",
+      "ms": 100.8
+    },
+    {
+      "name": "Số seller tạo ≤80% doanh thu",
+      "expected": "539",
+      "tol": 0.0,
+      "sql": "SELECT COUNT(*) FROM analytics.seller_pareto WHERE cumulative_share_pct <= 80;",
+      "got": 539,
+      "status": "ĐẠT",
+      "ms": 186.5
+    },
+    {
+      "name": "Nhất quán: SUM(revenue) v_orders = SUM(revenue) kpi_monthly",
+      "expected": "0",
+      "tol": 0.005,
+      "sql": "SELECT (SELECT SUM(revenue) FROM presentation.v_orders) - (SELECT SUM(revenue) FROM analytics.kpi_monthly);",
+      "got": "0.00",
+      "status": "ĐẠT",
+      "ms": 349.1
+    },
+    {
+      "name": "Nhất quán: COUNT đơn v_orders = SUM(orders) kpi_monthly",
+      "expected": "0",
+      "tol": 0.0,
+      "sql": "SELECT (SELECT COUNT(*) FROM presentation.v_orders) - (SELECT SUM(orders) FROM analytics.kpi_monthly);",
+      "got": "0",
+      "status": "ĐẠT",
+      "ms": 131.9
+    },
+    {
+      "name": "Nhất quán: SUM(revenue) v_sales_items = SUM(revenue) kpi_monthly",
+      "expected": "0",
+      "tol": 0.005,
+      "sql": "SELECT (SELECT SUM(revenue) FROM presentation.v_sales_items) - (SELECT SUM(revenue) FROM analytics.kpi_monthly);",
+      "got": "0.00",
+      "status": "ĐẠT",
+      "ms": 166.4
+    },
+    {
+      "name": "Nhất quán: tổng khách theo segment = tổng khách RFM",
+      "expected": "94983",
+      "tol": 0.0,
+      "sql": "SELECT SUM(customers) FROM presentation.v_rfm_segments;",
+      "got": "94983",
+      "status": "ĐẠT",
+      "ms": 186.6
+    },
+    {
+      "name": "Số dòng gợi ý quyết định",
+      "expected": "7",
+      "tol": 0.0,
+      "sql": "SELECT COUNT(*) FROM presentation.v_decision_hints;",
+      "got": 7,
+      "status": "ĐẠT",
+      "ms": 160.1
+    }
+  ]
+}

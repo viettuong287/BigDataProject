@@ -1,0 +1,53 @@
+slice_name: "Ng\u01B0\u1EE1ng ng\xE0y tr\u1EC5: review TB (c\u1ED9t) & % 1 sao (\u0111\
+  \u01B0\u1EDDng)"
+description: "Ngu\u1ED3n: presentation.v_delay_vs_review"
+certified_by: null
+certification_details: null
+viz_type: mixed_timeseries
+params:
+  viz_type: mixed_timeseries
+  x_axis: delay_label
+  metrics:
+  - expressionType: SQL
+    sqlExpression: MAX(avg_review)
+    label: Review TB
+    hasCustomLabel: true
+    optionName: metric_review_tb
+  metrics_b:
+  - expressionType: SQL
+    sqlExpression: MAX(pct_1_star)
+    label: '% 1 sao'
+    hasCustomLabel: true
+    optionName: metric__1_sao
+  groupby: []
+  groupby_b: []
+  adhoc_filters: []
+  adhoc_filters_b: []
+  seriesType: bar
+  seriesTypeB: line
+  yAxisIndex: 0
+  yAxisIndexB: 1
+  y_axis_format: ',.2f'
+  y_axis_format_secondary: ',.1f'
+  show_legend: true
+  legendOrientation: top
+  rich_tooltip: true
+  markerEnabled: true
+  row_limit: 10000
+  row_limit_b: 10000
+  truncate_metric: true
+  zoomable: false
+  x_axis_time_format: '%Y-%m'
+  color_scheme: supersetColors
+  show_value: true
+  show_valueB: true
+  order_desc: true
+  order_desc_b: true
+  x_axis_sort: delay_label
+  x_axis_sort_asc: true
+  datasource: 23__table
+query_context: null
+cache_timeout: 600
+uuid: 80c06bfc-a654-4b66-a954-a28545c37d6c
+version: 1.0.0
+dataset_uuid: d3f7c46b-84c6-4b30-a042-7cd27de879d1

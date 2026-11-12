@@ -1,0 +1,39 @@
+slice_name: "AOV theo s\u1ED1 k\u1EF3 tr\u1EA3 g\xF3p (BRL)"
+description: "Ngu\u1ED3n: presentation.v_payment_mix"
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: installment_label
+  metrics:
+  - expressionType: SQL
+    sqlExpression: SUM(gmv) / NULLIF(SUM(orders), 0)
+    label: AOV (BRL)
+    hasCustomLabel: true
+    optionName: metric_aov_brl_
+  groupby: []
+  adhoc_filters: []
+  row_limit: 10
+  truncate_metric: true
+  show_legend: false
+  legendOrientation: top
+  rich_tooltip: true
+  y_axis_format: ',.2f'
+  x_axis_time_format: '%Y-%m'
+  markerEnabled: true
+  zoomable: false
+  color_scheme: supersetColors
+  only_total: true
+  order_desc: true
+  x_axis_sort: installment_label
+  x_axis_sort_asc: true
+  orientation: vertical
+  show_value: true
+  xAxisLabelRotation: 45
+  datasource: 24__table
+query_context: null
+cache_timeout: 600
+uuid: 3367147e-bf7e-4ed2-b88c-685153d4c3c8
+version: 1.0.0
+dataset_uuid: b55f3a1f-fda1-4719-a359-6d7a3d783d02

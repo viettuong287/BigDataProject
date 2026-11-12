@@ -1,0 +1,42 @@
+slice_name: "C\u01A1 c\u1EA5u \u0111\u01A1n theo PTTT (l\u1ECDc \u0111\u01B0\u1EE3\
+  c theo th\xE1ng/bang)"
+description: "Ngu\u1ED3n: presentation.v_orders"
+certified_by: null
+certification_details: null
+viz_type: pie
+params:
+  viz_type: pie
+  groupby:
+  - main_payment_type
+  metric:
+    expressionType: SQL
+    sqlExpression: COUNT(*)
+    label: "S\u1ED1 \u0111\u01A1n"
+    hasCustomLabel: true
+    optionName: "metric_s\u1ED1_\u0111\u01A1n"
+  adhoc_filters:
+  - clause: WHERE
+    subject: month_date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  row_limit: 100
+  sort_by_metric: true
+  show_labels: true
+  label_type: key_percent
+  labels_outside: true
+  label_line: true
+  donut: true
+  innerRadius: 35
+  outerRadius: 70
+  show_legend: true
+  legendOrientation: right
+  number_format: ',.0f'
+  color_scheme: supersetColors
+  show_total: true
+  datasource: 12__table
+query_context: null
+cache_timeout: 600
+uuid: 2c757d67-b12b-449e-9cd1-798997fca4c8
+version: 1.0.0
+dataset_uuid: 5f023a25-e62c-495f-a53c-f190c6c3f714

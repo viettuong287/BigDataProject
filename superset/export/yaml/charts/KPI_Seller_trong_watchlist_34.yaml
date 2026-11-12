@@ -1,0 +1,24 @@
+slice_name: "KPI \xB7 Seller trong watchlist"
+description: "Ngu\u1ED3n: presentation.v_seller_pareto"
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(CASE WHEN is_watchlist THEN 1 ELSE 0 END)
+    label: Watchlist
+    hasCustomLabel: true
+    optionName: metric_watchlist
+  adhoc_filters: []
+  y_axis_format: ',.0f'
+  header_font_size: 0.3
+  subheader_font_size: 0.125
+  subheader: "top 10% doanh thu, v\u1EADn h\xE0nh k\xE9m"
+  datasource: 20__table
+query_context: null
+cache_timeout: 600
+uuid: 8857626b-c77d-423a-82c4-b1aa301aa862
+version: 1.0.0
+dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

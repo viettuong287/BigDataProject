@@ -1,0 +1,5 @@
+{
+  "_comment": "Ghi đè chú thích ảnh minh chứng theo tên file (có hoặc không có đuôi). Ảnh không có trong danh sách sẽ dùng chú thích tự sinh theo từ khoá trong tên file.",
+  "architecture.png": "Sơ đồ kiến trúc hệ thống Analytics → Presentation (vẽ bởi nhóm)",
+  "dashboard_overview": "Dashboard Superset – tab Tổng quan với các thẻ KPI và xu hướng doanh thu"
+}
