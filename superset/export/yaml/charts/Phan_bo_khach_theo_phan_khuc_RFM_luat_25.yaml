@@ -26,7 +26,7 @@ params:
   show_legend: true
   legendOrientation: right
   number_format: ',.0f'
-  color_scheme: supersetColors
+  color_scheme: olistInsight
   show_total: true
   datasource: 9__table
 query_context: null

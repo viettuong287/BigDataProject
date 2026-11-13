@@ -14,7 +14,7 @@ params:
     hasCustomLabel: true
     optionName: metric_doanh_thu_brl_
   adhoc_filters: []
-  linear_color_scheme: superset_seq_1
+  linear_color_scheme: olistInsightSeq
   number_format: ',.0f'
   datasource: 10__table
 query_context: null

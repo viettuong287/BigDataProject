@@ -64,7 +64,9 @@ Sơ đồ chi tiết: [`docs/architecture.md`](docs/architecture.md) · ảnh PN
 ├── sql/
 │   ├── 10_presentation_views.sql   # semantic layer (schema presentation)
 │   └── 90_anchor_checks.sql        # 19 kiểm tra số neo
-├── superset/               # Dockerfile, superset_config.py, build_dashboard.py, import_dashboard.py
+├── superset/               # Dockerfile, superset_config.py, build_dashboard.py, import_dashboard.py, dashboard.css
+│   ├── branding/           # logo + favicon Olist Insight (đồng bộ landing page)
+│   ├── templates/          # tail_js_custom_extra.html: font + CSS chung (thanh menu, trang đăng nhập)
 │   ├── i18n/               # bản dịch tiếng Việt cho giao diện Superset (messages.po + build_catalog.py)
 │   └── export/             # ZIP + YAML export dashboard, build_info.json
 ├── scripts/                # đo latency, thí nghiệm scale, chụp ảnh, vẽ sơ đồ, kiểm kê Neon
@@ -122,6 +124,25 @@ biểu đồ, nhãn cột/metric và bộ lọc là tiếng Việt, đặt trong
 Phần còn tiếng Anh: chuỗi chưa có trong bản dịch (chủ yếu ở SQL Lab, màn hình sửa biểu đồ, trang quản trị), nút
 "All/Inv" của chú giải ECharts, chữ "… ago" cạnh tên người sửa, ô tìm kiếm/phân trang riêng của biểu đồ bảng
 ("153 record") và giá trị dữ liệu gốc (tên danh mục, phân khúc RFM như *Champions*, *At Risk*).
+
+**Giao diện đồng bộ với landing page (thương hiệu Olist Insight).** Superset dùng cùng nhận diện với `web/`:
+- *Thương hiệu* (`superset_config.py`): `APP_NAME = "Olist Insight"`, logo ngang + favicon trong `superset/branding/`
+  (Dockerfile chép vào `/static/assets/images/olist/`); bấm logo về landing page (`LOGO_TARGET_PATH`, đổi bằng biến
+  môi trường `LANDING_URL`, mặc định `http://localhost:8090/`); nút "Trang giới thiệu" ở thanh menu phải (`DOCUMENTATION_URL`).
+- *Theme* (`THEME_OVERRIDES`): màu chính chàm `#6366f1`, phụ xanh ngọc `#10b981`, thang xám xanh (slate), bo góc 8 px,
+  font **Be Vietnam Pro** (đủ dấu tiếng Việt, nạp từ Google Fonts; mất mạng thì rơi về Inter/Segoe UI).
+- *Bảng màu chart*: `olistInsight` (phân loại, mặc định – doanh thu xanh ngọc, số đơn chàm như biểu đồ hero của landing)
+  và `olistInsightSeq` (liên tục xanh ngọc → chàm cho bản đồ Brazil, heatmap); `build_dashboard.py` gán cho mọi chart.
+- *CSS*: `superset/templates/tail_js_custom_extra.html` (mọi trang: font, thanh menu kính tối, trang đăng nhập) và
+  `superset/dashboard.css` (riêng dashboard, `build_dashboard.py` ghi vào trường `css` nên có trong ZIP export): nền
+  gradient + blob như landing, tab dạng pill, thanh bộ lọc kính tối, thẻ KPI/markdown kính tối, còn thẻ biểu đồ là
+  **kính sáng** để chữ trục, chú giải, bảng của ECharts luôn dễ đọc.
+- Giới hạn của Superset 4.1: chưa có dark mode thật cho chart (ECharts/bảng vẽ chữ tối) nên không đặt chart trên nền tối;
+  phần chữ vẽ trên canvas ECharts dùng font hệ thống; màn hình sửa biểu đồ/SQL Lab chỉ đổi màu theme và thanh menu.
+
+Sửa logo/template: `docker compose build superset && docker compose up -d superset`; sửa `dashboard.css` hay bảng màu
+chart: chạy lại `build_dashboard.py`. Ảnh: `docker compose run --rm screenshots python scripts/screenshot_giao_dien.py`
+→ `evidence/superset_giao_dien_dong_bo_*.png`.
 
 **Bước 3 – tái tạo minh chứng (tuỳ chọn):**
 
@@ -209,6 +230,7 @@ At Risk; 17,65% seller tạo 80% doanh thu.
 | Neon | Kiểm kê 25 bảng + 22 view, số dòng, dung lượng (146 MB), thông tin project | `neon_tables_inventory.png`, `neon_inventory.csv`, `neon_project.json` |
 | Kiến trúc | Sơ đồ data-flow | `architecture_pipeline.png`, `docs/architecture.png` |
 | Landing page | Trang giới thiệu tại `:8090`, số liệu thật từ Neon, chụp ở 1440 px và 390 px (không lỗi JS) | `landing_page_desktop.png`, `landing_page_mobile.png` |
+| Giao diện đồng bộ | Superset mang thương hiệu Olist Insight: đăng nhập, 7 tab (0 chart lỗi), ảnh so sánh landing ↔ dashboard (`scripts/screenshot_giao_dien.py`) | `superset_giao_dien_dong_bo_*.png` |
 
 ## 9. Hạn chế đã biết
 

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 36" width="180" height="36" role="img" aria-label="Olist Insight">
+  <defs>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="36" height="36" rx="10" fill="url(#mark)"/>
+  <path d="M7.9 24.8l6.7-7.9 4.5 4.5 9-11.3" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="46" y="25" font-family="'Be Vietnam Pro','Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="19" letter-spacing="-0.2">
+    <tspan fill="#e8ecf8" font-weight="600">Olist</tspan>
+    <tspan fill="url(#word)" font-weight="800">Insight</tspan>
+  </text>
+</svg>

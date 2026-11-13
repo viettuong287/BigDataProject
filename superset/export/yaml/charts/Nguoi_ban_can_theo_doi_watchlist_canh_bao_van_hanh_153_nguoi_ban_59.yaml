@@ -58,19 +58,19 @@ params:
   - column: avg_review_score
     operator: <
     targetValue: 4
-    colorScheme: '#EFA1AA'
+    colorScheme: '#f87171'
   - column: avg_delivery_days
     operator: '>'
     targetValue: 15
-    colorScheme: '#FDE380'
+    colorScheme: '#fbbf24'
   - column: late_delivery_pct
     operator: '>'
     targetValue: 10
-    colorScheme: '#EFA1AA'
+    colorScheme: '#f87171'
   - column: violations
     operator: '>='
     targetValue: 2
-    colorScheme: '#EFA1AA'
+    colorScheme: '#f87171'
   adhoc_filters: []
   datasource: 21__table
 query_context: null

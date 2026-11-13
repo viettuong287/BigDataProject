@@ -28,6 +28,11 @@ params:
   subheader_font_size: 0.125
   rolling_type: None
   time_format: '%Y-%m'
+  color_picker:
+    r: 52
+    g: 211
+    b: 153
+    a: 1
   datasource: 11__table
 query_context: null
 cache_timeout: 600

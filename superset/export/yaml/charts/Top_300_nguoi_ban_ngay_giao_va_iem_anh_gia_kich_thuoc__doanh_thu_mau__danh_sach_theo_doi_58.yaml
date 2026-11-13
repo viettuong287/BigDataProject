@@ -39,7 +39,7 @@ params:
   y_axis_format: ',.2f'
   opacity: 0.6
   show_legend: true
-  color_scheme: supersetColors
+  color_scheme: olistInsight
   tooltipSizeFormat: ',.0f'
   datasource: 20__table
 query_context: null

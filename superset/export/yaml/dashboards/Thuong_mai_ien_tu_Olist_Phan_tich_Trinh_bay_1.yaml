@@ -1,7 +1,173 @@
 dashboard_title: "Th\u01B0\u01A1ng m\u1EA1i \u0111i\u1EC7n t\u1EED Olist \xB7 Ph\xE2\
   n t\xEDch \u2192 Tr\xECnh b\xE0y"
 description: null
-css: null
+css: "/* Olist Insight \u2013 CSS dashboard \u0111\u1ED3ng b\u1ED9 v\u1EDBi landing\
+  \ page (web/assets/style.css).\n   build_dashboard.py ghi t\u1EC7p n\xE0y v\xE0\
+  o tr\u01B0\u1EDDng css c\u1EE7a dashboard (c\xF3 trong ZIP export).\n   N\u1EC1\
+  n t\u1ED1i + blob gi\u1ED1ng landing; th\u1EBB bi\u1EC3u \u0111\u1ED3 l\xE0 k\xED\
+  nh S\xC1NG \u0111\u1EC3 ch\u1EEF tr\u1EE5c/ch\xFA gi\u1EA3i ECharts lu\xF4n d\u1EC5\
+  \ \u0111\u1ECDc;\n   th\u1EBB KPI v\xE0 kh\u1ED1i markdown l\xE0 k\xEDnh T\u1ED0\
+  I nh\u01B0 th\u1EBB KPI c\u1EE7a landing. */\n@import url(\"https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap\"\
+  );\n\n:root {\n  --oi-bg: #070b1a;\n  --oi-text: #e8ecf8;\n  --oi-muted: #9aa5c4;\n\
+  \  --oi-line: rgba(255, 255, 255, 0.14);\n  --oi-glass: rgba(255, 255, 255, 0.06);\n\
+  \  --oi-green: #34d399;\n  --oi-indigo: #818cf8;\n  --oi-ink: #0b1024;\n  --oi-radius:\
+  \ 20px;\n  --oi-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);\n  --oi-font: \"Be\
+  \ Vietnam Pro\", Inter, \"Segoe UI\", Helvetica, Arial, sans-serif;\n}\n\n/* ----\
+  \ N\u1EC1n: gradient + blob m\u1EDD (nh\u01B0 .bg/.blob c\u1EE7a landing) ---- */\n\
+  body {\n  background:\n    radial-gradient(520px 520px at 6% 4%, rgba(99, 102, 241,\
+  \ 0.45) 0%, transparent 70%),\n    radial-gradient(480px 480px at 98% 30%, rgba(16,\
+  \ 185, 129, 0.38) 0%, transparent 70%),\n    radial-gradient(440px 440px at 40%\
+  \ 85%, rgba(219, 39, 119, 0.22) 0%, transparent 70%),\n    radial-gradient(1200px\
+  \ 700px at 10% 0, #1e1b4b 0%, transparent 60%),\n    radial-gradient(900px 600px\
+  \ at 100% 300px, #064e3b 0%, transparent 55%),\n    linear-gradient(180deg, #070b1a\
+  \ 0%, #0b1024 100%) fixed !important;\n  background-attachment: fixed !important;\n\
+  \  color: var(--oi-text);\n}\n#app, #app > div, #app > div > div,\n.dashboard, .dashboard-content,\
+  \ .grid-container, .grid-row, .dashboard-component-tabs,\n.dashboard-component-tabs\
+  \ .ant-tabs-content-holder, #GRID_ID, #GRID_ID .ant-tabs-content-holder {\n  background:\
+  \ transparent !important;\n}\n\n/* ---- Thanh ti\xEAu \u0111\u1EC1 dashboard (sticky):\
+  \ k\xEDnh t\u1ED1i ---- */\n#app > div > div:has(.dashboard-header-container) {\n\
+  \  background: rgba(7, 11, 26, 0.72) !important;\n  backdrop-filter: blur(16px)\
+  \ saturate(140%);\n  -webkit-backdrop-filter: blur(16px) saturate(140%);\n  border-bottom:\
+  \ 1px solid var(--oi-line);\n}\n.dashboard-header-container, .header-with-actions\
+  \ { background: transparent !important; border: 0 !important; }\n.header-with-actions\
+  \ .title-panel, .header-with-actions .dynamic-title, .header-with-actions .editable-title\
+  \ input {\n  color: #fff !important;\n  font-family: var(--oi-font) !important;\n\
+  \  font-weight: 800 !important;\n  letter-spacing: -0.01em;\n}\n.header-with-actions\
+  \ .title-panel { font-size: 22px; }\n.header-with-actions .title-panel .ant-tag\
+  \ {\n  background: rgba(52, 211, 153, 0.12) !important; border: 1px solid rgba(52,\
+  \ 211, 153, 0.35) !important;\n  color: #a7f3d0 !important; border-radius: 999px;\
+  \ font-weight: 600;\n}\n.header-with-actions .title-panel .fave-unfave-icon .anticon,\n\
+  .header-with-actions .title-panel .fave-unfave-icon svg { color: var(--oi-muted)\
+  \ !important; }\n/* thanh metadata (ng\u01B0\u1EDDi s\u1EEDa, th\u1EDDi gian) */\n\
+  .header-with-actions .title-panel > div > div:last-child {\n  background: rgba(255,\
+  \ 255, 255, 0.06) !important; border: 1px solid var(--oi-line); border-radius: 999px;\n\
+  \  color: var(--oi-muted) !important;\n}\n.header-with-actions .title-panel > div\
+  \ > div:last-child * { color: var(--oi-muted) !important; }\n.header-with-actions\
+  \ .right-button-panel .ant-btn {\n  background: rgba(255, 255, 255, 0.1) !important;\
+  \ border: 1px solid var(--oi-line) !important;\n  color: var(--oi-text) !important;\
+  \ border-radius: 999px !important; font-weight: 600;\n}\n.header-with-actions .right-button-panel\
+  \ .ant-btn:hover { background: rgba(255, 255, 255, 0.18) !important; }\n.header-with-actions\
+  \ .right-button-panel .ant-btn .anticon, .header-with-actions .right-button-panel\
+  \ .ant-btn svg {\n  color: var(--oi-text) !important;\n}\n\n/* ---- Tab: d\u1EA3\
+  i \"pill\" k\xEDnh, tab \u0111ang ch\u1ECDn t\xF4 gradient xanh ng\u1ECDc -> ch\xE0\
+  m ---- */\n.dashboard-component-tabs > .ant-tabs > .ant-tabs-nav {\n  margin: 6px\
+  \ 0 4px !important;\n  padding: 5px;\n  border: 1px solid var(--oi-line);\n  border-radius:\
+  \ 999px;\n  background: var(--oi-glass);\n  backdrop-filter: blur(18px) saturate(140%);\n\
+  \  -webkit-backdrop-filter: blur(18px) saturate(140%);\n  box-shadow: var(--oi-shadow),\
+  \ inset 0 1px 0 rgba(255, 255, 255, 0.08);\n}\n.dashboard-component-tabs > .ant-tabs\
+  \ > .ant-tabs-nav::before { display: none !important; }\n/* min-width 0: d\u1EA3\
+  i tab r\u1ED9ng h\u01A1n m\xE0n h\xECnh th\xEC antd gom tab th\u1EEBa v\xE0o n\xFA\
+  t \"\u2026\" thay v\xEC \u0111\u1EA9y c\u1EA3 trang tr\xE0n ngang */\n#app > div\
+  \ > div:has(.dashboard-header-container), #app > div > div:has(.dashboard-content),\n\
+  .dashboard-component-tabs, .dashboard-component-tabs > .ant-tabs { min-width: 0\
+  \ !important; }\n.dashboard-component-tabs .ant-tabs-nav .ant-tabs-tab {\n  margin:\
+  \ 0 1px !important;\n  padding: 6px 10px !important;\n  font-size: 13px;\n  border:\
+  \ 0 !important;\n  border-radius: 999px !important;\n  background: transparent !important;\n\
+  \  transition: background 0.2s;\n}\n.dashboard-component-tabs .ant-tabs-nav .ant-tabs-tab,\n\
+  .dashboard-component-tabs .ant-tabs-nav .ant-tabs-tab .editable-title,\n.dashboard-component-tabs\
+  \ .ant-tabs-nav .ant-tabs-tab-btn {\n  color: var(--oi-muted) !important;\n  font-weight:\
+  \ 600;\n}\n.dashboard-component-tabs .ant-tabs-nav .ant-tabs-tab:not(.ant-tabs-tab-active):hover\
+  \ { background: rgba(255, 255, 255, 0.08) !important; }\n.dashboard-component-tabs\
+  \ .ant-tabs-nav .ant-tabs-tab:hover .editable-title { color: var(--oi-text) !important;\
+  \ }\n.dashboard-component-tabs .ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active {\n\
+  \  background: linear-gradient(135deg, #10b981, #6366f1) !important;\n  box-shadow:\
+  \ 0 10px 30px -10px rgba(99, 102, 241, 0.8);\n}\n.dashboard-component-tabs .ant-tabs-nav\
+  \ .ant-tabs-tab-active .editable-title,\n.dashboard-component-tabs .ant-tabs-nav\
+  \ .ant-tabs-tab-active .ant-tabs-tab-btn { color: #fff !important; }\n.dashboard-component-tabs\
+  \ .ant-tabs-ink-bar { display: none !important; }\n.dashboard-component-tabs .ant-tabs-nav-more,\
+  \ .dashboard-component-tabs .ant-tabs-nav-more .anticon { color: var(--oi-text)\
+  \ !important; }\n.dashboard-component-tabs .short-link-trigger { display: none !important;\
+  \ }\n\n/* ---- Th\u1EBB bi\u1EC3u \u0111\u1ED3: k\xEDnh s\xE1ng, bo 20px, \u0111\
+  \u1ED5 b\xF3ng m\u1EC1m ---- */\n.dashboard-component-chart-holder {\n  background:\
+  \ linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(243, 245, 255, 0.93))\
+  \ !important;\n  border: 1px solid rgba(255, 255, 255, 0.55) !important;\n  border-radius:\
+  \ var(--oi-radius) !important;\n  box-shadow: var(--oi-shadow), inset 0 1px 0 rgba(255,\
+  \ 255, 255, 0.7) !important;\n  backdrop-filter: blur(18px) saturate(140%);\n  -webkit-backdrop-filter:\
+  \ blur(18px) saturate(140%);\n  overflow: hidden;\n}\n.dashboard-component-chart-holder\
+  \ .header-title, .dashboard-component-chart-holder .header-title a {\n  color: var(--oi-ink)\
+  \ !important;\n  font-family: var(--oi-font) !important;\n  font-weight: 700 !important;\n\
+  \  letter-spacing: -0.005em;\n}\n.dashboard-component-chart-holder .header-controls\
+  \ .dot { background-color: #94a3b8 !important; }\n/* thanh gi\xE1 tr\u1ECB trong\
+  \ \xF4 b\u1EA3ng: ch\xE0m nh\u1EA1t (d\u01B0\u01A1ng) / \u0111\u1ECF nh\u1EA1t (\xE2\
+  m) thay cho x\xE1m */\n.dashboard-component-chart-holder .cell-bar.positive { background-color:\
+  \ rgba(99, 102, 241, 0.2) !important; }\n.dashboard-component-chart-holder .cell-bar.negative\
+  \ { background-color: rgba(248, 113, 113, 0.32) !important; }\n\n/* ---- Th\u1EBB\
+  \ KPI (big number): k\xEDnh t\u1ED1i nh\u01B0 .kpi c\u1EE7a landing ---- */\n.dashboard-component-chart-holder:has([data-test-viz-type^=\"\
+  big_number\"]) {\n  background:\n    radial-gradient(260px 160px at 0% 0%, rgba(52,\
+  \ 211, 153, 0.16), transparent 70%),\n    radial-gradient(260px 160px at 100% 100%,\
+  \ rgba(99, 102, 241, 0.2), transparent 70%),\n    rgba(255, 255, 255, 0.06) !important;\n\
+  \  border: 1px solid var(--oi-line) !important;\n  box-shadow: var(--oi-shadow),\
+  \ inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;\n}\n.dashboard-component-chart-holder:has([data-test-viz-type^=\"\
+  big_number\"]) .header-title,\n.dashboard-component-chart-holder:has([data-test-viz-type^=\"\
+  big_number\"]) .header-title a {\n  color: var(--oi-muted) !important;\n  font-weight:\
+  \ 600 !important;\n  font-size: 13px !important;\n  line-height: 1.35 !important;\n\
+  }\n.dashboard-component-chart-holder:has([data-test-viz-type^=\"big_number\"]) .header-controls\
+  \ .dot { background-color: var(--oi-muted) !important; }\n.superset-legacy-chart-big-number\
+  \ .header-line {\n  color: #fff !important;\n  font-family: var(--oi-font) !important;\n\
+  \  font-weight: 800 !important;\n  letter-spacing: -0.02em;\n  font-variant-numeric:\
+  \ tabular-nums;\n}\n.superset-legacy-chart-big-number .subheader-line,\n.superset-legacy-chart-big-number\
+  \ .kicker { color: #a7f3d0 !important; font-family: var(--oi-font) !important; }\n\
+  \n/* ---- Kh\u1ED1i markdown: k\xEDnh t\u1ED1i, ti\xEAu \u0111\u1EC1 gradient, code\
+  \ nh\u01B0 landing ---- */\n.dashboard-markdown .dashboard-component-chart-holder\
+  \ {\n  background:\n    radial-gradient(360px 220px at 0% 0%, rgba(99, 102, 241,\
+  \ 0.22), transparent 70%),\n    rgba(255, 255, 255, 0.06) !important;\n  border:\
+  \ 1px solid var(--oi-line) !important;\n  box-shadow: var(--oi-shadow), inset 0\
+  \ 1px 0 rgba(255, 255, 255, 0.08) !important;\n  color: var(--oi-text) !important;\n\
+  \  padding: 20px 22px !important;\n  font-family: var(--oi-font);\n  line-height:\
+  \ 1.6;\n}\n.dashboard-markdown .dashboard-component-chart-holder h3 {\n  margin-top:\
+  \ 0;\n  font-weight: 800;\n  background: linear-gradient(90deg, var(--oi-green),\
+  \ var(--oi-indigo) 60%, #f472b6);\n  -webkit-background-clip: text;\n  background-clip:\
+  \ text;\n  color: transparent !important;\n}\n.dashboard-markdown .dashboard-component-chart-holder\
+  \ p,\n.dashboard-markdown .dashboard-component-chart-holder li { color: #c7cfe6\
+  \ !important; }\n.dashboard-markdown .dashboard-component-chart-holder strong {\
+  \ color: #fff !important; }\n.dashboard-markdown .dashboard-component-chart-holder\
+  \ em { color: #a7f3d0; }\n.dashboard-markdown .dashboard-component-chart-holder\
+  \ code {\n  font-family: ui-monospace, \"Cascadia Code\", Consolas, monospace;\n\
+  \  font-size: 0.85em;\n  padding: 0.1em 0.4em;\n  border-radius: 6px;\n  background:\
+  \ rgba(129, 140, 248, 0.18) !important;\n  color: #c7d2fe !important;\n  border:\
+  \ 0;\n}\n.dashboard-markdown .dashboard-component-chart-holder li::marker { color:\
+  \ var(--oi-green); }\n\n/* ---- Thanh b\u1ED9 l\u1ECDc d\u1ECDc: k\xEDnh t\u1ED1\
+  i ---- */\n#app > div > div:has(.filter-apply-button) div.open:has(> div .filter-apply-button)\
+  \ {\n  background: rgba(255, 255, 255, 0.05) !important;\n  border-right: 1px solid\
+  \ var(--oi-line) !important;\n  backdrop-filter: blur(18px) saturate(140%);\n  -webkit-backdrop-filter:\
+  \ blur(18px) saturate(140%);\n}\n#app > div > div:has(.filter-apply-button) * {\
+  \ border-color: var(--oi-line); }\n#app > div > div:has(.filter-apply-button) div:has(>\
+  \ .filter-apply-button) {\n  background: rgba(7, 11, 26, 0.6) !important;\n  border-top:\
+  \ 1px solid var(--oi-line) !important;\n}\n#app > div > div:has(.filter-apply-button)\
+  \ h3,\n#app > div > div:has(.filter-apply-button) h4,\n#app > div > div:has(.filter-apply-button)\
+  \ label,\n#app > div > div:has(.filter-apply-button) .ant-form-item-label > label,\n\
+  #app > div > div:has(.filter-apply-button) .ant-collapse-header,\n#app > div > div:has(.filter-apply-button)\
+  \ .ant-collapse-header span { color: var(--oi-text) !important; font-weight: 600;\
+  \ }\n#app > div > div:has(.filter-apply-button) .anticon { color: var(--oi-muted)\
+  \ !important; }\n#app > div > div:has(.filter-apply-button) .superset-button-link,\n\
+  #app > div > div:has(.filter-apply-button) .superset-button-link span { color: var(--oi-green)\
+  \ !important; }\n#app > div > div:has(.filter-apply-button) .ant-select-selector,\n\
+  #app > div > div:has(.filter-apply-button) .ant-picker,\n#app > div > div:has(.filter-apply-button)\
+  \ .ant-input,\n#app > div > div:has(.filter-apply-button) div:has(> .date-label-content)\
+  \ {\n  background: rgba(0, 0, 0, 0.25) !important;\n  border: 1px solid var(--oi-line)\
+  \ !important;\n  border-radius: 12px !important;\n  color: var(--oi-text) !important;\n\
+  }\n#app > div > div:has(.filter-apply-button) .ant-select-selection-placeholder,\n\
+  #app > div > div:has(.filter-apply-button) .date-label-content,\n#app > div > div:has(.filter-apply-button)\
+  \ div:has(> .date-label-content) .anticon { color: var(--oi-muted) !important; }\n\
+  #app > div > div:has(.filter-apply-button) .ant-select-selection-item,\n#app > div\
+  \ > div:has(.filter-apply-button) .ant-select-selection-overflow-item .ant-tag {\n\
+  \  background: rgba(129, 140, 248, 0.22) !important;\n  border: 1px solid rgba(129,\
+  \ 140, 248, 0.45) !important;\n  color: #e0e7ff !important;\n  border-radius: 999px\
+  \ !important;\n}\n#app > div > div:has(.filter-apply-button) .ant-select-selection-item\
+  \ * { color: #e0e7ff !important; }\n#app > div > div:has(.filter-apply-button) .ant-select-arrow,\n\
+  #app > div > div:has(.filter-apply-button) .ant-select-clear { color: var(--oi-muted)\
+  \ !important; background: transparent; }\n.filter-apply-button {\n  border-radius:\
+  \ 999px !important;\n  border: 0 !important;\n  font-weight: 700 !important;\n \
+  \ background: linear-gradient(135deg, #34d399, #6366f1) !important;\n  color: #fff\
+  \ !important;\n  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.8);\n}\n.filter-apply-button[disabled]\
+  \ {\n  background: rgba(255, 255, 255, 0.08) !important;\n  color: var(--oi-muted)\
+  \ !important;\n  box-shadow: none;\n}\n.filter-apply-button span { color: inherit\
+  \ !important; }\n.filter-clear-all-button, .filter-clear-all-button span { color:\
+  \ var(--oi-muted) !important; }\n\n/* thanh cu\u1ED9n m\u1EA3nh, t\xF4ng t\u1ED1\
+  i */\n::-webkit-scrollbar { width: 10px; height: 10px; }\n::-webkit-scrollbar-thumb\
+  \ { background: rgba(148, 163, 184, 0.45); border-radius: 99px; border: 2px solid\
+  \ transparent; background-clip: padding-box; }\n::-webkit-scrollbar-track { background:\
+  \ transparent; }\n"
 slug: olist-presentation
 certified_by: null
 certification_details: null

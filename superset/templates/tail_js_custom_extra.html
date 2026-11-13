@@ -1,0 +1,92 @@
+{#
+  Ghi đè template rỗng của Superset (được include ở cuối mọi trang): nạp font Be Vietnam Pro (có dấu tiếng Việt)
+  và CSS chung đồng bộ với landing page Olist Insight (web/assets/style.css): thanh menu tối dạng kính, link về
+  trang giới thiệu, trang đăng nhập. CSS riêng của dashboard nằm ở superset/dashboard.css (build_dashboard.py).
+#}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap">
+<style id="olist-insight-global">
+  :root {
+    --oi-bg: #070b1a;
+    --oi-bg-2: #0b1024;
+    --oi-text: #e8ecf8;
+    --oi-muted: #9aa5c4;
+    --oi-line: rgba(255, 255, 255, 0.14);
+    --oi-green: #34d399;
+    --oi-indigo: #818cf8;
+    --oi-font: "Be Vietnam Pro", Inter, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  body, button, input, select, textarea,
+  .ant-menu, .ant-dropdown, .ant-dropdown-menu, .ant-tabs, .ant-select, .ant-select-dropdown, .ant-btn,
+  .ant-tooltip, .ant-popover, .ant-modal, .ant-table, .ant-picker, .ant-form, .ant-collapse, .ant-tag,
+  .ant-input, .ant-checkbox-wrapper, .ant-radio-wrapper, .ant-alert, .ant-message, .ant-notification {
+    font-family: var(--oi-font) !important;
+  }
+
+  /* Thanh menu: kính tối như .nav của landing */
+  #main-menu {
+    background: linear-gradient(90deg, rgba(30, 27, 75, 0.96), rgba(7, 11, 26, 0.97) 45%, rgba(6, 46, 40, 0.96)) !important;
+    border-bottom: 1px solid var(--oi-line) !important;
+    box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  }
+  #main-menu .ant-menu { background: transparent !important; border-bottom: 0 !important; color: var(--oi-muted); }
+  #main-menu .ant-menu-item, #main-menu .ant-menu-item a,
+  #main-menu .ant-menu-submenu-title, #main-menu .ant-menu-submenu-title span,
+  #main-menu .anticon, #main-menu a, #main-menu .fa { color: #c7cfe6 !important; }
+  #main-menu .ant-menu-item:hover a, #main-menu .ant-menu-submenu:hover .ant-menu-submenu-title,
+  #main-menu .ant-menu-submenu:hover .ant-menu-submenu-title span, #main-menu a:hover { color: #fff !important; }
+  #main-menu .ant-menu-horizontal > .ant-menu-item::after,
+  #main-menu .ant-menu-horizontal > .ant-menu-submenu::after { border-bottom-color: var(--oi-green) !important; }
+  #main-menu .navbar-brand { padding-top: 6px; padding-bottom: 6px; }
+  #main-menu .navbar-brand-text {
+    border-color: var(--oi-line) !important; color: var(--oi-muted) !important;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+  }
+  #main-menu .navbar-brand-text span { color: var(--oi-muted) !important; }
+  /* DOCUMENTATION_URL = landing page: Superset chỉ vẽ icon, thêm nhãn chữ như nút .btn-ghost của landing */
+  #main-menu a[title="Trang giới thiệu"] {
+    display: inline-flex !important; align-items: center; gap: 6px; height: 32px; margin: 0 6px;
+    padding: 0 14px !important; border-radius: 999px; border: 1px solid var(--oi-line);
+    background: rgba(255, 255, 255, 0.08); font-size: 13px; font-weight: 600; text-decoration: none;
+  }
+  #main-menu a[title="Trang giới thiệu"]::after { content: "Trang giới thiệu"; }
+  #main-menu a[title="Trang giới thiệu"]:hover { background: rgba(255, 255, 255, 0.16); }
+
+  /* Trang đăng nhập (Flask-AppBuilder) */
+  body:has(#loginbox) {
+    color: var(--oi-text);
+    background:
+      radial-gradient(1200px 700px at 10% 0, #1e1b4b 0%, transparent 60%),
+      radial-gradient(900px 600px at 100% 300px, #064e3b 0%, transparent 55%),
+      radial-gradient(700px 500px at 40% 110%, rgba(219, 39, 119, 0.25) 0%, transparent 60%),
+      linear-gradient(180deg, var(--oi-bg) 0%, var(--oi-bg-2) 100%) fixed;
+    min-height: 100vh;
+  }
+  body:has(#loginbox) footer hr { display: none; }
+  #loginbox { margin-top: 90px !important; }
+  #loginbox .panel {
+    background: rgba(255, 255, 255, 0.06); border: 1px solid var(--oi-line); border-radius: 20px;
+    backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08); overflow: hidden;
+  }
+  #loginbox .panel-heading { background: transparent !important; border: 0; padding: 28px 30px 0; }
+  #loginbox .panel-title { color: #fff; font-size: 26px; font-weight: 800; letter-spacing: -0.01em; border: 0 !important; }
+  #loginbox .panel-title::before {
+    content: ""; display: block; width: 180px; height: 36px; margin-bottom: 18px;
+    background: url("/static/assets/images/olist/olist-insight-logo.svg") left center / contain no-repeat;
+  }
+  #loginbox .panel-body { padding: 18px 30px 30px !important; }
+  #loginbox .help-block, #loginbox .control-label { color: var(--oi-muted); font-weight: 500; }
+  #loginbox .input-group-addon { background: rgba(255, 255, 255, 0.08); border-color: var(--oi-line); color: var(--oi-indigo); }
+  #loginbox .form-control {
+    background: rgba(0, 0, 0, 0.25); border-color: var(--oi-line); color: var(--oi-text); height: 40px; box-shadow: none;
+  }
+  #loginbox .form-control:focus { border-color: var(--oi-indigo); box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25); }
+  #loginbox .input-group { margin-bottom: 14px; }
+  #loginbox .btn-primary {
+    border: 0; border-radius: 999px; padding: 11px 22px; font-weight: 700; font-size: 15px;
+    background: linear-gradient(135deg, var(--oi-green), #6366f1); box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.8);
+  }
+  #loginbox .btn-primary:hover { filter: brightness(1.08); }
+</style>

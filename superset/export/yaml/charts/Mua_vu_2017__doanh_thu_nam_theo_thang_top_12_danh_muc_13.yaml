@@ -23,7 +23,7 @@ params:
   sort_y_axis: alpha_asc
   normalize_across: heatmap
   legend_type: continuous
-  linear_color_scheme: superset_seq_1
+  linear_color_scheme: olistInsightSeq
   xscale_interval: -1
   yscale_interval: -1
   left_margin: auto

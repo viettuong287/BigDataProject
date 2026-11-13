@@ -39,7 +39,7 @@ params:
   - 4.4
   opacity: 0.7
   show_legend: true
-  color_scheme: supersetColors
+  color_scheme: olistInsight
   tooltipSizeFormat: ',.0f'
   datasource: 10__table
 query_context: null

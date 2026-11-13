@@ -29,7 +29,7 @@ params:
   x_axis_time_format: '%Y-%m'
   markerEnabled: true
   zoomable: false
-  color_scheme: supersetColors
+  color_scheme: olistInsight
   only_total: true
   order_desc: true
   time_grain_sqla: P1M

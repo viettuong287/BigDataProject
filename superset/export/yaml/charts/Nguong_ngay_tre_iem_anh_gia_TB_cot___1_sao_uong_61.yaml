@@ -38,7 +38,7 @@ params:
   truncate_metric: true
   zoomable: false
   x_axis_time_format: '%Y-%m'
-  color_scheme: supersetColors
+  color_scheme: olistInsight
   show_value: true
   show_valueB: true
   order_desc: true

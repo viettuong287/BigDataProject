@@ -10,6 +10,9 @@ COPY i18n /app/i18n
 RUN python /app/i18n/build_catalog.py /app/i18n/vi/LC_MESSAGES/messages.po \
         /app/superset/translations/vi/LC_MESSAGES \
     && chown -R superset:superset /app/superset/translations/vi
+# Nhận diện "Olist Insight" (logo, favicon) và font + CSS chung cho mọi trang (thanh menu, đăng nhập).
+COPY branding /app/superset/static/assets/images/olist
+COPY templates/tail_js_custom_extra.html /app/superset/templates/tail_js_custom_extra.html
 USER superset
 
 CMD ["/app/docker-init.sh"]

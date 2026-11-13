@@ -50,15 +50,15 @@ params:
   - column: late_delivery_pct
     operator: '>'
     targetValue: 15
-    colorScheme: '#EFA1AA'
+    colorScheme: '#f87171'
   - column: avg_review_score
     operator: <
     targetValue: 4
-    colorScheme: '#FDE380'
+    colorScheme: '#fbbf24'
   - column: revenue_rank
     operator: <=
     targetValue: 3
-    colorScheme: '#ACE1C4'
+    colorScheme: '#34d399'
   adhoc_filters:
   - clause: WHERE
     subject: month_date

@@ -110,7 +110,11 @@ def SQLF(sql: str) -> dict:
     return {"clause": "WHERE", "expressionType": "SQL", "sqlExpression": sql}
 
 
-GREEN, YELLOW, RED = "#ACE1C4", "#FDE380", "#EFA1AA"
+# Bảng màu "Olist Insight" khai báo trong superset_config.py (EXTRA_*_COLOR_SCHEMES), đồng bộ với landing page.
+COLOR_SCHEME = "olistInsight"
+SEQ_SCHEME = "olistInsightSeq"
+GREEN, YELLOW, RED = "#34d399", "#fbbf24", "#f87171"
+DASH_CSS = (ROOT / "superset" / "dashboard.css").read_text(encoding="utf-8")
 
 
 def big(metric, fmt=",.0f", sub="", filters=None):
@@ -123,7 +127,7 @@ def big_trend(metric, fmt=",.0f"):
             "adhoc_filters": [TF()], "show_trend_line": True, "start_y_axis_at_zero": True,
             "compare_lag": 1, "compare_suffix": "so với tháng trước", "y_axis_format": fmt,
             "header_font_size": 0.3, "subheader_font_size": 0.125, "rolling_type": "None",
-            "time_format": "%Y-%m"}
+            "time_format": "%Y-%m", "color_picker": {"r": 52, "g": 211, "b": 153, "a": 1}}
 
 
 def ts(viz, metrics, x="month_date", groupby=None, filters=None, fmt=",.0f", **extra):
@@ -131,7 +135,7 @@ def ts(viz, metrics, x="month_date", groupby=None, filters=None, fmt=",.0f", **e
          "adhoc_filters": filters if filters is not None else ([TF()] if x == "month_date" else []),
          "row_limit": 10000, "truncate_metric": True, "show_legend": True, "legendOrientation": "top",
          "rich_tooltip": True, "y_axis_format": fmt, "x_axis_time_format": "%Y-%m", "markerEnabled": True,
-         "zoomable": False, "color_scheme": "supersetColors", "only_total": True, "order_desc": True}
+         "zoomable": False, "color_scheme": COLOR_SCHEME, "only_total": True, "order_desc": True}
     if x == "month_date":
         p["time_grain_sqla"] = "P1M"
     p.update(extra)
@@ -154,7 +158,7 @@ def mixed(a, b, x="month_date", type_a="bar", type_b="line", fmt_a=",.0f", fmt_b
          "yAxisIndex": 0, "yAxisIndexB": 1, "y_axis_format": fmt_a, "y_axis_format_secondary": fmt_b,
          "show_legend": True, "legendOrientation": "top", "rich_tooltip": True, "markerEnabled": True,
          "row_limit": 10000, "row_limit_b": 10000, "truncate_metric": True, "zoomable": False,
-         "x_axis_time_format": "%Y-%m", "color_scheme": "supersetColors", "show_value": False,
+         "x_axis_time_format": "%Y-%m", "color_scheme": COLOR_SCHEME, "show_value": False,
          "show_valueB": True, "order_desc": True, "order_desc_b": True}
     if x == "month_date":
         p["time_grain_sqla"] = "P1M"
@@ -182,7 +186,7 @@ def pie(metric, groupby, **extra):
     p = {"viz_type": "pie", "groupby": [groupby], "metric": metric, "adhoc_filters": [], "row_limit": 100,
          "sort_by_metric": True, "show_labels": True, "label_type": "key_percent", "labels_outside": True,
          "label_line": True, "donut": True, "innerRadius": 35, "outerRadius": 70, "show_legend": True,
-         "legendOrientation": "right", "number_format": ",.0f", "color_scheme": "supersetColors",
+         "legendOrientation": "right", "number_format": ",.0f", "color_scheme": COLOR_SCHEME,
          "show_total": True}
     p.update(extra)
     return p
@@ -242,7 +246,7 @@ TABS = [
               "metric": M("% doanh thu năm", "SUM(pct_of_category_year)"),
               "adhoc_filters": [SQLF("revenue_rank <= 12")],
               "row_limit": 10000, "sort_x_axis": "alpha_asc", "sort_y_axis": "alpha_asc", "normalize_across": "heatmap",
-              "legend_type": "continuous", "linear_color_scheme": "superset_seq_1", "xscale_interval": -1,
+              "legend_type": "continuous", "linear_color_scheme": SEQ_SCHEME, "xscale_interval": -1,
               "yscale_interval": -1, "left_margin": "auto", "bottom_margin": "auto", "value_bounds": [None, None],
               "y_axis_format": ",.1f", "show_legend": True, "show_percentage": False, "show_values": True}, 7, 60),
             ("cat_freight", "v_category_pareto", "Phí vận chuyển / doanh thu (%) – 15 danh mục lớn nhất",
@@ -258,14 +262,14 @@ TABS = [
         [
             ("geo_map", "v_state_logistics", "Bản đồ doanh thu theo bang (Brazil)",
              {"viz_type": "country_map", "select_country": "brazil", "entity": "iso_code", "metric": REV,
-              "adhoc_filters": [], "linear_color_scheme": "superset_seq_1", "number_format": ",.0f"}, 6, 70),
+              "adhoc_filters": [], "linear_color_scheme": SEQ_SCHEME, "number_format": ",.0f"}, 6, 70),
             ("geo_bubble", "v_state_logistics", "Ngày giao TB và điểm đánh giá TB theo bang (kích thước = doanh thu)",
              {"viz_type": "bubble_v2", "entity": "customer_state", "series": "region",
               "x": M("Ngày giao TB", "MAX(avg_delivery_days)"), "y": M("Đánh giá TB", "MAX(avg_review_score)"),
               "size": REV, "adhoc_filters": [], "row_limit": 100, "max_bubble_size": "40",
               "x_axis_label": "Ngày giao trung bình", "y_axis_label": "Điểm đánh giá trung bình", "xAxisFormat": ",.1f",
               "y_axis_format": ",.2f", "truncateYAxis": True, "y_axis_bounds": [3.6, 4.4], "opacity": 0.7,
-              "show_legend": True, "color_scheme": "supersetColors", "tooltipSizeFormat": ",.0f"}, 6, 70),
+              "show_legend": True, "color_scheme": COLOR_SCHEME, "tooltipSizeFormat": ",.0f"}, 6, 70),
         ],
         [
             ("geo_late", "v_state_logistics", "% giao trễ theo bang",
@@ -327,7 +331,7 @@ TABS = [
               "x": M("Ngày giao TB", "MAX(avg_delivery_days)"), "y": M("Đánh giá TB", "MAX(avg_review_score)"),
               "size": REV, "adhoc_filters": [SQLF("revenue_rank <= 300")], "row_limit": 300, "max_bubble_size": "25",
               "x_axis_label": "Ngày giao trung bình", "y_axis_label": "Điểm đánh giá trung bình", "xAxisFormat": ",.1f",
-              "y_axis_format": ",.2f", "opacity": 0.6, "show_legend": True, "color_scheme": "supersetColors",
+              "y_axis_format": ",.2f", "opacity": 0.6, "show_legend": True, "color_scheme": COLOR_SCHEME,
               "tooltipSizeFormat": ",.0f"}, 7, 60),
         ],
         [
@@ -610,7 +614,8 @@ def main() -> None:
                 "timed_refresh_immune_slices": [], "label_colors": {}, "shared_label_colors": {},
                 "chart_configuration": {}, "default_filters": "{}"}
     api.put(f"/api/v1/dashboard/{dash_id}", {"dashboard_title": DASH_TITLE, "slug": DASH_SLUG, "published": True,
-                                             "position_json": api.dumps(positions), "json_metadata": api.dumps(metadata)})
+                                             "position_json": api.dumps(positions), "json_metadata": api.dumps(metadata),
+                                             "css": DASH_CSS})
     # Xoá chart mồ côi (đổi tên chart trong spec) để export sạch.
     names = {c["name"] for c in charts.values()}
     for c in api.list_all("chart"):
