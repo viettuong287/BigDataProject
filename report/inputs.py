@@ -588,6 +588,19 @@ def evidence_json(name: str) -> dict:
         return {}
 
 
+TAB_LABELS = {"tong_quan_xu_huong": "Tổng quan & xu hướng", "danh_muc_mua_vu": "Danh mục & mùa vụ",
+              "dia_ly_logistics": "Địa lý & logistics", "khach_hang_rfm": "Khách hàng & RFM", "nguoi_ban": "Người bán",
+              "giao_tre_review_thanh_toan": "Giao trễ, đánh giá & thanh toán",
+              "goi_y_quyet_dinh_nguon_du_lieu": "Gợi ý quyết định & nguồn dữ liệu"}
+
+
+def tab_label(scenario: str) -> str:
+    """'5 · nguoi_ban' (dashboard_load_time.csv) -> '5 · Người bán' (tên tab trên dashboard)."""
+    num, _, slug = scenario.partition("·")
+    slug = slug.strip()
+    return f"{num.strip()} · {TAB_LABELS.get(slug, slug.replace('_', ' '))}"
+
+
 def extra_vars() -> dict[str, str]:
     """Số liệu từ các tệp minh chứng bổ sung: tải dashboard, thí nghiệm scale, project Neon."""
     v: dict[str, str] = {}
@@ -607,7 +620,9 @@ def extra_vars() -> dict[str, str]:
     if tabs:
         worst = max(tabs, key=lambda r: float(r["cold_s"]))
         v.update(dash_tabs=str(len(tabs)), dash_components=str(sum(int(r["components"]) for r in tabs)),
-                 dash_cold_max=fmt_num(float(worst["cold_s"]), 2), dash_errors=str(sum(int(r["errors"] or 0) for r in rows)))
+                 dash_cold_max=fmt_num(float(worst["cold_s"]), 2), dash_errors=str(sum(int(r["errors"] or 0) for r in rows)),
+                 dash_cold_max_tab=tab_label(worst["scenario"]).split("·")[-1].strip(),
+                 dash_cold_over5=f"{sum(1 for r in tabs if float(r['cold_s']) > 5)}/{len(tabs)}")
     if flt:
         t = [float(r["cold_s"]) for r in flt]
         v.update(filter_n=str(len(flt)), filter_min=fmt_num(min(t), 2), filter_max=fmt_num(max(t), 2),

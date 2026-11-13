@@ -7,7 +7,7 @@ git clone https://github.com/viettuong287/BigDataProject.git
 cd BigDataProject
 copy .env.example .env      # điền NEON_DATABASE_URL (endpoint pooled), SUPERSET_SECRET_KEY, mật khẩu admin
 
-# 1. Nạp dữ liệu vào Neon (~6 phút, phụ thuộc băng thông tải lên) và kiểm chứng
+# 1. Nạp dữ liệu vào Neon (~5–6 phút, phụ thuộc băng thông tải lên) và kiểm chứng
 docker compose build tools
 docker compose run --rm tools python loader/load_to_neon.py   # schema, COPY 23 bảng, index, view
 docker compose run --rm tools python loader/validate.py       # 23 bảng + 19 số neo
@@ -27,7 +27,12 @@ docker exec olist-superset bash -c 'rm -rf /app/superset_home/cache/*'
 docker compose run --rm screenshots                       # ảnh + thời gian tải cold/cache
 docker compose run --rm screenshots python scripts/render_diagrams.py
 
-# 4. Sinh lại báo cáo (Python 3.12 trên máy hoặc trong Docker)
+# 4. Landing page (tuỳ chọn): xuất số liệu từ Neon rồi mở http://localhost:8090
+docker compose run --rm tools python scripts/export_landing_kpi.py
+docker compose up -d web
+docker compose run --rm screenshots python scripts/screenshot_landing.py
+
+# 5. Sinh lại báo cáo (Python 3.12 trên máy hoặc trong Docker)
 python -m venv report\.venv; report\.venv\Scripts\python -m pip install -r report\requirements.txt
 report\.venv\Scripts\python report\build_report.py
 powershell -ExecutionPolicy Bypass -File report\tools\word_stats.ps1 -Pdf   # cập nhật mục lục, xuất PDF
@@ -89,6 +94,8 @@ Mã SQL đầy đủ: `sql/10_presentation_views.sql` (tầng ngữ nghĩa) và 
 
 {{shot:evidence/dashboard_tab4_khach_hang_rfm.png|270,170,1590,1200|Tab 4 "Khách hàng & RFM": thẻ khách hàng, phân khúc RFM, cụm K-Means|h=10}}
 
+{{shot:evidence/landing_page_mobile.png|0,0,780,1600|Landing page trên điện thoại (390 px): hero, biểu đồ live replay và thẻ KPI xếp một cột|h=9}}
+
 {{shot:evidence/neon_tables_inventory.png||Kiểm kê Neon sinh từ catalog database: 25 bảng, 22 view, số dòng, dung lượng, 0,25 CU, PostgreSQL 18|h=13}}
 
 ## E.5. Danh sách tệp minh chứng
@@ -99,7 +106,7 @@ Mã SQL đầy đủ: `sql/10_presentation_views.sql` (tầng ngữ nghĩa) và 
 
 - Kho mã nguồn của nhóm: {{var:repo_url}}
 - Đầu vào upstream: repo `Analytics-main` do nhóm Analytics cung cấp (tài liệu bàn giao sao chép trong `docs/upstream/`); repo Processing: https://github.com/NguyenAlpha/big-data
-- `docker-compose.yml` gồm các dịch vụ `superset-db` (Postgres 16, metadata), `superset` (4.1.2, cổng 8088, 4 worker), `tools` (Python 3.12: loader, kiểm chứng, dựng dashboard, đo đạc) và `screenshots` (Playwright).
+- `docker-compose.yml` gồm các dịch vụ `superset-db` (Postgres 16, metadata), `superset` (4.1.2, cổng 8088, 4 worker), `tools` (Python 3.12: loader, kiểm chứng, dựng dashboard, đo đạc, xuất `kpi.json`), `screenshots` (Playwright) và `web` (nginx 1.27, landing page, cổng 8090).
 
 {{source_tree}}
 
@@ -122,7 +129,7 @@ Bảng: Ma trận đóng góp theo sản phẩm bàn giao (C = chính, H = hỗ 
 | Ảnh minh chứng, kiểm thử bộ lọc, kiểm kê Neon | | H | C |
 | Báo cáo, README, tài liệu tham khảo | H | H | C |
 | Tích hợp Docker Compose, GitHub | C | | H |
-| **Mức đóng góp** | **33%** | **33%** | **34%** |
+| **Mức đóng góp** | **100%** | **100%** | **100%** |
 
 # Phụ lục H. Ghi chú sử dụng công cụ AI
 

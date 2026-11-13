@@ -7,8 +7,9 @@
 3. **Kiểm chứng:** `validate.py` — {{var:val_rows_ok}} bảng khớp số dòng, {{var:val_anchor_ok}} số neo "ĐẠT".
 4. **Dashboard:** `docker compose up -d superset-db superset` rồi `build_dashboard.py` — mở `http://localhost:8088/superset/dashboard/olist-presentation/`, đi qua 7 tab, áp dụng bộ lọc.
 5. **Đầu ra cho Decision/Action:** truy vấn `v_decision_hints` và `v_seller_watchlist` (Mục 7.4).
+6. **Giới thiệu:** `docker compose up -d web` — landing page `http://localhost:8090` (Mục 7.5).
 
-Các ảnh dưới đây được Playwright chụp tự động từ hệ thống đang chạy (toàn bộ 7 tab và 6 kịch bản lọc ở `evidence/`; một số tab ở Phụ lục E); để dễ đọc, báo cáo cắt phần chính của mỗi ảnh.
+Các ảnh dưới đây được Playwright chụp tự động từ hệ thống đang chạy với giao diện Superset tiếng Việt (toàn bộ 7 tab và 6 kịch bản lọc ở `evidence/`; một số tab ở Phụ lục E); để dễ đọc, báo cáo cắt phần chính của mỗi ảnh.
 
 ## 7.2. Dashboard và nội dung phân tích
 
@@ -28,11 +29,11 @@ Các ảnh dưới đây được Playwright chụp tự động từ hệ thố
 
 ## 7.3. Cảnh báo người bán và gợi ý quyết định
 
-{{shot:evidence/watchlist_seller_canh_bao.png||Tab 5: bảng watchlist cảnh báo 153 người bán (số vi phạm, lý do, mức ĐỎ/VÀNG, hành động đề xuất)|h=6.5}}
+{{shot:evidence/watchlist_seller_canh_bao.png||Tab 5 "Người bán": bảng "Người bán cần theo dõi (watchlist)" – 153 người bán (số vi phạm, lý do, mức ĐỎ/VÀNG, hành động đề xuất)|h=6.5}}
 
 Chỉ 539/3.053 người bán (17,65%) tạo 80% doanh thu. Bảng watchlist liệt kê 153 người bán thuộc top 10% doanh thu nhưng vận hành kém; 75 người ở mức ĐỎ (vi phạm ≥ 2 tiêu chí) kèm hành động "cảnh cáo + giảm hiển thị; yêu cầu kế hoạch SLA 30 ngày". Ví dụ người bán `b1b39487…` (SP): review 1,81, giao 23,4 ngày, trễ 64,29%.
 
-{{shot:evidence/watchlist_goi_y_quyet_dinh.png||Tab 7: bảng "Gợi ý quyết định" — luật, giá trị hiện tại, ngưỡng và hành động (nguồn v_decision_hints)|h=6.5}}
+{{shot:evidence/watchlist_goi_y_quyet_dinh.png||Tab 7: bảng "Gợi ý quyết định (luật + ngưỡng + hành động)" — luật, giá trị hiện tại, ngưỡng và hành động (nguồn v_decision_hints)|h=6.5}}
 
 ## 7.4. Đầu ra cho giai đoạn Decision/Action
 
@@ -48,3 +49,9 @@ WHERE  alert_level = 'ĐỎ' ORDER BY revenue DESC;   -- 75 người bán
 ```
 
 Kết quả là dữ liệu có cấu trúc mà một rule engine có thể chuyển thành email/Telegram cảnh báo hoặc kích hoạt chăm sóc khách hàng khi đơn có nguy cơ trễ ≥ 4 ngày. Dashboard phục vụ con người, view phục vụ máy — hai kênh dùng chung một tầng ngữ nghĩa nên không mâu thuẫn số liệu.
+
+## 7.5. Landing page giới thiệu hệ thống
+
+Trang tĩnh tiếng Việt tại `http://localhost:8090` (nginx, service `web`) là "cửa vào" cho người xem lần đầu: biểu đồ *live replay* phát lại doanh thu và số đơn 20 tháng (2017-01 → 2018-08) từ `v_kpi_monthly` kèm 5 thẻ KPI cập nhật theo tháng; huy hiệu kiểm chứng (19/19 số neo, 23/23 bảng); insight thật (top danh mục, bang, phân khúc RFM, cảnh báo từ `v_decision_hints`); dải pipeline và nút mở dashboard. Mọi con số lấy từ `web/data/kpi.json` do `export_landing_kpi.py` xuất từ Neon, nên trang khớp dashboard mà không cần backend. Ảnh bản mobile (390 px) ở Phụ lục E.
+
+{{shot:evidence/landing_page_desktop.png|0,0,1440,1000|Landing page tại cổng 8090 (1440 px): hero với biểu đồ live replay doanh thu/đơn hàng và thẻ KPI từ web/data/kpi.json|h=9}}

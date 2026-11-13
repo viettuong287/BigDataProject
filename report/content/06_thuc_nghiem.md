@@ -44,7 +44,7 @@ Ba kết luận: (1) **mạng chiếm gần như toàn bộ độ trễ** — Po
 
 {{dashload:tabs}}
 
-Khung dashboard (HTML + JS) tải trong ~{{var:dash_shell_cold}} giây; không chart nào lỗi ở cả hai lượt. Khi cold, trung vị một tab là {{var:dash_tab_cold_median}} giây; tab Địa lý chậm nhất ({{var:dash_cold_max}} s) vì các chart xếp hàng chờ kết nối mới chứ không vì truy vấn nặng. Khi có cache, trung vị còn {{var:dash_tab_warm_median}} giây, đủ cho người dùng nghiệp vụ. Compute Neon ở chế độ scale-to-zero; lượt cold ở trên đã bao gồm chi phí mở kết nối mới, còn thời gian đánh thức riêng compute không được đo tách biệt — theo tài liệu Neon [13] là cỡ vài trăm mili giây, nhỏ so với chi phí kết nối đo được.
+Khung dashboard (HTML + JS) tải trong ~{{var:dash_shell_cold}} giây; không chart nào lỗi ở cả hai lượt. Khi cold, trung vị một tab là {{var:dash_tab_cold_median}} giây; tab "{{var:dash_cold_max_tab}}" chậm nhất ({{var:dash_cold_max}} s) vì các chart xếp hàng chờ kết nối mới chứ không vì truy vấn nặng. Khi có cache, trung vị còn {{var:dash_tab_warm_median}} giây, đủ cho người dùng nghiệp vụ. Compute Neon ở chế độ scale-to-zero; lượt cold ở trên đã bao gồm chi phí mở kết nối mới, còn thời gian đánh thức riêng compute không được đo tách biệt — theo tài liệu Neon [13] là cỡ vài trăm mili giây, nhỏ so với chi phí kết nối đo được.
 
 {{dashload:filters}}
 
@@ -64,9 +64,9 @@ Bảng: Đánh giá mức đạt theo tiêu chí
 | Đúng đắn dữ liệu | 100% | {{var:val_rows_ok}} bảng; {{var:val_anchor_ok}} kiểm tra | Đạt |
 | Nạp 16 bảng Analytics | < 120 s | {{var:load_ana_seconds}} s | Đạt |
 | Truy vấn dashboard: trung vị / p95 | < 300 / 500 ms | {{var:latency_median}} / {{var:latency_p95_max}} ms | Đạt |
-| Tab dashboard cold (trung vị) | < 5 s | {{var:dash_tab_cold_median}} s; 5/7 tab vượt 5 s, chậm nhất {{var:dash_cold_max}} s | Chưa đạt |
+| Tab dashboard cold (trung vị) | < 5 s | {{var:dash_tab_cold_median}} s; {{var:dash_cold_over5}} tab vượt 5 s, chậm nhất {{var:dash_cold_max}} s | Chưa đạt |
 | Tab dashboard có cache (trung vị) | < 2 s | {{var:dash_tab_warm_median}} s | Đạt |
 | Bộ lọc native | 100% | {{var:filter_ok}} kịch bản | Đạt |
 | View tổng hợp khi dữ liệu ×10 | Không tăng | {{var:scale_view}} ms ở mọi hệ số | Đạt |
 
-Về RQ2, tầng phục vụ tái tạo chính xác tuyệt đối kết quả Spark và hai lớp dữ liệu nhất quán. Về RQ3, cả thời gian nạp lẫn độ trễ đều bị chi phối bởi mạng và kết nối chứ không bởi cơ sở dữ liệu; trải nghiệm cold chưa đạt ngưỡng 5 s (5/7 tab vượt) do mỗi chart mở kết nối TLS mới; cache khắc phục cho người dùng thường xuyên, và hướng cải tiến (pool kết nối, đặt Superset cùng vùng, làm nóng cache định kỳ) được nêu ở Mục 8.3.
+Về RQ2, tầng phục vụ tái tạo chính xác tuyệt đối kết quả Spark và hai lớp dữ liệu nhất quán. Về RQ3, cả thời gian nạp lẫn độ trễ đều bị chi phối bởi mạng và kết nối chứ không bởi cơ sở dữ liệu; trải nghiệm cold chưa đạt ngưỡng 5 s ({{var:dash_cold_over5}} tab vượt) do mỗi chart mở kết nối TLS mới; cache khắc phục cho người dùng thường xuyên, và hướng cải tiến (pool kết nối, đặt Superset cùng vùng, làm nóng cache định kỳ) được nêu ở Mục 8.3.

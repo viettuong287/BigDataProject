@@ -7,9 +7,9 @@ Hệ thống gồm bốn khối, mỗi khối một trách nhiệm và giao ti�
 1. **Data Lake (đầu vào):** {{var:n_tables}} bảng Parquet Analytics (8 MB) và {{var:n_gold}} bảng gold (35 MB, fact phân vùng năm/tháng).
 2. **Loader (Python trong container `tools`):** pyarrow đọc Parquet → CSV trong bộ nhớ → `COPY FROM STDIN` (psycopg 3) qua endpoint *direct*, tạo khoá chính/chỉ mục, `ANALYZE`, ghi `load_log`, rồi áp dụng tầng ngữ nghĩa; `validate.py` kiểm 19 số neo.
 3. **Tầng phục vụ (Neon Postgres 18, aws-ap-southeast-1):** schema `analytics` (16 bảng + `load_log`), `gold` (7 bảng), `presentation` ({{var:n_views}} view + `dim_state`).
-4. **Tầng trình bày (Apache Superset 4.1.2 trong Docker, 4 worker Gunicorn):** kết nối Neon qua SQLAlchemy + psycopg2 (endpoint *pooled*); 22 dataset (1 view = 1 dataset), 45 chart, dashboard 7 tab, 7 native filter; metadata lưu trong container Postgres 16 (`superset-db`); cache kết quả 600 s. Dashboard được dựng bằng `build_dashboard.py` qua REST API.
+4. **Tầng trình bày (Apache Superset 4.1.2 trong Docker, 4 worker Gunicorn):** kết nối Neon qua SQLAlchemy + psycopg2 (endpoint *pooled*); 22 dataset (1 view = 1 dataset), 45 chart, dashboard 7 tab, 7 native filter; metadata lưu trong container Postgres 16 (`superset-db`); cache kết quả 600 s; giao diện tiếng Việt. Dashboard được dựng bằng `build_dashboard.py` qua REST API.
 
-Người dùng nghiệp vụ mở dashboard qua trình duyệt (cổng 8088); giai đoạn Decision/Action đọc trực tiếp view `v_decision_hints` trên Neon.
+Người dùng nghiệp vụ mở dashboard qua trình duyệt (cổng 8088); giai đoạn Decision/Action đọc trực tiếp view `v_decision_hints` trên Neon. Ngoài bốn khối chính, một **landing page tĩnh** (service `web`, nginx, cổng 8090) giới thiệu hệ thống bằng số liệu thật: `scripts/export_landing_kpi.py` đọc các view `presentation.*` một lần, ghi `web/data/kpi.json`, trang chỉ đọc tệp này nên không giữ thông tin kết nối Neon.
 
 {{image:PROJECT:docs/architecture.png|Sơ đồ data-flow của hệ thống: Parquet → Loader (COPY, TLS 5432 direct) → Neon (gold, analytics → presentation) → Superset (SQLAlchemy, endpoint pooled) → người dùng; nhánh v_decision_hints → Decision/Action|h=11.5}}
 
@@ -23,7 +23,7 @@ Bảng: Các bước của luồng dữ liệu
 | 3 | Loader → Neon | Postgres v3, `COPY … FROM STDIN (FORMAT csv)`, TLS, cổng 5432, endpoint direct | Neon compute | DROP/CREATE/COPY trong một giao dịch; PK, index, `ANALYZE`, `load_log` |
 | 4 | `analytics`, `gold` → `presentation` | SQL view | Neon compute | Tạo lại schema `presentation` trong một giao dịch |
 | 5 | Neon → Superset | SQLAlchemy + psycopg2, TLS, endpoint pooled (PgBouncer) | Superset | Mỗi chart một truy vấn đẩy xuống Neon; cache 600 s |
-| 6 | Superset → người dùng | HTTP 8088, JSON + React/ECharts | Trình duyệt | 7 tab, native filter, cross-filter |
+| 6 | Superset → người dùng | HTTP 8088, JSON + React/ECharts | Trình duyệt | 7 tab, native filter, cross-filter; landing page HTTP 8090 đọc `kpi.json` |
 | 7 | Neon → Decision/Action | SQL (`v_decision_hints`, `v_seller_watchlist`), CSV, Chart Data API | Giai đoạn sau | Luật, ngưỡng, danh sách người bán cần xử lý |
 
 Nguyên tắc chung là **"tính một lần, đọc nhiều lần"**: phép tính nặng (join fact, window toàn cục, K-Means) đã làm ở Spark; tầng phục vụ chỉ lọc và tổng hợp nhẹ, nên độ trễ chủ yếu do mạng và kết nối (Chương 6).
@@ -56,7 +56,7 @@ Các view được nhóm theo chủ đề: **xu hướng** (`v_kpi_monthly`, `v_
 
 ## 4.5. Thiết kế dashboard và giao diện với Decision/Action
 
-Dashboard "Olist E-commerce · Analytics → Presentation" gồm bảy tab theo sáu chủ đề của Analytics cộng một tab quyết định; mỗi tab theo mẫu "tổng quan → chi tiết" (thẻ KPI → biểu đồ → bảng).
+Dashboard "Thương mại điện tử Olist · Phân tích → Trình bày" gồm bảy tab theo sáu chủ đề của Analytics cộng một tab quyết định; mỗi tab theo mẫu "tổng quan → chi tiết" (thẻ KPI → biểu đồ → bảng). Toàn bộ tên tab, chart, bộ lọc, nhãn cột và metric là tiếng Việt (đặt trong `build_dashboard.py`); số hiển thị theo định dạng Việt Nam (13.494.400,74).
 
 Bảng: Thiết kế dashboard theo tab và nhóm người dùng
 | Tab | Người dùng chính | Câu hỏi nghiệp vụ | Thành phần chính |
@@ -65,11 +65,11 @@ Bảng: Thiết kế dashboard theo tab và nhóm người dùng
 | 2 · Danh mục & mùa vụ | Quản lý ngành hàng | Ngành nào tạo 80% doanh thu? Mùa vụ? | Pareto top 25, heatmap mùa vụ 2017, ship/doanh thu, xu hướng 6 ngành lớn |
 | 3 · Địa lý & logistics | Vận hành – logistics | Bang nào giao chậm, trễ nhiều, review thấp? | Country Map Brazil, bubble ngày giao vs review, % trễ theo bang, band khoảng cách |
 | 4 · Khách hàng & RFM | CRM – marketing | Bao nhiêu khách quay lại? Chăm sóc phân khúc nào? | 4 thẻ, donut phân khúc RFM, cụm K-Means, bảng hành động CRM |
-| 5 · Seller | Quản lý người bán | Ai tạo 80% doanh thu? Ai lớn nhưng vận hành kém? | Pareto nhóm A/B/C, bubble top 300, bảng watchlist cảnh báo |
-| 6 · Giao trễ, review & thanh toán | Vận hành, CSKH, tài chính | Trễ bao nhiêu ngày thì review sụt? | Review trễ vs đúng hạn, ngưỡng ngày trễ vs % 1 sao, payment mix |
+| 5 · Người bán | Quản lý người bán | Ai tạo 80% doanh thu? Ai lớn nhưng vận hành kém? | Pareto người bán nhóm A/B/C, bubble top 300, bảng "Người bán cần theo dõi (watchlist)" |
+| 6 · Giao trễ, đánh giá & thanh toán | Vận hành, CSKH, tài chính | Trễ bao nhiêu ngày thì review sụt? | Điểm đánh giá TB giao trễ vs đúng hạn, ngưỡng ngày trễ vs % 1 sao, cơ cấu thanh toán |
 | 7 · Gợi ý quyết định & nguồn dữ liệu | Ban điều hành, nhóm Decision | Cần làm gì trước? Dữ liệu nạp lúc nào? | Bảng 7 luật, nhật ký nạp |
 
-Bảy native filter — Khoảng thời gian (`month_date`), Bang khách hàng, Vùng, Danh mục, Phân khúc RFM, Phương thức thanh toán, Bang seller — chỉ gắn vào chart có cột tương ứng (phạm vi do script tính tự động). Màu nổi bật chỉ dành cho ngoại lệ (tháng Black Friday, ô review < 4, trễ > 10%); không dùng biểu đồ tròn cho 74 danh mục hay 27 bang.
+Bảy native filter — Khoảng thời gian (`month_date`), Bang khách hàng, Vùng, Danh mục, Phân khúc RFM, Phương thức thanh toán, Bang người bán — chỉ gắn vào chart có cột tương ứng (phạm vi do script tính tự động). Màu nổi bật chỉ dành cho ngoại lệ (tháng Black Friday, ô review < 4, trễ > 10%); không dùng biểu đồ tròn cho 74 danh mục hay 27 bang.
 
 **Giao diện với Decision/Action.** View `v_decision_hints` có mỗi dòng là một luật: ưu tiên, mức độ, chủ đề, tín hiệu, giá trị hiện tại, ngưỡng, hành động và view nguồn. Giá trị được tính lại mỗi lần truy vấn nên luật tự cập nhật khi dữ liệu được nạp lại.
 
@@ -96,5 +96,6 @@ Bảng: Công nghệ sử dụng, vai trò và lý do lựa chọn
 | Apache Superset 4.1.2 (Docker, 4 worker) | Dashboard, chart, native filter, cache | Mã nguồn mở, REST API để dựng dashboard bằng mã, Country Map Brazil |
 | Postgres 16 (`superset-db`) | Metadata của Superset | SQLite khoá ghi toàn cục khiến chart tải song song phải xếp hàng |
 | Playwright (Chromium headless) | Chụp ảnh, đo thời gian tải dashboard và từng chart | Tự động, nhất quán, chạy lại được |
+| nginx 1.27 (service `web`) | Phục vụ landing page tĩnh `web/` (cổng 8090) | Nhẹ, không cần backend; số liệu lấy từ `kpi.json` xuất sẵn |
 
 **Vì sao Superset?** So với Power BI/Tableau (thương mại, tệp nhị phân khó quản lý phiên bản), Grafana (mạnh về chuỗi thời gian giám sát, yếu với Pareto/xếp hạng) và Metabase (ít loại biểu đồ), Superset chạy bằng Docker, kết nối thẳng Postgres và cho phép **dựng dashboard bằng mã** — then chốt cho yêu cầu tái lập. **Vì sao Neon?** Postgres cục bộ không chia sẻ được cho nhóm, giảng viên và giai đoạn sau; ClickHouse chỉ phát huy ở hàng tỷ dòng chi tiết; DuckDB không có máy chủ phục vụ đồng thời. Neon cho Postgres chuẩn, được quản lý, khớp tải không đều của dashboard. Cấu hình chi tiết (Compose, `superset_config.py`) ở Phụ lục F.

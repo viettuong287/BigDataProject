@@ -85,7 +85,7 @@ cd BigDataProject
 copy .env.example .env      # điền NEON_DATABASE_URL (endpoint pooled), SUPERSET_SECRET_KEY, mật khẩu admin
 ```
 
-**Bước 1 – build image công cụ và nạp dữ liệu vào Neon** (~6 phút, phụ thuộc băng thông upload):
+**Bước 1 – build image công cụ và nạp dữ liệu vào Neon** (~5–6 phút, phụ thuộc băng thông upload):
 
 ```powershell
 docker compose build tools
@@ -112,7 +112,7 @@ dataset. Phương án dự phòng: `docker compose run --rm tools python superse
 > trạng thái dashboard của tab cũ và có thể ghi đè cấu hình bộ lọc vừa dựng.
 
 **Ngôn ngữ giao diện – tiếng Việt.** Superset 4.1.2 không có sẵn gói `vi`, nên repo kèm bản dịch riêng
-`superset/i18n/vi/LC_MESSAGES/messages.po` (~540 chuỗi hay gặp: menu, trang đăng nhập, trang chủ, thanh tiêu đề và menu
+`superset/i18n/vi/LC_MESSAGES/messages.po` (536 chuỗi hay gặp: menu, trang đăng nhập, trang chủ, thanh tiêu đề và menu
 dashboard, thanh bộ lọc, bộ chọn thời gian, menu "⋮" của biểu đồ, nút chung, một phần màn hình sửa biểu đồ).
 Khi build image, `superset/i18n/build_catalog.py` biên dịch thành `messages.mo` (backend) và `messages.json`
 (frontend) trong `superset/translations/vi/`. `superset_config.py` đặt `BABEL_DEFAULT_LOCALE = "vi"`, giữ English trong
@@ -197,13 +197,13 @@ At Risk; 17,65% seller tạo 80% doanh thu.
 
 | Hạng mục | Kết quả | Tệp |
 |---|---|---|
-| Nạp dữ liệu | 23 bảng, 505.592 dòng, Parquet 42,9 MB, 356 s; COPY 1.528 dòng/s (nút thắt là upload ~0,3–0,9 MB/s từ máy local) | `load_run.log`, `load_log.csv` |
+| Nạp dữ liệu | Lần chạy 13/11/2026: 23 bảng, 505.592 dòng, Parquet 42,9 MB, 285 s (đọc + COPY + index); COPY 1.972 dòng/s (nút thắt là upload ~0,25–0,75 MB/s từ máy local) | `load_run.log`, `load_log.csv` |
 | Kiểm chứng | 23/23 bảng khớp số dòng; 19/19 số neo đạt (SUM revenue = 13.494.400,74; đỉnh 11/2017 MoM +52,06%; review 2,56 vs 4,29; mua lại 2.887/94.983 = 3,04%) | `validation.md`, `validation.json` |
 | Độ trễ truy vấn | 21 truy vấn dashboard: trung vị 173 ms phía client, 1,25 ms phía server; RTT 105 ms; kết nối TLS mới 1,1 s | `query_latency.md/.csv` |
-| Thời gian tải dashboard | Tab: trung vị 5,2 s cold → 1,0 s khi có cache; chart qua API: 741 ms → 55 ms | `dashboard_load_latency.md`, `dashboard_load_time.csv`, `superset_chart_latency.csv` |
+| Thời gian tải dashboard | Tab: trung vị 6,6 s cold → 1,2 s khi có cache; chart qua API: 1.880 ms → 75 ms (đo 13/11/2026) | `dashboard_load_latency.md`, `dashboard_load_time.csv`, `superset_chart_latency.csv` |
 | Thí nghiệm scale | ×10 = 1,12 triệu dòng: dữ liệu thô 47 → 507 ms, view tổng hợp 1,1 ms; sinh dữ liệu ~1 triệu dòng/s phía server | `scale_experiment.md/.csv` |
 | Ảnh dashboard | 7 tab | `dashboard_tab1…7_*.png` |
-| Ảnh bộ lọc | 6 kịch bản (thời gian + bang, danh mục, vùng, RFM + bang, bang seller, PTTT) | `filter_*.png` |
+| Ảnh bộ lọc | 6 kịch bản (thời gian + bang, danh mục, vùng, RFM + bang, bang người bán, PTTT), giao diện tiếng Việt | `filter_*.png` |
 | Ảnh cảnh báo | Bảng watchlist, bảng gợi ý quyết định | `watchlist_*.png` |
 | Giao diện tiếng Việt | Trang đăng nhập, dashboard + thanh bộ lọc, menu biểu đồ, bảng người bán (`scripts/screenshot_tieng_viet.py`) | `superset_tieng_viet_*.png` |
 | Neon | Kiểm kê 25 bảng + 22 view, số dòng, dung lượng (146 MB), thông tin project | `neon_tables_inventory.png`, `neon_inventory.csv`, `neon_project.json` |

@@ -4,7 +4,7 @@
 
 - **Nạp đúng và đủ:** {{var:load_tables}} bảng ({{var:n_tables}} Analytics + {{var:n_gold}} gold, {{var:load_total_rows}} dòng) được nạp vào Neon bằng loader tự sinh DDL và `COPY`, có `load_log`; {{var:val_rows_ok}} bảng khớp số dòng, {{var:val_anchor_ok}} kiểm tra số neo/nhất quán đạt.
 - **Tầng ngữ nghĩa:** {{var:n_views}} view và bảng `dim_state` định nghĩa KPI thống nhất, xử lý đúng độ đo không cộng dồn qua lớp cấp đơn, bổ sung cột trình bày và mã hoá 7 luật gợi ý quyết định.
-- **Dashboard:** Superset 7 tab, 45 chart cho năm nhóm người dùng, có thẻ KPI, xu hướng, Pareto, bản đồ Brazil, bảng chi tiết, 7 bộ lọc native ({{var:filter_ok}} kịch bản kiểm thử đạt) và khu vực gợi ý quyết định; một tab mở trong {{var:dash_tab_warm_median}} s khi có cache.
+- **Dashboard:** Superset 7 tab, 45 chart cho năm nhóm người dùng, có thẻ KPI, xu hướng, Pareto, bản đồ Brazil, bảng chi tiết, 7 bộ lọc native ({{var:filter_ok}} kịch bản kiểm thử đạt) và khu vực gợi ý quyết định, giao diện tiếng Việt; một tab mở trong {{var:dash_tab_warm_median}} s khi có cache; landing page (cổng 8090) giới thiệu hệ thống bằng số liệu thật từ Neon.
 - **Đo lường:** nạp toàn bộ trong {{var:load_total_seconds}} giây (16 bảng Analytics trong {{var:load_ana_seconds}} giây), nút thắt là băng thông của client; {{var:latency_queries}} truy vấn dashboard có trung vị {{var:latency_median}} ms phía client nhưng chỉ {{var:latency_server_median}} ms thực thi trên server — mạng chiếm phần lớn độ trễ, còn bảng tổng hợp sẵn nhanh hơn hơn 250 lần so với tính lại từ fact; ở dữ liệu ×10, view tổng hợp vẫn giữ {{var:scale_view}} ms.
 - **Tái lập:** Docker Compose, mã nguồn tại {{var:repo_url}}, dashboard dựng bằng REST API, báo cáo sinh bằng script.
 

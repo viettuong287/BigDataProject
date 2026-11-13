@@ -818,7 +818,7 @@ class Renderer:
                      "filter_tab2_danh_muc_bed_bath_health_watches": "Tab 2: 3 danh mục (bed_bath, health_beauty, watches)",
                      "filter_tab3_vung_nordeste": "Tab 3: vùng Nordeste",
                      "filter_tab4_rfm_khach_mua_lai_bang_RJ": "Tab 4: phân khúc khách mua lại + bang RJ",
-                     "filter_tab5_bang_seller_SP": "Tab 5: bang seller SP",
+                     "filter_tab5_bang_nguoi_ban_SP": "Tab 5: bang người bán SP",
                      "filter_tab6_pttt_boleto": "Tab 6: phương thức thanh toán boleto"}
             body = [[names.get(r["scenario"], r["scenario"]), r["components"], I.fmt_num(float(r["cold_s"]), 2),
                      r["errors"] or "0", "Đạt" if (r["errors"] or "0") == "0" else "Không đạt"]
@@ -828,7 +828,7 @@ class Renderer:
                        widths=[8.4, 2.0, 2.6, 1.2, 1.8])
             return
         tabs = [r for r in rows if r["kind"] == "tab"]
-        body = [[r["scenario"].replace("_", " "), r["components"], I.fmt_num(float(r["cold_s"]), 2),
+        body = [[I.tab_label(r["scenario"]), r["components"], I.fmt_num(float(r["cold_s"]), 2),
                  I.fmt_num(float(r["warm_s"]), 2)] for r in tabs]
         v = self.ctx["vars"]
         body.append(["**Trung vị / tổng 7 tab**", v.get("dash_components", ""),
