@@ -68,6 +68,7 @@ Sơ đồ chi tiết: [`docs/architecture.md`](docs/architecture.md) · ảnh PN
 │   ├── i18n/               # bản dịch tiếng Việt cho giao diện Superset (messages.po + build_catalog.py)
 │   └── export/             # ZIP + YAML export dashboard, build_info.json
 ├── scripts/                # đo latency, thí nghiệm scale, chụp ảnh, vẽ sơ đồ, kiểm kê Neon
+├── web/                    # landing page tĩnh (nginx :8090); data/kpi.json xuất từ Neon
 ├── evidence/               # log, CSV/MD số liệu, ảnh chụp
 ├── report/                 # báo cáo đồ án (docx/pdf) và script sinh báo cáo
 ├── docker-compose.yml
@@ -133,6 +134,20 @@ docker compose run --rm screenshots                                  # ảnh + t
 docker compose run --rm screenshots python scripts/render_diagrams.py  # PNG sơ đồ + ảnh kiểm kê Neon
 ```
 
+**Bước 4 – landing page giới thiệu (tuỳ chọn):**
+
+```powershell
+docker compose run --rm tools python scripts/export_landing_kpi.py   # xuất số liệu thật từ Neon → web/data/kpi.json
+docker compose up -d web                                             # nginx phục vụ web/ tại http://localhost:8090
+docker compose run --rm screenshots python scripts/screenshot_landing.py  # ảnh desktop + mobile vào evidence/
+```
+
+Mở **http://localhost:8090** – trang tĩnh tiếng Việt, phong cách glassmorphism, gồm: hero có biểu đồ *live replay*
+phát lại doanh thu/đơn hàng 20 tháng (2017-01→2018-08) từ `presentation.v_kpi_monthly` kèm 5 thẻ KPI cập nhật theo
+tháng; huy hiệu kiểm chứng (19/19 số neo, 23/23 bảng); 6 tính năng; insight thật (top danh mục, bang, phân khúc RFM,
+cảnh báo từ `v_decision_hints`); dải pipeline; bảng giá minh hoạ; footer thông tin nhóm. Trang chỉ đọc
+`web/data/kpi.json` (không giữ thông tin kết nối Neon) — chạy lại script xuất sau mỗi lần nạp để cập nhật số.
+
 Tắt hệ thống: `docker compose down` (thêm `-v` sẽ **xoá** metadata Superset; dữ liệu trên Neon không bị ảnh hưởng).
 
 ## 6. Data contract – dữ liệu trên Neon
@@ -193,6 +208,7 @@ At Risk; 17,65% seller tạo 80% doanh thu.
 | Giao diện tiếng Việt | Trang đăng nhập, dashboard + thanh bộ lọc, menu biểu đồ, bảng người bán (`scripts/screenshot_tieng_viet.py`) | `superset_tieng_viet_*.png` |
 | Neon | Kiểm kê 25 bảng + 22 view, số dòng, dung lượng (146 MB), thông tin project | `neon_tables_inventory.png`, `neon_inventory.csv`, `neon_project.json` |
 | Kiến trúc | Sơ đồ data-flow | `architecture_pipeline.png`, `docs/architecture.png` |
+| Landing page | Trang giới thiệu tại `:8090`, số liệu thật từ Neon, chụp ở 1440 px và 390 px (không lỗi JS) | `landing_page_desktop.png`, `landing_page_mobile.png` |
 
 ## 9. Hạn chế đã biết
 

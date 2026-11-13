@@ -1,0 +1,557 @@
+{
+ "generated_at": "2026-11-13T01:29:32+00:00",
+ "source": "Neon Postgres – presentation.v_kpi_monthly, v_kpi_overview, v_state_logistics, v_rfm_segments, v_decision_hints, v_seller_watchlist; analytics.category_pareto, load_log",
+ "monthly": [
+  {
+   "month": "2017-01",
+   "orders": 787,
+   "customers": 753,
+   "revenue": 120098.27,
+   "freight": 16845.19,
+   "avg_order_value": 174.01,
+   "avg_review_score": 4.09,
+   "avg_delivery_days": 12.8,
+   "late_delivery_pct": 3.07,
+   "revenue_mom_pct": null,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-02",
+   "orders": 1718,
+   "customers": 1693,
+   "revenue": 244959.35,
+   "freight": 38602.34,
+   "avg_order_value": 165.05,
+   "avg_review_score": 4.1,
+   "avg_delivery_days": 13.3,
+   "late_delivery_pct": 3.21,
+   "revenue_mom_pct": 103.97,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-03",
+   "orders": 2617,
+   "customers": 2577,
+   "revenue": 368341.32,
+   "freight": 57276.64,
+   "avg_order_value": 162.64,
+   "avg_review_score": 4.13,
+   "avg_delivery_days": 13.0,
+   "late_delivery_pct": 5.58,
+   "revenue_mom_pct": 50.37,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-04",
+   "orders": 2377,
+   "customers": 2345,
+   "revenue": 353842.98,
+   "freight": 52005.63,
+   "avg_order_value": 170.74,
+   "avg_review_score": 4.07,
+   "avg_delivery_days": 15.0,
+   "late_delivery_pct": 7.86,
+   "revenue_mom_pct": -3.94,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-05",
+   "orders": 3640,
+   "customers": 3569,
+   "revenue": 503159.19,
+   "freight": 79551.64,
+   "avg_order_value": 160.09,
+   "avg_review_score": 4.18,
+   "avg_delivery_days": 11.4,
+   "late_delivery_pct": 3.61,
+   "revenue_mom_pct": 42.2,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-06",
+   "orders": 3205,
+   "customers": 3142,
+   "revenue": 429916.61,
+   "freight": 69735.63,
+   "avg_order_value": 155.9,
+   "avg_review_score": 4.18,
+   "avg_delivery_days": 12.0,
+   "late_delivery_pct": 3.86,
+   "revenue_mom_pct": -14.56,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-07",
+   "orders": 3946,
+   "customers": 3872,
+   "revenue": 492287.3,
+   "freight": 86466.43,
+   "avg_order_value": 146.67,
+   "avg_review_score": 4.23,
+   "avg_delivery_days": 11.5,
+   "late_delivery_pct": 3.43,
+   "revenue_mom_pct": 14.51,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-08",
+   "orders": 4272,
+   "customers": 4191,
+   "revenue": 568245.79,
+   "freight": 93657.73,
+   "avg_order_value": 154.94,
+   "avg_review_score": 4.27,
+   "avg_delivery_days": 11.0,
+   "late_delivery_pct": 3.32,
+   "revenue_mom_pct": 15.43,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-09",
+   "orders": 4227,
+   "customers": 4154,
+   "revenue": 621415.91,
+   "freight": 95686.81,
+   "avg_order_value": 169.65,
+   "avg_review_score": 4.22,
+   "avg_delivery_days": 11.7,
+   "late_delivery_pct": 5.2,
+   "revenue_mom_pct": 9.36,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-10",
+   "orders": 4547,
+   "customers": 4481,
+   "revenue": 660179.62,
+   "freight": 104576.41,
+   "avg_order_value": 168.19,
+   "avg_review_score": 4.17,
+   "avg_delivery_days": 11.7,
+   "late_delivery_pct": 5.29,
+   "revenue_mom_pct": 6.24,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2017-11",
+   "orders": 7421,
+   "customers": 7313,
+   "revenue": 1003862.14,
+   "freight": 168329.54,
+   "avg_order_value": 157.96,
+   "avg_review_score": 3.95,
+   "avg_delivery_days": 15.1,
+   "late_delivery_pct": 14.31,
+   "revenue_mom_pct": 52.06,
+   "is_black_friday_month": true
+  },
+  {
+   "month": "2017-12",
+   "orders": 5618,
+   "customers": 5551,
+   "revenue": 742183.79,
+   "freight": 119342.98,
+   "avg_order_value": 153.35,
+   "avg_review_score": 4.04,
+   "avg_delivery_days": 15.3,
+   "late_delivery_pct": 8.38,
+   "revenue_mom_pct": -26.07,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2018-01",
+   "orders": 7187,
+   "customers": 7088,
+   "revenue": 945456.29,
+   "freight": 156463.72,
+   "avg_order_value": 153.32,
+   "avg_review_score": 4.07,
+   "avg_delivery_days": 14.0,
+   "late_delivery_pct": 6.56,
+   "revenue_mom_pct": 27.39,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2018-02",
+   "orders": 6624,
+   "customers": 6468,
+   "revenue": 837895.43,
+   "freight": 141590.73,
+   "avg_order_value": 147.87,
+   "avg_review_score": 3.86,
+   "avg_delivery_days": 16.9,
+   "late_delivery_pct": 15.99,
+   "revenue_mom_pct": -11.38,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2018-03",
+   "orders": 7168,
+   "customers": 7077,
+   "revenue": 981051.06,
+   "freight": 171605.93,
+   "avg_order_value": 160.81,
+   "avg_review_score": 3.76,
+   "avg_delivery_days": 16.2,
+   "late_delivery_pct": 21.36,
+   "revenue_mom_pct": 17.09,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2018-04",
+   "orders": 6919,
+   "customers": 6863,
+   "revenue": 993592.98,
+   "freight": 162655.91,
+   "avg_order_value": 167.11,
+   "avg_review_score": 4.17,
+   "avg_delivery_days": 11.4,
+   "late_delivery_pct": 5.31,
+   "revenue_mom_pct": 1.28,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2018-05",
+   "orders": 6833,
+   "customers": 6775,
+   "revenue": 992871.75,
+   "freight": 152814.71,
+   "avg_order_value": 167.67,
+   "avg_review_score": 4.21,
+   "avg_delivery_days": 11.3,
+   "late_delivery_pct": 8.24,
+   "revenue_mom_pct": -0.07,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2018-06",
+   "orders": 6145,
+   "customers": 6106,
+   "revenue": 863265.53,
+   "freight": 157116.37,
+   "avg_order_value": 166.05,
+   "avg_review_score": 4.29,
+   "avg_delivery_days": 9.2,
+   "late_delivery_pct": 1.36,
+   "revenue_mom_pct": -13.05,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2018-07",
+   "orders": 6233,
+   "customers": 6172,
+   "revenue": 878044.27,
+   "freight": 161739.31,
+   "avg_order_value": 166.82,
+   "avg_review_score": 4.29,
+   "avg_delivery_days": 8.9,
+   "late_delivery_pct": 4.48,
+   "revenue_mom_pct": 1.71,
+   "is_black_friday_month": false
+  },
+  {
+   "month": "2018-08",
+   "orders": 6421,
+   "customers": 6380,
+   "revenue": 848860.1,
+   "freight": 148113.41,
+   "avg_order_value": 155.27,
+   "avg_review_score": 4.29,
+   "avg_delivery_days": 7.7,
+   "late_delivery_pct": 10.39,
+   "revenue_mom_pct": -3.32,
+   "is_black_friday_month": false
+  }
+ ],
+ "totals": {
+  "revenue": 13449529.68,
+  "orders": 97905,
+  "months": 20
+ },
+ "overview": {
+  "gold_revenue_total": 13494400.74,
+  "gold_valid_orders": 98199.0,
+  "kpi_window_revenue": 13449529.68,
+  "kpi_months": 20,
+  "customers": 94983,
+  "repeat_customers": 2887,
+  "repeat_pct": 3.04,
+  "peak_month": "2017-11",
+  "peak_mom_pct": 52.06,
+  "late_review": 2.56,
+  "on_time_review": 4.29,
+  "sellers": 3053,
+  "sellers_80pct_revenue": 539,
+  "watchlist_sellers": 153
+ },
+ "top_categories": [
+  {
+   "category": "health_beauty",
+   "revenue": 1251145.54,
+   "orders": 8757,
+   "revenue_share_pct": 9.3,
+   "cumulative_share_pct": 9.3
+  },
+  {
+   "category": "watches_gifts",
+   "revenue": 1194824.97,
+   "orders": 5599,
+   "revenue_share_pct": 8.88,
+   "cumulative_share_pct": 18.19
+  },
+  {
+   "category": "bed_bath_table",
+   "revenue": 1035485.07,
+   "orders": 9394,
+   "revenue_share_pct": 7.7,
+   "cumulative_share_pct": 25.89
+  },
+  {
+   "category": "sports_leisure",
+   "revenue": 977728.77,
+   "orders": 7656,
+   "revenue_share_pct": 7.27,
+   "cumulative_share_pct": 33.15
+  },
+  {
+   "category": "computers_accessories",
+   "revenue": 902922.7,
+   "orders": 6636,
+   "revenue_share_pct": 6.71,
+   "cumulative_share_pct": 39.87
+  },
+  {
+   "category": "furniture_decor",
+   "revenue": 721584.27,
+   "orders": 6373,
+   "revenue_share_pct": 5.37,
+   "cumulative_share_pct": 45.23
+  }
+ ],
+ "top_states": [
+  {
+   "customer_state": "SP",
+   "state_name": "São Paulo",
+   "region": "Sudeste",
+   "revenue": 5163867.22,
+   "orders": 41125,
+   "revenue_share_pct": 38.27,
+   "late_delivery_pct": 5.89,
+   "avg_review_score": 4.21
+  },
+  {
+   "customer_state": "RJ",
+   "state_name": "Rio de Janeiro",
+   "region": "Sudeste",
+   "revenue": 1811623.42,
+   "orders": 12697,
+   "revenue_share_pct": 13.43,
+   "late_delivery_pct": 13.47,
+   "avg_review_score": 3.91
+  },
+  {
+   "customer_state": "MG",
+   "state_name": "Minas Gerais",
+   "region": "Sudeste",
+   "revenue": 1573508.2,
+   "orders": 11496,
+   "revenue_share_pct": 11.66,
+   "late_delivery_pct": 5.61,
+   "avg_review_score": 4.16
+  },
+  {
+   "customer_state": "RS",
+   "state_name": "Rio Grande do Sul",
+   "region": "Sul",
+   "revenue": 742559.78,
+   "orders": 5415,
+   "revenue_share_pct": 5.5,
+   "late_delivery_pct": 7.15,
+   "avg_review_score": 4.15
+  },
+  {
+   "customer_state": "PR",
+   "state_name": "Paraná",
+   "region": "Sul",
+   "revenue": 676883.06,
+   "orders": 4982,
+   "revenue_share_pct": 5.02,
+   "late_delivery_pct": 5.0,
+   "avg_review_score": 4.21
+  },
+  {
+   "customer_state": "SC",
+   "state_name": "Santa Catarina",
+   "region": "Sul",
+   "revenue": 518578.28,
+   "orders": 3599,
+   "revenue_share_pct": 3.84,
+   "late_delivery_pct": 9.76,
+   "avg_review_score": 4.1
+  }
+ ],
+ "rfm_segments": [
+  {
+   "rfm_segment": "Champions",
+   "customers": 251,
+   "pct_customers": 0.26,
+   "crm_action": "Giữ chân bằng voucher/ưu đãi VIP"
+  },
+  {
+   "rfm_segment": "Loyal",
+   "customers": 675,
+   "pct_customers": 0.71,
+   "crm_action": "Gợi ý mua bổ sung (nhà cửa, thể thao)"
+  },
+  {
+   "rfm_segment": "At Risk",
+   "customers": 1961,
+   "pct_customers": 2.06,
+   "crm_action": "Win-back có mục tiêu: đã mua ≥2 lần, >180 ngày chưa quay lại"
+  },
+  {
+   "rfm_segment": "One-shot Recent",
+   "customers": 9156,
+   "pct_customers": 9.64,
+   "crm_action": "Mời mua lần 2 trong 90 ngày"
+  },
+  {
+   "rfm_segment": "One-shot Warm",
+   "customers": 17615,
+   "pct_customers": 18.55,
+   "crm_action": "Nhắc nhẹ, chi phí thấp"
+  },
+  {
+   "rfm_segment": "One-shot Lost",
+   "customers": 65325,
+   "pct_customers": 68.78,
+   "crm_action": "Không ưu tiên ngân sách (chi phí chìm)"
+  }
+ ],
+ "decision_hints": [
+  {
+   "priority": 1,
+   "severity": "CAO",
+   "topic": "Seller",
+   "signal": "Seller doanh thu top 10% vi phạm ≥2 tiêu chí vận hành",
+   "action": "Gửi cảnh cáo, giảm hiển thị, yêu cầu kế hoạch SLA 30 ngày"
+  },
+  {
+   "priority": 2,
+   "severity": "CAO",
+   "topic": "Giao hàng",
+   "signal": "Đơn trễ kéo review xuống",
+   "action": "Cảnh báo seller khi đơn trễ 1–3 ngày (review 3,29) trước mốc 4–7 ngày (2,10)"
+  },
+  {
+   "priority": 3,
+   "severity": "CAO",
+   "topic": "Vận hành theo tháng",
+   "signal": "Tháng có tỷ lệ giao trễ > 15%",
+   "action": "Tăng năng lực vận chuyển trước cao điểm (T11 Black Friday, T2–T3)"
+  },
+  {
+   "priority": 4,
+   "severity": "TRUNG BÌNH",
+   "topic": "Địa lý",
+   "signal": "Bang trễ > 10% và review < 4",
+   "action": "Seller/kho vùng; hiển thị ngày giao thực tế trước checkout"
+  },
+  {
+   "priority": 5,
+   "severity": "TRUNG BÌNH",
+   "topic": "Danh mục",
+   "signal": "Ngành lớn có phí ship > 20% doanh thu",
+   "action": "Không free-ship đại trà; đưa phí ship vào giá/ngưỡng miễn phí"
+  },
+  {
+   "priority": 6,
+   "severity": "TRUNG BÌNH",
+   "topic": "Khách hàng",
+   "signal": "Khách At Risk (đã mua ≥2 lần, >180 ngày chưa quay lại)",
+   "action": "Chiến dịch win-back có mục tiêu (email/voucher ngành nhà cửa)"
+  },
+  {
+   "priority": 7,
+   "severity": "THẤP",
+   "topic": "Seller",
+   "signal": "Mức tập trung doanh thu seller",
+   "action": "Ưu tiên account manager cho nhóm A"
+  }
+ ],
+ "watchlist": {
+  "sellers": 153,
+  "red": 75
+ },
+ "load": {
+  "run_id": "20261113-073946-65395d",
+  "loaded_at": "2026-11-13T00:44:36.123730+00:00",
+  "tables": 23,
+  "rows": 505592.0,
+  "parquet_bytes": 42879056.0,
+  "all_ok": true
+ },
+ "inventory": {
+  "tables": 25,
+  "views": 22
+ },
+ "quality": {
+  "anchors_total": 19,
+  "anchors_passed": 19,
+  "tables_total": 23,
+  "tables_matched": 23
+ },
+ "performance": {
+  "query_client_median_ms": 172.4,
+  "query_server_median_ms": 1.36,
+  "tab_cold_median_s": 5.24,
+  "tab_warm_median_s": 1.04,
+  "chart_cache_median_ms": 54.7,
+  "scale": [
+   {
+    "factor": 1.0,
+    "rows": 112101.0,
+    "size_mb": 12.7,
+    "generate_s": 0.18,
+    "index_s": 0.25,
+    "rows_per_s_server": 607063.0,
+    "raw_month_category_ms": 47.0,
+    "raw_filtered_indexed_ms": 2.5,
+    "preaggregated_view_ms": 1.1
+   },
+   {
+    "factor": 2.0,
+    "rows": 224202.0,
+    "size_mb": 24.2,
+    "generate_s": 0.25,
+    "index_s": 0.36,
+    "rows_per_s_server": 892497.0,
+    "raw_month_category_ms": 93.5,
+    "raw_filtered_indexed_ms": 4.8,
+    "preaggregated_view_ms": 1.1
+   },
+   {
+    "factor": 5.0,
+    "rows": 560505.0,
+    "size_mb": 59.2,
+    "generate_s": 0.57,
+    "index_s": 0.73,
+    "rows_per_s_server": 984986.0,
+    "raw_month_category_ms": 272.9,
+    "raw_filtered_indexed_ms": 11.3,
+    "preaggregated_view_ms": 1.1
+   },
+   {
+    "factor": 10.0,
+    "rows": 1121010.0,
+    "size_mb": 117.7,
+    "generate_s": 1.16,
+    "index_s": 1.4,
+    "rows_per_s_server": 968083.0,
+    "raw_month_category_ms": 506.6,
+    "raw_filtered_indexed_ms": 18.5,
+    "preaggregated_view_ms": 1.1
+   }
+  ]
+ }
+}

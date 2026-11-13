@@ -73,6 +73,22 @@ services:
       - .:/work
     working_dir: /work
 
+  # Landing page tĩnh (web/): đọc web/data/kpi.json do scripts/export_landing_kpi.py xuất từ Neon.
+  web:
+    image: nginx:1.27-alpine
+    container_name: olist-web
+    ports:
+      - "8090:80"
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+      - ./web/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
 volumes:
   superset_home:
   superset_db:

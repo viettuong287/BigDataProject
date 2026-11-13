@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Olist Insight · Từ Parquet đến quyết định kinh doanh</title>
+  <meta name="description" content="Tầng trình bày dữ liệu thương mại điện tử Olist: Neon serverless Postgres, semantic layer SQL và dashboard Apache Superset.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+    <span class="blob b4"></span><span class="blob b5"></span><span class="blob b6"></span>
+  </div>
+
+  <header class="nav glass">
+    <a class="brand" href="#top">
+      <img src="assets/favicon.svg" alt="" width="28" height="28">
+      <span>Olist <b>Insight</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Điều hướng chính">
+      <a href="#tinh-nang">Tính năng</a>
+      <a href="#insight">Insight</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#bang-gia">Bảng giá</a>
+      <a href="#doi-ngu">Đội ngũ</a>
+    </nav>
+    <a class="btn btn-sm btn-primary" href="http://localhost:8088/superset/dashboard/olist-presentation/" target="_blank" rel="noopener">Mở dashboard</a>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="pill"><span class="dot"></span> Analytics → Presentation · Đồ án Dữ liệu lớn</span>
+        <h1>Biến <span class="grad">505 nghìn dòng</span> dữ liệu thương mại điện tử thành quyết định mỗi sáng</h1>
+        <p class="lead">
+          Olist Insight nạp Parquet từ Spark vào <b>Neon serverless Postgres</b>, chuẩn hoá KPI bằng tầng ngữ nghĩa SQL
+          và trình bày trên <b>Apache Superset</b> — kèm luật cảnh báo seller, giao trễ và khách sắp rời bỏ.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="http://localhost:8088/superset/dashboard/olist-presentation/" target="_blank" rel="noopener">Xem dashboard 7 tab</a>
+          <a class="btn btn-ghost" href="#pipeline">Cách hệ thống chạy</a>
+        </div>
+        <ul class="hero-facts" id="hero-facts">
+          <li><b data-k="rows">–</b><span>dòng đã nạp</span></li>
+          <li><b data-k="anchors">–</b><span>số neo kiểm chứng</span></li>
+          <li><b data-k="server_ms">–</b><span>trung vị truy vấn phía server</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-panel glass" id="live">
+        <div class="panel-head">
+          <div>
+            <span class="live-badge"><span class="pulse"></span>LIVE REPLAY</span>
+            <h2 class="panel-title">Doanh thu &amp; đơn hàng theo tháng</h2>
+            <p class="panel-sub">Phát lại dữ liệu thật <span id="range">2017-01 → 2018-08</span> từ <code>presentation.v_kpi_monthly</code></p>
+          </div>
+          <div class="panel-ctrl">
+            <button class="icon-btn" id="btn-play" aria-label="Tạm dừng" title="Tạm dừng / phát tiếp">
+              <svg viewBox="0 0 24 24" class="i-pause"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>
+              <svg viewBox="0 0 24 24" class="i-play"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-replay" aria-label="Phát lại từ đầu" title="Phát lại từ đầu">
+              <svg viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="ticker" id="ticker" aria-live="polite">Đang tải dữ liệu…</div>
+
+        <div class="chart-wrap">
+          <svg id="chart" viewBox="0 0 640 260" preserveAspectRatio="none" role="img" aria-label="Biểu đồ doanh thu theo tháng"></svg>
+          <div class="chart-tip" id="chart-tip" hidden></div>
+        </div>
+        <div class="legend">
+          <span><i class="sw sw-rev"></i>Doanh thu (R$)</span>
+          <span><i class="sw sw-ord"></i>Số đơn</span>
+          <span><i class="sw sw-bf"></i>Tháng Black Friday</span>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi"><span class="kpi-l">Doanh thu luỹ kế</span><b class="kpi-v" id="k-rev">–</b><span class="kpi-d" id="k-rev-d"></span></div>
+          <div class="kpi"><span class="kpi-l">Đơn hàng luỹ kế</span><b class="kpi-v" id="k-ord">–</b><span class="kpi-d" id="k-ord-d"></span></div>
+          <div class="kpi"><span class="kpi-l">Giá trị đơn TB</span><b class="kpi-v" id="k-aov">–</b><span class="kpi-d" id="k-aov-d"></span></div>
+          <div class="kpi"><span class="kpi-l">Tỷ lệ giao trễ</span><b class="kpi-v" id="k-late">–</b><span class="kpi-d" id="k-late-d"></span></div>
+          <div class="kpi"><span class="kpi-l">Điểm review TB</span><b class="kpi-v" id="k-rv">–</b><span class="kpi-d" id="k-rv-d"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="trust" aria-label="Công nghệ và kiểm chứng">
+      <p class="trust-title">Xây trên nền tảng mã nguồn mở và được kiểm chứng bằng số liệu</p>
+      <ul class="badges">
+        <li class="badge glass"><svg viewBox="0 0 24 24"><path d="M4 4h10l6 6v10H8l-4-4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 9h6M8 13h8" stroke="currentColor" stroke-width="2"/></svg>Neon Postgres 18</li>
+        <li class="badge glass"><svg viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="8" rx="1"/><rect x="10" y="7" width="4" height="13" rx="1"/><rect x="17" y="3" width="4" height="17" rx="1"/></svg>Apache Superset 4.1</li>
+        <li class="badge glass"><svg viewBox="0 0 24 24"><path d="M3 12h18c0 5-4 8-9 8s-8-3-9-8zM5 8h3v3H5zM9 8h3v3H9zM13 8h3v3h-3zM9 4h3v3H9z"/></svg>Docker Compose</li>
+        <li class="badge glass"><svg viewBox="0 0 24 24"><path d="M4 5h16v4H4zM4 10h16v4H4zM4 15h16v4H4z" fill="none" stroke="currentColor" stroke-width="2"/></svg>Apache Parquet</li>
+        <li class="badge glass ok"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12l3 3 5-6" fill="none" stroke="currentColor" stroke-width="2"/></svg><span id="b-anchors">19/19</span>&nbsp;số neo đạt</li>
+        <li class="badge glass ok"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" fill="none" stroke="currentColor" stroke-width="2.5"/></svg><span id="b-tables">23/23</span>&nbsp;bảng khớp Parquet</li>
+        <li class="badge glass"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Dựng lại bằng script</li>
+      </ul>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="tinh-nang">
+      <header class="section-head">
+        <span class="eyebrow">Tính năng</span>
+        <h2>Mọi thứ cần để đi từ bảng tổng hợp đến hành động</h2>
+        <p>Không chạy lại Spark, không tự tính lại số: mỗi con số trên dashboard đều truy về bảng Analytics/gold trên Neon.</p>
+      </header>
+      <div class="grid features">
+        <article class="card glass">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg></div>
+          <h3>Nạp Parquet → Neon</h3>
+          <p>Loader Python dùng <code>COPY FROM STDIN</code>, giữ đúng kiểu Spark, tạo khoá chính, index và ghi nhật ký <code>load_log</code>.</p>
+          <span class="meta" id="f-load">23 bảng · 505.592 dòng</span>
+        </article>
+        <article class="card glass">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"/></svg></div>
+          <h3>Tầng ngữ nghĩa SQL</h3>
+          <p>22 view trong schema <code>presentation</code> định nghĩa KPI một lần, thêm nhãn, vùng, mã ISO bang — có version control.</p>
+          <span class="meta" id="f-inv">25 bảng · 22 view</span>
+        </article>
+        <article class="card glass">
+          <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></div>
+          <h3>Dashboard 7 tab, 45 chart</h3>
+          <p>Tổng quan, danh mục &amp; mùa vụ, bản đồ Brazil, RFM, seller, giao trễ &amp; thanh toán — dựng hoàn toàn bằng REST API.</p>
+          <span class="meta">Superset 4.1.2 · tái lập bằng code</span>
+        </article>
+        <article class="card glass">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg></div>
+          <h3>7 bộ lọc native</h3>
+          <p>Thời gian, bang, vùng, danh mục, phân khúc RFM, phương thức thanh toán, bang seller — phạm vi tự tính theo cột.</p>
+          <span class="meta">Lọc chéo toàn dashboard</span>
+        </article>
+        <article class="card glass">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2zM9 21h6"/></svg></div>
+          <h3>Gợi ý quyết định</h3>
+          <p>View <code>v_decision_hints</code> gồm luật, ngưỡng và hành động đề xuất để nhóm Decision/Action đọc trực tiếp bằng SQL.</p>
+          <span class="meta" id="f-hints">7 luật · 75 seller mức ĐỎ</span>
+        </article>
+        <article class="card glass">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 16l4-5 4 3 6-8"/><path d="M15 6h4v4"/></svg></div>
+          <h3>Mở rộng ×10 vẫn nhanh</h3>
+          <p>Thử nghiệm 1,12 triệu dòng trên Neon: truy vấn thô tăng tuyến tính, còn view tổng hợp giữ nguyên độ trễ.</p>
+          <span class="meta" id="f-scale">47 → 507 ms thô · 1,1 ms view</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- INSIGHT -->
+    <section class="section" id="insight">
+      <header class="section-head">
+        <span class="eyebrow">Insight từ dữ liệu thật</span>
+        <h2>Những gì dashboard nói với ban điều hành</h2>
+        <p>Số liệu bên dưới được xuất trực tiếp từ Neon lúc <span id="gen-at">–</span>.</p>
+      </header>
+      <div class="grid insights">
+        <article class="card glass">
+          <h3>Top danh mục theo doanh thu</h3>
+          <ul class="bars" id="ins-cat"></ul>
+        </article>
+        <article class="card glass">
+          <h3>Bang dẫn đầu &amp; tỷ lệ giao trễ</h3>
+          <ul class="bars" id="ins-state"></ul>
+        </article>
+        <article class="card glass">
+          <h3>Phân khúc khách hàng RFM</h3>
+          <div class="stack" id="ins-rfm"></div>
+          <ul class="stack-legend" id="ins-rfm-l"></ul>
+        </article>
+        <article class="card glass">
+          <h3>Cảnh báo ưu tiên cao</h3>
+          <ol class="hints" id="ins-hints"></ol>
+        </article>
+      </div>
+    </section>
+
+    <!-- PIPELINE -->
+    <section class="section" id="pipeline">
+      <header class="section-head">
+        <span class="eyebrow">Pipeline</span>
+        <h2>Vị trí của Olist Insight trong pipeline dữ liệu lớn</h2>
+        <p>Nhận bàn giao Parquet từ nhóm Analytics, xuất dashboard và view quyết định cho nhóm Decision/Action.</p>
+      </header>
+      <ol class="pipe glass">
+        <li class="step"><span class="n">1</span><b>Processing</b><small>Spark → bảng gold</small></li>
+        <li class="step"><span class="n">2</span><b>Analytics</b><small>Spark SQL + K-Means</small></li>
+        <li class="step ours"><span class="n">3</span><b>Parquet → Neon</b><small>COPY · 23 bảng</small></li>
+        <li class="step ours"><span class="n">4</span><b>Semantic layer</b><small>22 view SQL</small></li>
+        <li class="step ours"><span class="n">5</span><b>Superset</b><small>7 tab · 45 chart</small></li>
+        <li class="step"><span class="n">6</span><b>Decision / Action</b><small>v_decision_hints</small></li>
+      </ol>
+      <p class="pipe-note"><span class="sw sw-ours"></span> Phần do nhóm Presentation phụ trách</p>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section" id="bang-gia">
+      <header class="section-head">
+        <span class="eyebrow">Bảng giá</span>
+        <h2>Chọn quy mô triển khai phù hợp</h2>
+        <p>Bảng giá minh hoạ cho kịch bản thương mại hoá; bản đồ án chạy hoàn toàn trên gói miễn phí.</p>
+      </header>
+      <div class="grid pricing">
+        <article class="plan glass">
+          <h3>Học tập</h3>
+          <p class="price"><b>0đ</b><span>/tháng</span></p>
+          <p class="plan-sub">Cho lớp học và đồ án</p>
+          <ul>
+            <li>Neon Free · 0,25 CU · 1 GiB/branch</li>
+            <li>Superset chạy Docker cục bộ</li>
+            <li>Dữ liệu mẫu Olist 2016–2018</li>
+            <li>Dashboard 7 tab dựng sẵn</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://github.com/viettuong287/BigDataProject" target="_blank" rel="noopener">Tải mã nguồn</a>
+        </article>
+        <article class="plan glass featured">
+          <span class="tag">Phổ biến</span>
+          <h3>Nhóm phân tích</h3>
+          <p class="price"><b>490.000đ</b><span>/tháng</span></p>
+          <p class="plan-sub">Cho đội vận hành 5–20 người</p>
+          <ul>
+            <li>Neon Launch · autoscale tới 4 CU</li>
+            <li>Superset có cache Redis, SSO</li>
+            <li>Nạp dữ liệu hằng ngày theo lịch</li>
+            <li>Cảnh báo seller qua email</li>
+            <li>Hỗ trợ trong giờ hành chính</li>
+          </ul>
+          <a class="btn btn-primary" href="#doi-ngu">Liên hệ dùng thử</a>
+        </article>
+        <article class="plan glass">
+          <h3>Doanh nghiệp</h3>
+          <p class="price"><b>Liên hệ</b></p>
+          <p class="plan-sub">Cho sàn TMĐT quy mô lớn</p>
+          <ul>
+            <li>Neon Scale · read replica, branching</li>
+            <li>Loader chạy cùng region dữ liệu</li>
+            <li>Luật quyết định tuỳ chỉnh</li>
+            <li>SLA 99,9% và hỗ trợ 24/7</li>
+          </ul>
+          <a class="btn btn-ghost" href="#doi-ngu">Trao đổi với nhóm</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="doi-ngu">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top"><img src="assets/favicon.svg" alt="" width="28" height="28"><span>Olist <b>Insight</b></span></a>
+        <p>Đồ án học phần <b>Nhập môn Dữ liệu lớn</b> · Trường Đại học Sài Gòn, Khoa Công nghệ Thông tin · Lớp DCT123C5.</p>
+        <p>Giảng viên hướng dẫn: <b>Vũ Ngọc Thanh Sang</b></p>
+      </div>
+      <div class="team">
+        <h3>Đội ngũ thực hiện</h3>
+        <ul class="members">
+          <li class="member glass"><span class="avatar">T</span><div><b>Võ Việt Tường</b><small>3123411334 · Nhóm trưởng – kiến trúc, Neon &amp; loader</small></div></li>
+          <li class="member glass"><span class="avatar">L</span><div><b>Nguyễn Hoàng Phi Long</b><small>3123411180 · Semantic layer SQL &amp; dashboard</small></div></li>
+          <li class="member glass"><span class="avatar">P</span><div><b>Mai Hồng Phong</b><small>3123411225 · Thực nghiệm, minh chứng &amp; báo cáo</small></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Dữ liệu: Olist Brazilian E-commerce (2016–2018). Số liệu cập nhật: <span id="foot-gen">–</span></span>
+      <a href="https://github.com/viettuong287/BigDataProject" target="_blank" rel="noopener">GitHub · BigDataProject</a>
+    </div>
+  </footer>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
