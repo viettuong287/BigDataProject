@@ -1,20 +1,21 @@
-slice_name: "AOV theo s\u1ED1 k\u1EF3 tr\u1EA3 g\xF3p (BRL)"
-description: "Ngu\u1ED3n: presentation.v_payment_mix"
+slice_name: "\u0110i\u1EC3m \u0111\xE1nh gi\xE1 TB: giao tr\u1EC5 v\xE0 \u0111\xFA\
+  ng h\u1EA1n"
+description: "Ngu\u1ED3n: presentation.v_late_vs_review"
 certified_by: null
 certification_details: null
 viz_type: echarts_timeseries_bar
 params:
   viz_type: echarts_timeseries_bar
-  x_axis: installment_label
+  x_axis: delivery_label
   metrics:
   - expressionType: SQL
-    sqlExpression: SUM(gmv) / NULLIF(SUM(orders), 0)
-    label: AOV (BRL)
+    sqlExpression: MAX(avg_review)
+    label: "\u0110\xE1nh gi\xE1 TB"
     hasCustomLabel: true
-    optionName: metric_aov_brl_
+    optionName: "metric_\u0111\xE1nh_gi\xE1_tb"
   groupby: []
   adhoc_filters: []
-  row_limit: 10
+  row_limit: 5
   truncate_metric: true
   show_legend: false
   legendOrientation: top
@@ -26,14 +27,14 @@ params:
   color_scheme: supersetColors
   only_total: true
   order_desc: true
-  x_axis_sort: installment_label
-  x_axis_sort_asc: true
+  x_axis_sort: "\u0110\xE1nh gi\xE1 TB"
+  x_axis_sort_asc: false
   orientation: vertical
   show_value: true
   xAxisLabelRotation: 45
-  datasource: 24__table
+  datasource: 22__table
 query_context: null
 cache_timeout: 600
-uuid: 3367147e-bf7e-4ed2-b88c-685153d4c3c8
+uuid: d53440ca-75db-4da9-a895-7306b85886be
 version: 1.0.0
-dataset_uuid: b55f3a1f-fda1-4719-a359-6d7a3d783d02
+dataset_uuid: a332d7e0-4833-4d02-bd02-3732ef945b03

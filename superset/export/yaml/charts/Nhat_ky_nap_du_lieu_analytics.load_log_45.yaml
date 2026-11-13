@@ -25,10 +25,24 @@ params:
   allow_rearrange_columns: true
   table_timestamp_format: '%Y-%m-%d %H:%M'
   column_config:
+    table_fq:
+      d3NumberFormat: ',.2~f'
     rows:
       d3NumberFormat: ',.0f'
     parquet_rows:
       d3NumberFormat: ',.0f'
+    row_count_ok:
+      d3NumberFormat: ',.2~f'
+    parquet_files:
+      d3NumberFormat: ',.2~f'
+    parquet_mb:
+      d3NumberFormat: ',.2~f'
+    seconds:
+      d3NumberFormat: ',.2~f'
+    rows_per_sec:
+      d3NumberFormat: ',.2~f'
+    loaded_at:
+      d3NumberFormat: ',.2~f'
   conditional_formatting: []
   adhoc_filters: []
   datasource: 26__table

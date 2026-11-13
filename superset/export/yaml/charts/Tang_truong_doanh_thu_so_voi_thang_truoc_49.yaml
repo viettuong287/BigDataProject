@@ -1,5 +1,5 @@
 slice_name: "T\u0103ng tr\u01B0\u1EDFng doanh thu so v\u1EDBi th\xE1ng tr\u01B0\u1EDB\
-  c (MoM %)"
+  c (%)"
 description: "Ngu\u1ED3n: presentation.v_kpi_monthly"
 certified_by: null
 certification_details: null
@@ -10,9 +10,9 @@ params:
   metrics:
   - expressionType: SQL
     sqlExpression: MAX(revenue_mom_pct)
-    label: MoM doanh thu (%)
+    label: "So v\u1EDBi th\xE1ng tr\u01B0\u1EDBc (%)"
     hasCustomLabel: true
-    optionName: metric_mom_doanh_thu_
+    optionName: "metric_so_v\u1EDBi_th\xE1ng_tr\u01B0\u1EDBc_"
   groupby: []
   adhoc_filters:
   - clause: WHERE
@@ -37,6 +37,6 @@ params:
   datasource: 11__table
 query_context: null
 cache_timeout: 600
-uuid: fa5030d8-617a-4f70-bbda-96be2d5ad875
+uuid: f3ab5d80-f1d4-400b-8d6f-73061a86dfbb
 version: 1.0.0
 dataset_uuid: f21db043-e9c3-4b07-810d-e4fb226e9afe

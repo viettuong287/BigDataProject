@@ -24,43 +24,63 @@ EXPORT_DIR = ROOT / "superset" / "export"
 DB_NAME = "Neon · olist_analytics"
 SCHEMA = "presentation"
 DASH_SLUG = "olist-presentation"
-DASH_TITLE = "Olist E-commerce · Analytics → Presentation"
+DASH_TITLE = "Thương mại điện tử Olist · Phân tích → Trình bày"
 
 # ---------------------------------------------------------------------------------------------
-# Nhãn tiếng Việt cho cột (verbose_name) – hiển thị ở header bảng, tooltip, bộ lọc.
+# Nhãn tiếng Việt cho cột (verbose_name) – hiển thị ở header bảng, trục, chú giải, tooltip, bộ lọc.
+# Giá trị dữ liệu (tên phân khúc RFM, danh mục, PTTT...) giữ nguyên như bàn giao từ Analytics.
 # ---------------------------------------------------------------------------------------------
 VERBOSE = {
     "month_date": "Tháng", "month_label": "Tháng", "purchase_month": "Tháng (2017)", "orders": "Số đơn",
-    "customers": "Số khách", "items": "Số món", "revenue": "Doanh thu (BRL)", "freight": "Phí ship (BRL)",
-    "gmv": "GMV (BRL)", "avg_order_value": "AOV (BRL)", "avg_review_score": "Review TB",
-    "avg_delivery_days": "Ngày giao TB", "late_delivery_pct": "% giao trễ", "revenue_mom_pct": "MoM doanh thu (%)",
-    "orders_mom_pct": "MoM số đơn (%)", "revenue_yoy_pct": "YoY doanh thu (%)", "revenue_rank": "Hạng doanh thu",
-    "category": "Danh mục", "avg_price": "Giá TB (BRL)", "freight_to_revenue_pct": "Ship/doanh thu (%)",
+    "customers": "Số khách", "items": "Số món", "revenue": "Doanh thu (BRL)", "freight": "Phí vận chuyển (BRL)",
+    "gmv": "Giá trị hàng hoá – GMV (BRL)", "avg_order_value": "Giá trị TB/đơn (BRL)",
+    "avg_review_score": "Điểm đánh giá TB", "avg_delivery_days": "Ngày giao TB", "late_delivery_pct": "% giao trễ",
+    "revenue_mom_pct": "Doanh thu so với tháng trước (%)", "orders_mom_pct": "Số đơn so với tháng trước (%)",
+    "revenue_yoy_pct": "Doanh thu so với cùng kỳ năm trước (%)", "revenue_rank": "Hạng doanh thu",
+    "category": "Danh mục", "avg_price": "Giá TB (BRL)", "freight_to_revenue_pct": "Phí vận chuyển/doanh thu (%)",
     "revenue_share_pct": "Tỷ trọng doanh thu (%)", "cumulative_share_pct": "Cộng dồn (%)",
     "pareto_class": "Nhóm Pareto", "category_label": "Danh mục (hạng)", "band_label": "Khoảng cách",
-    "watchlist_label": "Watchlist", "customer_state": "Bang khách hàng", "state_name": "Tên bang",
-    "region": "Vùng", "avg_freight": "Ship TB (BRL)", "freight_pct_of_revenue": "Ship/doanh thu (%)",
+    "watchlist_label": "Danh sách theo dõi", "customer_state": "Bang khách hàng", "state_name": "Tên bang",
+    "region": "Vùng", "avg_freight": "Phí vận chuyển TB (BRL)", "freight_pct_of_revenue": "Phí vận chuyển/doanh thu (%)",
     "distance_band": "Khoảng cách", "late_pct": "% trễ", "avg_delay_days": "Lệch hẹn TB (ngày)",
-    "rfm_segment": "Phân khúc RFM", "cluster_name": "Cụm K-Means", "recency_days": "Recency (ngày)",
-    "frequency": "Frequency", "monetary": "Monetary (BRL)", "pct_customers": "% khách",
-    "avg_recency_days": "Recency TB (ngày)", "avg_frequency": "Frequency TB", "avg_monetary": "Chi tiêu TB (BRL)",
-    "crm_action": "Hành động CRM", "avg_recency": "Recency TB", "champions": "Champions", "loyal": "Loyal",
-    "at_risk": "At Risk", "cohort_label": "Nhóm", "pct": "%", "avg_aov": "AOV TB (BRL)",
-    "repeat_customers": "Khách mua lại", "seller_short": "Seller", "seller_state": "Bang seller",
+    "rfm_segment": "Phân khúc RFM", "cluster_name": "Cụm K-Means", "recency_days": "Số ngày từ lần mua cuối",
+    "frequency": "Số lần mua", "monetary": "Tổng chi tiêu (BRL)", "pct_customers": "% khách",
+    "avg_recency_days": "Số ngày từ lần mua cuối (TB)", "avg_frequency": "Số lần mua TB",
+    "avg_monetary": "Chi tiêu TB (BRL)", "crm_action": "Hành động CRM", "avg_recency": "Số ngày từ lần mua cuối (TB)",
+    "champions": "Số khách Champions", "loyal": "Số khách Loyal", "at_risk": "Số khách At Risk",
+    "cohort_label": "Nhóm", "pct": "%", "avg_aov": "Giá trị TB/đơn (BRL)",
+    "repeat_customers": "Khách mua lại", "seller_short": "Người bán", "seller_state": "Bang người bán",
     "avg_distance_km": "Khoảng cách TB (km)", "active_months": "Số tháng hoạt động",
-    "pareto_group": "Nhóm Pareto", "is_watchlist": "Trong watchlist", "violations": "Số vi phạm",
+    "pareto_group": "Nhóm Pareto", "is_watchlist": "Trong danh sách theo dõi", "violations": "Số vi phạm",
     "reasons": "Lý do", "alert_level": "Mức cảnh báo", "recommended_action": "Hành động đề xuất",
-    "revenue_pctile": "Phân vị doanh thu", "delivery_label": "Giao hàng", "avg_review": "Review TB",
+    "revenue_pctile": "Phân vị doanh thu", "delivery_label": "Giao hàng", "avg_review": "Điểm đánh giá TB",
     "pct_score_1_2": "% 1–2 sao", "pct_has_comment": "% có bình luận", "delay_label": "Mức trễ",
-    "pct_1_star": "% 1 sao", "main_payment_type": "PTTT", "installment_label": "Kỳ trả góp",
+    "pct_1_star": "% 1 sao", "main_payment_type": "Phương thức thanh toán", "installment_label": "Kỳ trả góp",
     "pct_orders": "% đơn", "priority": "Ưu tiên", "severity": "Mức độ", "topic": "Chủ đề",
     "signal": "Tín hiệu", "metric_value": "Giá trị", "detail": "Chi tiết", "threshold": "Ngưỡng",
     "action": "Hành động gợi ý", "source": "Nguồn", "table_fq": "Bảng", "rows": "Số dòng",
     "parquet_rows": "Dòng Parquet", "row_count_ok": "Khớp", "parquet_files": "Số file",
     "parquet_mb": "Parquet (MB)", "seconds": "Thời gian (s)", "rows_per_sec": "Dòng/giây",
-    "source_path": "Đường dẫn nguồn", "loaded_at": "Thời điểm nạp", "review_score": "Review",
+    "source_path": "Đường dẫn nguồn", "loaded_at": "Thời điểm nạp", "review_score": "Điểm đánh giá",
     "order_value": "Giá trị đơn (BRL)", "late_flag": "Trễ (0/1)",
+    "band_order": "Thứ tự khoảng", "cluster": "Mã cụm", "cohort": "Nhóm khách",
+    "customer_unique_id": "Mã khách (duy nhất)", "delay_band": "Khoảng trễ", "delivery": "Giao hàng",
+    "delivery_days": "Số ngày giao", "delivery_delay_days": "Số ngày lệch hẹn", "distance_km": "Khoảng cách (km)",
+    "r_score": "Điểm R", "f_score": "Điểm F", "m_score": "Điểm M",
+    "gold_revenue_total": "Tổng doanh thu gold (BRL)", "gold_valid_orders": "Số đơn hợp lệ (gold)",
+    "installment_band": "Nhóm kỳ trả góp", "is_black_friday_month": "Tháng Black Friday", "iso_code": "Mã ISO bang",
+    "kpi_months": "Số tháng KPI", "kpi_window_revenue": "Doanh thu khung KPI (BRL)",
+    "late_review": "Đánh giá TB đơn trễ", "on_time_review": "Đánh giá TB đơn đúng hạn",
+    "max_installments": "Số kỳ trả góp", "order_id": "Mã đơn", "order_item_id": "STT dòng sản phẩm",
+    "order_status": "Trạng thái đơn", "pct_of_category_year": "% doanh thu năm của danh mục",
+    "peak_mom_pct": "Tăng trưởng đỉnh so với tháng trước (%)", "peak_month": "Tháng đỉnh",
+    "purchase_date": "Ngày mua", "purchase_year": "Năm", "repeat_pct": "% khách mua lại", "run_id": "Mã lần nạp",
+    "schema_name": "Schema", "segment_order": "Thứ tự phân khúc", "seller_id": "Mã người bán",
+    "sellers": "Số người bán", "sellers_80pct_revenue": "Người bán tạo 80% doanh thu", "table_name": "Tên bảng",
+    "watchlist_sellers": "Người bán cần theo dõi",
 }
+# Nhãn cho metric mặc định của dataset (Superset tự tạo "count" với nhãn COUNT(*)).
+METRIC_VERBOSE = {"count": "Số dòng"}
 
 DATASETS = [
     "v_kpi_monthly", "v_orders", "v_category_pareto", "v_category_seasonality", "v_category_monthly",
@@ -147,7 +167,8 @@ def table(columns, order=None, limit=1000, page=10, fmt=None, cond=None, filters
             "order_by_cols": [json.dumps(o) for o in (order or [])], "row_limit": limit,
             "server_page_length": page, "include_search": True, "show_cell_bars": True,
             "allow_rearrange_columns": True, "table_timestamp_format": "%Y-%m",
-            "column_config": {c: {"d3NumberFormat": f} for c, f in (fmt or {}).items()},
+            # Cột số không khai báo định dạng vẫn đi qua D3 để dùng dấu thập phân "," (D3_FORMAT tiếng Việt).
+            "column_config": {c: {"d3NumberFormat": (fmt or {}).get(c, ",.2~f")} for c in columns},
             "conditional_formatting": cond or [], "adhoc_filters": filters or [], **extra}
 
 
@@ -181,11 +202,11 @@ TABS = [
     ("Tổng quan & xu hướng", [
         [
             ("kpi_rev", "v_orders", "KPI · Doanh thu (BRL)", big(REV, sub="Tổng giá sản phẩm, đơn hợp lệ", filters=[TF()]), 2, 22),
-            ("kpi_orders", "v_orders", "KPI · Đơn hàng hợp lệ", big(ORDERS_CNT, sub="is_valid_sale", filters=[TF()]), 2, 22),
-            ("kpi_cust", "v_orders", "KPI · Khách hàng (unique)", big(M("Khách", "COUNT(DISTINCT customer_unique_id)"), sub="customer_unique_id", filters=[TF()]), 2, 22),
-            ("kpi_aov", "v_orders", "KPI · AOV (BRL/đơn)", big(M("AOV", "AVG(order_value)"), fmt=",.2f", sub="GMV trung bình mỗi đơn", filters=[TF()]), 2, 22),
+            ("kpi_orders", "v_orders", "KPI · Đơn hàng hợp lệ", big(ORDERS_CNT, sub="đơn hợp lệ (is_valid_sale)", filters=[TF()]), 2, 22),
+            ("kpi_cust", "v_orders", "KPI · Khách hàng (không trùng)", big(M("Khách", "COUNT(DISTINCT customer_unique_id)"), sub="khách duy nhất (customer_unique_id)", filters=[TF()]), 2, 22),
+            ("kpi_aov", "v_orders", "KPI · Giá trị TB mỗi đơn (BRL)", big(M("Giá trị TB/đơn", "AVG(order_value)"), fmt=",.2f", sub="AOV – giá trị hàng hoá TB mỗi đơn", filters=[TF()]), 2, 22),
             ("kpi_late", "v_orders", "KPI · Tỷ lệ giao trễ", big(M("% trễ", "AVG(late_flag)"), fmt=".2%", sub="trên đơn đã giao", filters=[TF()]), 2, 22),
-            ("kpi_review", "v_orders", "KPI · Review trung bình", big(M("Review TB", "AVG(review_score)"), fmt=".2f", sub="sao, cấp đơn hàng", filters=[TF()]), 2, 22),
+            ("kpi_review", "v_orders", "KPI · Điểm đánh giá trung bình", big(M("Đánh giá TB", "AVG(review_score)"), fmt=".2f", sub="sao, cấp đơn hàng", filters=[TF()]), 2, 22),
         ],
         [
             ("trend_big", "v_kpi_monthly", "Doanh thu tháng gần nhất & xu hướng", big_trend(REV), 4, 50),
@@ -193,10 +214,10 @@ TABS = [
              mixed(REV, M("Số đơn", "SUM(orders)"), fmt_b=",.0f"), 8, 50),
         ],
         [
-            ("trend_late_review", "v_kpi_monthly", "Tỷ lệ giao trễ (%) vs review TB theo tháng",
-             mixed(M("% giao trễ", "MAX(late_delivery_pct)"), M("Review TB", "MAX(avg_review_score)"), fmt_a=",.1f"), 6, 50),
-            ("trend_mom", "v_kpi_monthly", "Tăng trưởng doanh thu so với tháng trước (MoM %)",
-             ts("echarts_timeseries_bar", [M("MoM doanh thu (%)", "MAX(revenue_mom_pct)")], fmt=",.1f", show_value=True, show_legend=False), 6, 50),
+            ("trend_late_review", "v_kpi_monthly", "Tỷ lệ giao trễ (%) và điểm đánh giá TB theo tháng",
+             mixed(M("% giao trễ", "MAX(late_delivery_pct)"), M("Đánh giá TB", "MAX(avg_review_score)"), fmt_a=",.1f"), 6, 50),
+            ("trend_mom", "v_kpi_monthly", "Tăng trưởng doanh thu so với tháng trước (%)",
+             ts("echarts_timeseries_bar", [M("So với tháng trước (%)", "MAX(revenue_mom_pct)")], fmt=",.1f", show_value=True, show_legend=False), 6, 50),
         ],
         [
             ("kpi_table", "v_kpi_monthly", "Bảng KPI theo tháng (2017-01 → 2018-08)",
@@ -224,8 +245,8 @@ TABS = [
               "legend_type": "continuous", "linear_color_scheme": "superset_seq_1", "xscale_interval": -1,
               "yscale_interval": -1, "left_margin": "auto", "bottom_margin": "auto", "value_bounds": [None, None],
               "y_axis_format": ",.1f", "show_legend": True, "show_percentage": False, "show_values": True}, 7, 60),
-            ("cat_freight", "v_category_pareto", "Phí ship / doanh thu (%) – 15 danh mục lớn nhất",
-             cat_bar(M("Ship/doanh thu (%)", "MAX(freight_to_revenue_pct)"), "category", limit=15, fmt=",.1f",
+            ("cat_freight", "v_category_pareto", "Phí vận chuyển / doanh thu (%) – 15 danh mục lớn nhất",
+             cat_bar(M("Phí vận chuyển/doanh thu (%)", "MAX(freight_to_revenue_pct)"), "category", limit=15, fmt=",.1f",
                      horizontal=True, filters=[SQLF("revenue_rank <= 15")]), 5, 60),
         ],
         [
@@ -238,19 +259,19 @@ TABS = [
             ("geo_map", "v_state_logistics", "Bản đồ doanh thu theo bang (Brazil)",
              {"viz_type": "country_map", "select_country": "brazil", "entity": "iso_code", "metric": REV,
               "adhoc_filters": [], "linear_color_scheme": "superset_seq_1", "number_format": ",.0f"}, 6, 70),
-            ("geo_bubble", "v_state_logistics", "Ngày giao TB vs review TB theo bang (kích thước = doanh thu)",
+            ("geo_bubble", "v_state_logistics", "Ngày giao TB và điểm đánh giá TB theo bang (kích thước = doanh thu)",
              {"viz_type": "bubble_v2", "entity": "customer_state", "series": "region",
-              "x": M("Ngày giao TB", "MAX(avg_delivery_days)"), "y": M("Review TB", "MAX(avg_review_score)"),
+              "x": M("Ngày giao TB", "MAX(avg_delivery_days)"), "y": M("Đánh giá TB", "MAX(avg_review_score)"),
               "size": REV, "adhoc_filters": [], "row_limit": 100, "max_bubble_size": "40",
-              "x_axis_label": "Ngày giao trung bình", "y_axis_label": "Review trung bình", "xAxisFormat": ",.1f",
+              "x_axis_label": "Ngày giao trung bình", "y_axis_label": "Điểm đánh giá trung bình", "xAxisFormat": ",.1f",
               "y_axis_format": ",.2f", "truncateYAxis": True, "y_axis_bounds": [3.6, 4.4], "opacity": 0.7,
               "show_legend": True, "color_scheme": "supersetColors", "tooltipSizeFormat": ",.0f"}, 6, 70),
         ],
         [
             ("geo_late", "v_state_logistics", "% giao trễ theo bang",
              cat_bar(M("% giao trễ", "MAX(late_delivery_pct)"), "customer_state", limit=27, fmt=",.1f"), 6, 50),
-            ("geo_distance", "v_insight_distance", "Khoảng cách seller → khách: ship TB (cột) & % trễ (đường)",
-             mixed(M("Ship TB (BRL)", "MAX(avg_freight)"), M("% trễ", "MAX(late_pct)"), x="band_label",
+            ("geo_distance", "v_insight_distance", "Khoảng cách người bán → khách: phí vận chuyển TB (cột) & % trễ (đường)",
+             mixed(M("Phí vận chuyển TB (BRL)", "MAX(avg_freight)"), M("% trễ", "MAX(late_pct)"), x="band_label",
                    fmt_a=",.2f", fmt_b=",.2f", x_axis_sort="band_label", x_axis_sort_asc=True, show_value=True), 6, 50),
         ],
         [
@@ -268,7 +289,7 @@ TABS = [
             ("rfm_total", "v_rfm_customers", "KPI · Khách hàng (RFM)", big(M("Khách", "COUNT(*)"), sub="customer_unique_id"), 3, 22),
             ("rfm_repeat", "v_rfm_customers", "KPI · Khách mua lại (≥2 đơn)", big(M("Khách mua lại", "SUM(CASE WHEN frequency >= 2 THEN 1 ELSE 0 END)"), sub="frequency ≥ 2"), 3, 22),
             ("rfm_rate", "v_rfm_customers", "KPI · Tỷ lệ mua lại", big(M("Tỷ lệ mua lại", "AVG(CASE WHEN frequency >= 2 THEN 1.0 ELSE 0 END)"), fmt=".2%", sub="~97% khách chỉ mua 1 lần"), 3, 22),
-            ("rfm_monetary", "v_rfm_customers", "KPI · Chi tiêu TB / khách (BRL)", big(M("Monetary TB", "AVG(monetary)"), fmt=",.2f", sub="GMV lifetime"), 3, 22),
+            ("rfm_monetary", "v_rfm_customers", "KPI · Chi tiêu TB / khách (BRL)", big(M("Chi tiêu TB", "AVG(monetary)"), fmt=",.2f", sub="tổng giá trị mua trọn đời"), 3, 22),
         ],
         [
             ("rfm_pie", "v_rfm_customers", "Phân bố khách theo phân khúc RFM (luật)", pie(M("Số khách", "COUNT(*)"), "rfm_segment"), 6, 55),
@@ -290,27 +311,27 @@ TABS = [
                    order=[["cluster", True]], fmt={"customers": ",.0f"}), 5, 45),
         ],
     ]),
-    ("Seller", [
+    ("Người bán", [
         [
-            ("sel_total", "v_seller_pareto", "KPI · Số seller", big(M("Seller", "COUNT(*)")), 3, 22),
-            ("sel_top", "v_seller_pareto", "KPI · Seller tạo 80% doanh thu", big(M("Seller nhóm A", "SUM(CASE WHEN cumulative_share_pct <= 80 THEN 1 ELSE 0 END)"), sub="nhóm A Pareto"), 3, 22),
-            ("sel_top_pct", "v_seller_pareto", "KPI · % seller tạo 80% doanh thu", big(M("% seller nhóm A", "AVG(CASE WHEN cumulative_share_pct <= 80 THEN 1.0 ELSE 0 END)"), fmt=".2%", sub="tập trung hơn quy tắc 20/80"), 3, 22),
-            ("sel_watch", "v_seller_pareto", "KPI · Seller trong watchlist", big(M("Watchlist", "SUM(CASE WHEN is_watchlist THEN 1 ELSE 0 END)"), sub="top 10% doanh thu, vận hành kém"), 3, 22),
+            ("sel_total", "v_seller_pareto", "KPI · Số người bán", big(M("Người bán", "COUNT(*)")), 3, 22),
+            ("sel_top", "v_seller_pareto", "KPI · Người bán tạo 80% doanh thu", big(M("Người bán nhóm A", "SUM(CASE WHEN cumulative_share_pct <= 80 THEN 1 ELSE 0 END)"), sub="nhóm A Pareto"), 3, 22),
+            ("sel_top_pct", "v_seller_pareto", "KPI · % người bán tạo 80% doanh thu", big(M("% người bán nhóm A", "AVG(CASE WHEN cumulative_share_pct <= 80 THEN 1.0 ELSE 0 END)"), fmt=".2%", sub="tập trung hơn quy tắc 20/80"), 3, 22),
+            ("sel_watch", "v_seller_pareto", "KPI · Người bán cần theo dõi", big(M("Cần theo dõi", "SUM(CASE WHEN is_watchlist THEN 1 ELSE 0 END)"), sub="top 10% doanh thu, vận hành kém (watchlist)"), 3, 22),
         ],
         [
-            ("sel_pareto", "v_seller_pareto", "Pareto seller: số seller (cột) & % doanh thu (đường) theo nhóm",
-             mixed(M("Số seller", "COUNT(*)"), M("% doanh thu", "SUM(revenue_share_pct)"), x="pareto_group",
+            ("sel_pareto", "v_seller_pareto", "Pareto người bán: số người bán (cột) & % doanh thu (đường) theo nhóm",
+             mixed(M("Số người bán", "COUNT(*)"), M("% doanh thu", "SUM(revenue_share_pct)"), x="pareto_group",
                    fmt_b=",.1f", x_axis_sort="pareto_group", x_axis_sort_asc=True, show_value=True), 5, 60),
-            ("sel_bubble", "v_seller_pareto", "Top 300 seller: ngày giao vs review (kích thước = doanh thu, màu = watchlist)",
+            ("sel_bubble", "v_seller_pareto", "Top 300 người bán: ngày giao và điểm đánh giá (kích thước = doanh thu, màu = danh sách theo dõi)",
              {"viz_type": "bubble_v2", "entity": "seller_short", "series": "watchlist_label",
-              "x": M("Ngày giao TB", "MAX(avg_delivery_days)"), "y": M("Review TB", "MAX(avg_review_score)"),
+              "x": M("Ngày giao TB", "MAX(avg_delivery_days)"), "y": M("Đánh giá TB", "MAX(avg_review_score)"),
               "size": REV, "adhoc_filters": [SQLF("revenue_rank <= 300")], "row_limit": 300, "max_bubble_size": "25",
-              "x_axis_label": "Ngày giao trung bình", "y_axis_label": "Review trung bình", "xAxisFormat": ",.1f",
+              "x_axis_label": "Ngày giao trung bình", "y_axis_label": "Điểm đánh giá trung bình", "xAxisFormat": ",.1f",
               "y_axis_format": ",.2f", "opacity": 0.6, "show_legend": True, "color_scheme": "supersetColors",
               "tooltipSizeFormat": ",.0f"}, 7, 60),
         ],
         [
-            ("sel_watch_table", "v_seller_watchlist", "Seller watchlist – cảnh báo vận hành (153 seller)",
+            ("sel_watch_table", "v_seller_watchlist", "Người bán cần theo dõi (watchlist) – cảnh báo vận hành (153 người bán)",
              table(["seller_short", "seller_state", "alert_level", "violations", "reasons", "orders", "revenue",
                     "avg_review_score", "avg_delivery_days", "late_delivery_pct", "active_months", "recommended_action"],
                    order=[["violations", False], ["revenue", False]], page=15, fmt={"revenue": ",.0f"},
@@ -318,26 +339,26 @@ TABS = [
                          cond("late_delivery_pct", ">", 10, RED), cond("violations", ">=", 2, RED)]), 12, 70),
         ],
     ]),
-    ("Giao trễ, review & thanh toán", [
+    ("Giao trễ, đánh giá & thanh toán", [
         [
-            ("rev_late", "v_late_vs_review", "Review TB: giao trễ vs đúng hạn",
-             cat_bar(M("Review TB", "MAX(avg_review)"), "delivery_label", limit=5, fmt=",.2f"), 4, 50),
-            ("rev_delay", "v_delay_vs_review", "Ngưỡng ngày trễ: review TB (cột) & % 1 sao (đường)",
-             mixed(M("Review TB", "MAX(avg_review)"), M("% 1 sao", "MAX(pct_1_star)"), x="delay_label",
+            ("rev_late", "v_late_vs_review", "Điểm đánh giá TB: giao trễ và đúng hạn",
+             cat_bar(M("Đánh giá TB", "MAX(avg_review)"), "delivery_label", limit=5, fmt=",.2f"), 4, 50),
+            ("rev_delay", "v_delay_vs_review", "Ngưỡng ngày trễ: điểm đánh giá TB (cột) & % 1 sao (đường)",
+             mixed(M("Đánh giá TB", "MAX(avg_review)"), M("% 1 sao", "MAX(pct_1_star)"), x="delay_label",
                    fmt_a=",.2f", fmt_b=",.1f", x_axis_sort="delay_label", x_axis_sort_asc=True, show_value=True), 8, 50),
         ],
         [
             ("pay_mix", "v_payment_mix", "Số đơn theo phương thức thanh toán × kỳ trả góp",
              cat_bar(M("Số đơn", "SUM(orders)"), "main_payment_type", limit=100, groupby=["installment_label"],
                      stack="Stack", show_value=False), 6, 50),
-            ("pay_aov", "v_payment_mix", "AOV theo số kỳ trả góp (BRL)",
-             cat_bar(M("AOV (BRL)", "SUM(gmv) / NULLIF(SUM(orders), 0)"), "installment_label", limit=10, fmt=",.2f",
+            ("pay_aov", "v_payment_mix", "Giá trị TB mỗi đơn theo số kỳ trả góp (BRL)",
+             cat_bar(M("Giá trị TB/đơn (BRL)", "SUM(gmv) / NULLIF(SUM(orders), 0)"), "installment_label", limit=10, fmt=",.2f",
                      x_axis_sort="installment_label", x_axis_sort_asc=True), 6, 50),
         ],
         [
-            ("pay_pie", "v_orders", "Cơ cấu đơn theo PTTT (lọc được theo tháng/bang)",
+            ("pay_pie", "v_orders", "Cơ cấu đơn theo phương thức thanh toán (lọc được theo tháng/bang)",
              pie(ORDERS_CNT, "main_payment_type", adhoc_filters=[TF()]), 6, 50),
-            ("pay_table", "v_payment_mix", "Bảng payment mix",
+            ("pay_table", "v_payment_mix", "Bảng cơ cấu thanh toán",
              table(["main_payment_type", "installment_label", "orders", "pct_orders", "gmv", "avg_order_value"],
                    order=[["orders", False]], fmt={"gmv": ",.0f", "orders": ",.0f"}), 6, 50),
         ],
@@ -348,10 +369,10 @@ TABS = [
 Bảng bên phải là **luật có ngưỡng** tính trực tiếp từ dữ liệu (view `presentation.v_decision_hints`).
 Giai đoạn kế tiếp (**Presentation → Decision/Action**) có thể đọc view này bằng SQL/API để:
 
-- gửi **cảnh báo seller** trong watchlist (mức ĐỎ = vi phạm ≥ 2 tiêu chí);
-- **cảnh báo sớm** đơn trễ 1–3 ngày, trước mốc 4–7 ngày khi review rơi xuống ~2,1 sao;
+- gửi **cảnh báo người bán** trong danh sách theo dõi (mức ĐỎ = vi phạm ≥ 2 tiêu chí);
+- **cảnh báo sớm** đơn trễ 1–3 ngày, trước mốc 4–7 ngày khi điểm đánh giá rơi xuống ~2,1 sao;
 - lên kế hoạch **năng lực vận chuyển** trước tháng cao điểm (T11, T2–T3);
-- chạy **win-back** cho khách *At Risk* thay vì 65k khách *One-shot Lost*.
+- chạy chiến dịch **kéo khách quay lại** cho nhóm *At Risk* thay vì 65 nghìn khách *One-shot Lost*.
 """, 4, 60),
             ("hints", "v_decision_hints", "Gợi ý quyết định (luật + ngưỡng + hành động)",
              table(["priority", "severity", "topic", "signal", "metric_value", "detail", "threshold", "action"],
@@ -359,11 +380,11 @@ Giai đoạn kế tiếp (**Presentation → Decision/Action**) có thể đọc
         ],
         [
             ("md_lineage", None, """### Nguồn dữ liệu
-**Luồng:** Spark (nhóm Analytics) → Parquet `data/analytics`, `data/gold` → `loader/load_to_neon.py` (COPY) →
+**Luồng:** Spark (nhóm Phân tích – Analytics) → Parquet `data/analytics`, `data/gold` → `loader/load_to_neon.py` (COPY) →
 Neon Postgres (`analytics.*`, `gold.*`) → view `presentation.*` → Superset.
 
 - Khung thời gian KPI: **2017-01 → 2018-08** (đã bỏ 2016 và 2018-09).
-- Khách = `customer_unique_id`; review tính ở cấp đơn.
+- Khách = `customer_unique_id`; điểm đánh giá tính ở cấp đơn.
 - Tổng doanh thu gold (mọi tháng): **13.494.400,74 BRL** — kiểm chứng trong `evidence/validation.md`.
 - Bảng bên phải: lần nạp gần nhất (`analytics.load_log`).
 """, 4, 60),
@@ -377,13 +398,13 @@ Neon Postgres (`analytics.*`, `gold.*`) → view `presentation.*` → Superset.
 
 # Native filter: (tên, loại, dataset nguồn, cột, mô tả)
 FILTERS = [
-    ("Khoảng thời gian", "filter_time", None, "month_date", "Áp dụng cho chart có cột month_date (2017-01 → 2018-08)"),
+    ("Khoảng thời gian", "filter_time", None, "month_date", "Áp dụng cho biểu đồ có cột month_date (2017-01 → 2018-08)"),
     ("Bang khách hàng", "filter_select", "v_state_logistics", "customer_state", "Mã bang 2 ký tự (SP, RJ, ...)"),
     ("Vùng", "filter_select", "v_state_logistics", "region", "5 vùng Brazil"),
     ("Danh mục", "filter_select", "v_category_pareto", "category", "Danh mục sản phẩm (tiếng Anh)"),
     ("Phân khúc RFM", "filter_select", "v_rfm_segments", "rfm_segment", "Nhãn CRM theo luật"),
-    ("Phương thức thanh toán", "filter_select", "v_payment_mix", "main_payment_type", "PTTT chính của đơn"),
-    ("Bang seller", "filter_select", "v_seller_pareto", "seller_state", "Bang của người bán"),
+    ("Phương thức thanh toán", "filter_select", "v_payment_mix", "main_payment_type", "Phương thức thanh toán chính của đơn"),
+    ("Bang người bán", "filter_select", "v_seller_pareto", "seller_state", "Bang của người bán"),
 ]
 TIME_SCOPE = {"v_kpi_monthly", "v_orders", "v_category_monthly", "v_sales_items"}
 
@@ -432,8 +453,16 @@ def ensure_datasets(api: Superset, db_id: int, refresh: set[str] | None = None) 
             if c["column_name"] == "month_date":
                 c["is_dttm"] = True
             cols.append(c)
-        payload = {"columns": cols, "description": f"View {SCHEMA}.{name} trên Neon (semantic layer)",
-                   "cache_timeout": 600}
+        keep_m = {"id", "metric_name", "expression", "verbose_name", "metric_type", "d3format", "description",
+                  "warning_text", "extra", "currency"}
+        metrics = []
+        for m in info["metrics"]:
+            m = {k: v for k, v in m.items() if k in keep_m and v is not None}
+            if m["metric_name"] in METRIC_VERBOSE:
+                m["verbose_name"] = METRIC_VERBOSE[m["metric_name"]]
+            metrics.append(m)
+        payload = {"columns": cols, "metrics": metrics,
+                   "description": f"View {SCHEMA}.{name} trên Neon (tầng ngữ nghĩa)", "cache_timeout": 600}
         if any(c["column_name"] == "month_date" for c in cols):
             payload["main_dttm_col"] = "month_date"
         api.put(f"/api/v1/dataset/{ds_id}", payload, override_columns="false")

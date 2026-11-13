@@ -1,5 +1,5 @@
-slice_name: "Ng\u01B0\u1EE1ng ng\xE0y tr\u1EC5: review TB (c\u1ED9t) & % 1 sao (\u0111\
-  \u01B0\u1EDDng)"
+slice_name: "Ng\u01B0\u1EE1ng ng\xE0y tr\u1EC5: \u0111i\u1EC3m \u0111\xE1nh gi\xE1\
+  \ TB (c\u1ED9t) & % 1 sao (\u0111\u01B0\u1EDDng)"
 description: "Ngu\u1ED3n: presentation.v_delay_vs_review"
 certified_by: null
 certification_details: null
@@ -10,9 +10,9 @@ params:
   metrics:
   - expressionType: SQL
     sqlExpression: MAX(avg_review)
-    label: Review TB
+    label: "\u0110\xE1nh gi\xE1 TB"
     hasCustomLabel: true
-    optionName: metric_review_tb
+    optionName: "metric_\u0111\xE1nh_gi\xE1_tb"
   metrics_b:
   - expressionType: SQL
     sqlExpression: MAX(pct_1_star)
@@ -48,6 +48,6 @@ params:
   datasource: 23__table
 query_context: null
 cache_timeout: 600
-uuid: 80c06bfc-a654-4b66-a954-a28545c37d6c
+uuid: 4b90c83a-85d7-430a-892b-715847e9c604
 version: 1.0.0
 dataset_uuid: d3f7c46b-84c6-4b30-a042-7cd27de879d1

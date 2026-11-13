@@ -8,14 +8,14 @@ params:
   metric:
     expressionType: SQL
     sqlExpression: AVG(monetary)
-    label: Monetary TB
+    label: "Chi ti\xEAu TB"
     hasCustomLabel: true
-    optionName: metric_monetary_tb
+    optionName: "metric_chi_ti\xEAu_tb"
   adhoc_filters: []
   y_axis_format: ',.2f'
   header_font_size: 0.3
   subheader_font_size: 0.125
-  subheader: GMV lifetime
+  subheader: "t\u1ED5ng gi\xE1 tr\u1ECB mua tr\u1ECDn \u0111\u1EDDi"
   datasource: 9__table
 query_context: null
 cache_timeout: 600

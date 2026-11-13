@@ -1,5 +1,5 @@
-slice_name: "Pareto seller: s\u1ED1 seller (c\u1ED9t) & % doanh thu (\u0111\u01B0\u1EDD\
-  ng) theo nh\xF3m"
+slice_name: "Pareto ng\u01B0\u1EDDi b\xE1n: s\u1ED1 ng\u01B0\u1EDDi b\xE1n (c\u1ED9\
+  t) & % doanh thu (\u0111\u01B0\u1EDDng) theo nh\xF3m"
 description: "Ngu\u1ED3n: presentation.v_seller_pareto"
 certified_by: null
 certification_details: null
@@ -10,9 +10,9 @@ params:
   metrics:
   - expressionType: SQL
     sqlExpression: COUNT(*)
-    label: "S\u1ED1 seller"
+    label: "S\u1ED1 ng\u01B0\u1EDDi b\xE1n"
     hasCustomLabel: true
-    optionName: "metric_s\u1ED1_seller"
+    optionName: "metric_s\u1ED1_ng\u01B0\u1EDDi_b\xE1n"
   metrics_b:
   - expressionType: SQL
     sqlExpression: SUM(revenue_share_pct)
@@ -48,6 +48,6 @@ params:
   datasource: 20__table
 query_context: null
 cache_timeout: 600
-uuid: 731cd1c8-47a6-40e6-9fb1-08d1a58ed430
+uuid: a8b9335e-9765-44bd-9e42-400528d281e0
 version: 1.0.0
 dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

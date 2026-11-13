@@ -1,6 +1,7 @@
 table_name: v_rfm_segments
 main_dttm_col: null
-description: "View presentation.v_rfm_segments tr\xEAn Neon (semantic layer)"
+description: "View presentation.v_rfm_segments tr\xEAn Neon (t\u1EA7ng ng\u1EEF ngh\u0129\
+  a)"
 default_endpoint: null
 offset: 0
 cache_timeout: 600
@@ -17,7 +18,7 @@ always_filter_main_dttm: false
 uuid: d23cb936-62ec-41f7-8b32-3c1416e351d2
 metrics:
 - metric_name: count
-  verbose_name: COUNT(*)
+  verbose_name: "S\u1ED1 d\xF2ng"
   metric_type: count
   expression: COUNT(*)
   description: null
@@ -26,6 +27,18 @@ metrics:
   extra: null
   warning_text: null
 columns:
+- column_name: avg_recency_days
+  verbose_name: "S\u1ED1 ng\xE0y t\u1EEB l\u1EA7n mua cu\u1ED1i (TB)"
+  is_dttm: false
+  is_active: true
+  type: NUMERIC
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
 - column_name: avg_monetary
   verbose_name: "Chi ti\xEAu TB (BRL)"
   is_dttm: false
@@ -38,11 +51,23 @@ columns:
   description: null
   python_date_format: null
   extra: null
-- column_name: avg_recency_days
-  verbose_name: "Recency TB (ng\xE0y)"
+- column_name: avg_frequency
+  verbose_name: "S\u1ED1 l\u1EA7n mua TB"
   is_dttm: false
   is_active: true
   type: NUMERIC
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: segment_order
+  verbose_name: "Th\u1EE9 t\u1EF1 ph\xE2n kh\xFAc"
+  is_dttm: false
+  is_active: true
+  type: INTEGER
   advanced_data_type: null
   groupby: true
   filterable: true
@@ -86,35 +111,11 @@ columns:
   description: null
   python_date_format: null
   extra: null
-- column_name: avg_frequency
-  verbose_name: Frequency TB
-  is_dttm: false
-  is_active: true
-  type: NUMERIC
-  advanced_data_type: null
-  groupby: true
-  filterable: true
-  expression: ''
-  description: null
-  python_date_format: null
-  extra: null
 - column_name: customers
   verbose_name: "S\u1ED1 kh\xE1ch"
   is_dttm: false
   is_active: true
   type: BIGINT
-  advanced_data_type: null
-  groupby: true
-  filterable: true
-  expression: ''
-  description: null
-  python_date_format: null
-  extra: null
-- column_name: segment_order
-  verbose_name: null
-  is_dttm: false
-  is_active: true
-  type: INTEGER
   advanced_data_type: null
   groupby: true
   filterable: true

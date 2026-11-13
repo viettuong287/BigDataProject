@@ -26,4 +26,24 @@ DATA_CACHE_CONFIG = {
 TALISMAN_ENABLED = False
 WTF_CSRF_TIME_LIMIT = None
 ROW_LIMIT = 50000
-BABEL_DEFAULT_LOCALE = "en"
+
+# Giao diện tiếng Việt mặc định; bản dịch "vi" do superset/i18n/build_catalog.py biên dịch lúc build image.
+# Giữ English trong bộ chọn ngôn ngữ (cờ ở góc phải thanh menu).
+BABEL_DEFAULT_LOCALE = "vi"
+LANGUAGES = {
+    "vi": {"flag": "vn", "name": "Tiếng Việt"},
+    "en": {"flag": "us", "name": "English"},
+}
+
+# Định dạng số/ngày kiểu Việt Nam cho chart: 13.494.400,74 thay vì 13,494,400.74.
+D3_FORMAT = {"decimal": ",", "thousands": ".", "grouping": [3], "currency": ["R$ ", ""]}
+D3_TIME_FORMAT = {
+    "dateTime": "%X %A, %e/%m/%Y",
+    "date": "%d/%m/%Y",
+    "time": "%H:%M:%S",
+    "periods": ["SA", "CH"],
+    "days": ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+    "shortDays": ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+    "months": [f"Tháng {i}" for i in range(1, 13)],
+    "shortMonths": [f"Th{i}" for i in range(1, 13)],
+}

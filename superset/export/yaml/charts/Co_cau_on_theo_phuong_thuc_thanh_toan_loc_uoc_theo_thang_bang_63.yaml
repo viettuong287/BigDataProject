@@ -1,5 +1,5 @@
-slice_name: "C\u01A1 c\u1EA5u \u0111\u01A1n theo PTTT (l\u1ECDc \u0111\u01B0\u1EE3\
-  c theo th\xE1ng/bang)"
+slice_name: "C\u01A1 c\u1EA5u \u0111\u01A1n theo ph\u01B0\u01A1ng th\u1EE9c thanh\
+  \ to\xE1n (l\u1ECDc \u0111\u01B0\u1EE3c theo th\xE1ng/bang)"
 description: "Ngu\u1ED3n: presentation.v_orders"
 certified_by: null
 certification_details: null
@@ -37,6 +37,6 @@ params:
   datasource: 12__table
 query_context: null
 cache_timeout: 600
-uuid: 2c757d67-b12b-449e-9cd1-798997fca4c8
+uuid: 775f0057-0051-4184-86fe-12071577a289
 version: 1.0.0
 dataset_uuid: 5f023a25-e62c-495f-a53c-f190c6c3f714

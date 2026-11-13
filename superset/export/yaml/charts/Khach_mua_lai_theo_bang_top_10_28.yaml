@@ -32,7 +32,33 @@ params:
   show_value: true
   xAxisLabelRotation: 45
   datasource: 19__table
-query_context: null
+query_context: "{\"datasource\":{\"id\":19,\"type\":\"table\"},\"force\":false,\"\
+  queries\":[{\"filters\":[],\"extras\":{\"having\":\"\",\"where\":\"\"},\"applied_time_extras\"\
+  :{},\"columns\":[{\"columnType\":\"BASE_AXIS\",\"sqlExpression\":\"customer_state\"\
+  ,\"label\":\"customer_state\",\"expressionType\":\"SQL\"}],\"metrics\":[{\"expressionType\"\
+  :\"SQL\",\"hasCustomLabel\":true,\"label\":\"Kh\xE1ch mua l\u1EA1i\",\"optionName\"\
+  :\"metric_kh\xE1ch_mua_l\u1EA1i\",\"sqlExpression\":\"SUM(repeat_customers)\"}],\"\
+  orderby\":[[{\"expressionType\":\"SQL\",\"hasCustomLabel\":true,\"label\":\"Kh\xE1\
+  ch mua l\u1EA1i\",\"optionName\":\"metric_kh\xE1ch_mua_l\u1EA1i\",\"sqlExpression\"\
+  :\"SUM(repeat_customers)\"},false]],\"annotation_layers\":[],\"row_limit\":10,\"\
+  series_columns\":[],\"series_limit\":0,\"order_desc\":true,\"url_params\":{},\"\
+  custom_params\":{},\"custom_form_data\":{},\"time_offsets\":[],\"post_processing\"\
+  :[{\"operation\":\"pivot\",\"options\":{\"index\":[\"customer_state\"],\"columns\"\
+  :[],\"aggregates\":{\"Kh\xE1ch mua l\u1EA1i\":{\"operator\":\"mean\"}},\"drop_missing_columns\"\
+  :true}},{\"operation\":\"sort\",\"options\":{\"by\":\"Kh\xE1ch mua l\u1EA1i\",\"\
+  ascending\":false}},{\"operation\":\"flatten\"}]}],\"form_data\":{\"adhoc_filters\"\
+  :[],\"cache_timeout\":600,\"color_scheme\":\"supersetColors\",\"datasource\":\"\
+  19__table\",\"groupby\":[],\"legendOrientation\":\"top\",\"markerEnabled\":true,\"\
+  metrics\":[{\"expressionType\":\"SQL\",\"hasCustomLabel\":true,\"label\":\"Kh\xE1\
+  ch mua l\u1EA1i\",\"optionName\":\"metric_kh\xE1ch_mua_l\u1EA1i\",\"sqlExpression\"\
+  :\"SUM(repeat_customers)\"}],\"only_total\":true,\"order_desc\":true,\"orientation\"\
+  :\"vertical\",\"rich_tooltip\":true,\"row_limit\":10,\"show_legend\":false,\"show_value\"\
+  :true,\"slice_id\":28,\"truncate_metric\":true,\"viz_type\":\"echarts_timeseries_bar\"\
+  ,\"xAxisLabelRotation\":45,\"x_axis\":\"customer_state\",\"x_axis_sort\":\"Kh\xE1\
+  ch mua l\u1EA1i\",\"x_axis_sort_asc\":false,\"x_axis_time_format\":\"%Y-%m\",\"\
+  y_axis_format\":\",.0f\",\"zoomable\":false,\"force\":false,\"result_format\":\"\
+  json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"\
+  }"
 cache_timeout: 600
 uuid: d7ad376b-2cf1-41fc-ae93-262656e20e72
 version: 1.0.0

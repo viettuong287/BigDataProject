@@ -1,4 +1,4 @@
-slice_name: "KPI \xB7 Kh\xE1ch h\xE0ng (unique)"
+slice_name: "KPI \xB7 \u0110i\u1EC3m \u0111\xE1nh gi\xE1 trung b\xECnh"
 description: "Ngu\u1ED3n: presentation.v_orders"
 certified_by: null
 certification_details: null
@@ -7,23 +7,23 @@ params:
   viz_type: big_number_total
   metric:
     expressionType: SQL
-    sqlExpression: COUNT(DISTINCT customer_unique_id)
-    label: "Kh\xE1ch"
+    sqlExpression: AVG(review_score)
+    label: "\u0110\xE1nh gi\xE1 TB"
     hasCustomLabel: true
-    optionName: "metric_kh\xE1ch"
+    optionName: "metric_\u0111\xE1nh_gi\xE1_tb"
   adhoc_filters:
   - clause: WHERE
     subject: month_date
     operator: TEMPORAL_RANGE
     comparator: No filter
     expressionType: SIMPLE
-  y_axis_format: ',.0f'
+  y_axis_format: .2f
   header_font_size: 0.3
   subheader_font_size: 0.125
-  subheader: customer_unique_id
+  subheader: "sao, c\u1EA5p \u0111\u01A1n h\xE0ng"
   datasource: 12__table
 query_context: null
 cache_timeout: 600
-uuid: 655ec7d7-a6bb-40e1-b901-f70b7f00c095
+uuid: 2816e03c-24b1-4fb6-a31d-e089fc37f66d
 version: 1.0.0
 dataset_uuid: 5f023a25-e62c-495f-a53c-f190c6c3f714

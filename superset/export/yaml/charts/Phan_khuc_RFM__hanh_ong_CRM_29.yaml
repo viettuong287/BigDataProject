@@ -23,8 +23,20 @@ params:
   allow_rearrange_columns: true
   table_timestamp_format: '%Y-%m'
   column_config:
+    rfm_segment:
+      d3NumberFormat: ',.2~f'
     customers:
       d3NumberFormat: ',.0f'
+    pct_customers:
+      d3NumberFormat: ',.2~f'
+    avg_recency_days:
+      d3NumberFormat: ',.2~f'
+    avg_frequency:
+      d3NumberFormat: ',.2~f'
+    avg_monetary:
+      d3NumberFormat: ',.2~f'
+    crm_action:
+      d3NumberFormat: ',.2~f'
   conditional_formatting: []
   adhoc_filters: []
   datasource: 7__table

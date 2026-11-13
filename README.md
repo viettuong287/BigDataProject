@@ -65,6 +65,7 @@ Sơ đồ chi tiết: [`docs/architecture.md`](docs/architecture.md) · ảnh PN
 │   ├── 10_presentation_views.sql   # semantic layer (schema presentation)
 │   └── 90_anchor_checks.sql        # 19 kiểm tra số neo
 ├── superset/               # Dockerfile, superset_config.py, build_dashboard.py, import_dashboard.py
+│   ├── i18n/               # bản dịch tiếng Việt cho giao diện Superset (messages.po + build_catalog.py)
 │   └── export/             # ZIP + YAML export dashboard, build_info.json
 ├── scripts/                # đo latency, thí nghiệm scale, chụp ảnh, vẽ sơ đồ, kiểm kê Neon
 ├── evidence/               # log, CSV/MD số liệu, ảnh chụp
@@ -108,6 +109,18 @@ dataset. Phương án dự phòng: `docker compose run --rm tools python superse
 
 > Nếu đang mở dashboard trong trình duyệt khi chạy lại `build_dashboard.py`, hãy tải lại trang: Superset 4.1 tự lưu
 > trạng thái dashboard của tab cũ và có thể ghi đè cấu hình bộ lọc vừa dựng.
+
+**Ngôn ngữ giao diện – tiếng Việt.** Superset 4.1.2 không có sẵn gói `vi`, nên repo kèm bản dịch riêng
+`superset/i18n/vi/LC_MESSAGES/messages.po` (~540 chuỗi hay gặp: menu, trang đăng nhập, trang chủ, thanh tiêu đề và menu
+dashboard, thanh bộ lọc, bộ chọn thời gian, menu "⋮" của biểu đồ, nút chung, một phần màn hình sửa biểu đồ).
+Khi build image, `superset/i18n/build_catalog.py` biên dịch thành `messages.mo` (backend) và `messages.json`
+(frontend) trong `superset/translations/vi/`. `superset_config.py` đặt `BABEL_DEFAULT_LOCALE = "vi"`, giữ English trong
+bộ chọn ngôn ngữ (cờ ở góc phải thanh menu) và dùng định dạng số/ngày kiểu Việt Nam (`13.494.400,74`).
+Sau khi sửa `messages.po`: `docker compose build superset && docker compose up -d superset`. Tên dashboard, tab,
+biểu đồ, nhãn cột/metric và bộ lọc là tiếng Việt, đặt trong `build_dashboard.py`.
+Phần còn tiếng Anh: chuỗi chưa có trong bản dịch (chủ yếu ở SQL Lab, màn hình sửa biểu đồ, trang quản trị), nút
+"All/Inv" của chú giải ECharts, chữ "… ago" cạnh tên người sửa, ô tìm kiếm/phân trang riêng của biểu đồ bảng
+("153 record") và giá trị dữ liệu gốc (tên danh mục, phân khúc RFM như *Champions*, *At Risk*).
 
 **Bước 3 – tái tạo minh chứng (tuỳ chọn):**
 
@@ -154,11 +167,11 @@ Mỗi bảng có `COMMENT` ghi grain và đường dẫn nguồn. Số dòng đ�
 | 2 · Danh mục & mùa vụ | Pareto top 25 (cột + đường cộng dồn), heatmap mùa vụ 2017, ship/doanh thu theo danh mục, xu hướng 6 danh mục lớn |
 | 3 · Địa lý & logistics | Country Map Brazil, bubble ngày giao vs review theo bang, % trễ theo bang, khoảng cách → ship & % trễ, bảng 27 bang |
 | 4 · Khách hàng & RFM | 4 thẻ (khách, khách mua lại, tỷ lệ 3,04%, chi tiêu TB), donut phân khúc RFM, cụm K-Means, danh mục/bang của khách lặp, bảng hành động CRM |
-| 5 · Seller | 4 thẻ (3.053 seller, 539 = 80% doanh thu, 17,65%, 153 watchlist), Pareto nhóm A/B/C, bubble top 300 seller, **bảng watchlist cảnh báo** |
-| 6 · Giao trễ, review & thanh toán | Review trễ vs đúng hạn, ngưỡng ngày trễ vs % 1 sao, payment mix, AOV theo kỳ góp |
+| 5 · Người bán | 4 thẻ (3.053 người bán, 539 = 80% doanh thu, 17,65%, 153 cần theo dõi), Pareto nhóm A/B/C, bubble top 300 người bán, **bảng watchlist cảnh báo** |
+| 6 · Giao trễ, đánh giá & thanh toán | Review trễ vs đúng hạn, ngưỡng ngày trễ vs % 1 sao, payment mix, AOV theo kỳ góp |
 | 7 · Gợi ý quyết định & nguồn dữ liệu | Bảng 7 luật quyết định, giải thích, nhật ký nạp dữ liệu (lineage) |
 
-**Bộ lọc native:** Khoảng thời gian, Bang khách hàng, Vùng, Danh mục, Phân khúc RFM, Phương thức thanh toán, Bang seller.
+**Bộ lọc native:** Khoảng thời gian, Bang khách hàng, Vùng, Danh mục, Phân khúc RFM, Phương thức thanh toán, Bang người bán.
 Mỗi bộ lọc chỉ áp dụng cho chart có cột tương ứng (phạm vi tính tự động trong `build_dashboard.py`).
 
 **Gợi ý quyết định (sang Decision/Action):** 75/153 seller watchlist vi phạm ≥ 2 tiêu chí (mức ĐỎ); đơn trễ kéo review
@@ -177,6 +190,7 @@ At Risk; 17,65% seller tạo 80% doanh thu.
 | Ảnh dashboard | 7 tab | `dashboard_tab1…7_*.png` |
 | Ảnh bộ lọc | 6 kịch bản (thời gian + bang, danh mục, vùng, RFM + bang, bang seller, PTTT) | `filter_*.png` |
 | Ảnh cảnh báo | Bảng watchlist, bảng gợi ý quyết định | `watchlist_*.png` |
+| Giao diện tiếng Việt | Trang đăng nhập, dashboard + thanh bộ lọc, menu biểu đồ, bảng người bán (`scripts/screenshot_tieng_viet.py`) | `superset_tieng_viet_*.png` |
 | Neon | Kiểm kê 25 bảng + 22 view, số dòng, dung lượng (146 MB), thông tin project | `neon_tables_inventory.png`, `neon_inventory.csv`, `neon_project.json` |
 | Kiến trúc | Sơ đồ data-flow | `architecture_pipeline.png`, `docs/architecture.png` |
 

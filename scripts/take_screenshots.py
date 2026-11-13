@@ -35,8 +35,8 @@ TABS = ["tong_quan_xu_huong", "danh_muc_mua_vu", "dia_ly_logistics", "khach_hang
 STATE_JS = """() => {
     const hs = [...document.querySelectorAll('.dashboard-component-chart-holder')]
         .filter(h => h.offsetParent !== null && h.getBoundingClientRect().width > 0);
-    const busy = hs.filter(h => /Waiting on|Loading/.test(h.innerText)).length;
-    const errors = hs.filter(h => h.querySelector('.ant-alert-error, .alert-danger') || /Unexpected error/.test(h.innerText))
+    const busy = hs.filter(h => /Waiting on|Loading|Đang chờ|Đang tải/.test(h.innerText)).length;
+    const errors = hs.filter(h => h.querySelector('.ant-alert-error, .alert-danger') || /Unexpected error|Lỗi không mong đợi/.test(h.innerText))
                      .map(h => (h.innerText || '').split('\\n')[0]);
     return {n: hs.length, busy, errors};
 }"""
@@ -128,7 +128,7 @@ def main() -> None:
                     page.wait_for_timeout(1500)
                     page.screenshot(path=str(EVID / f"dashboard_tab{i + 1}_{slug}.png"), full_page=True)
                     if slug == "seller":
-                        page.locator(".dashboard-component-chart-holder", has_text="Seller watchlist").first \
+                        page.locator(".dashboard-component-chart-holder", has_text="Người bán cần theo dõi (watchlist)").first \
                             .screenshot(path=str(EVID / "watchlist_seller_canh_bao.png"))
                     if slug.startswith("goi_y"):
                         page.locator(".dashboard-component-chart-holder", has_text="Gợi ý quyết định (luật").first \

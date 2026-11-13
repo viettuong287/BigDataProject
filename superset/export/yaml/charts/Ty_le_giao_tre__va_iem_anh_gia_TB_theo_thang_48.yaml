@@ -1,4 +1,5 @@
-slice_name: "T\u1EF7 l\u1EC7 giao tr\u1EC5 (%) vs review TB theo th\xE1ng"
+slice_name: "T\u1EF7 l\u1EC7 giao tr\u1EC5 (%) v\xE0 \u0111i\u1EC3m \u0111\xE1nh gi\xE1\
+  \ TB theo th\xE1ng"
 description: "Ngu\u1ED3n: presentation.v_kpi_monthly"
 certified_by: null
 certification_details: null
@@ -15,9 +16,9 @@ params:
   metrics_b:
   - expressionType: SQL
     sqlExpression: MAX(avg_review_score)
-    label: Review TB
+    label: "\u0110\xE1nh gi\xE1 TB"
     hasCustomLabel: true
-    optionName: metric_review_tb
+    optionName: "metric_\u0111\xE1nh_gi\xE1_tb"
   groupby: []
   groupby_b: []
   adhoc_filters:
@@ -56,6 +57,6 @@ params:
   datasource: 11__table
 query_context: null
 cache_timeout: 600
-uuid: 6a4ec6cb-6e6d-4605-963f-5bee6a0ce915
+uuid: f9e63d55-8daa-41a6-8a7f-76a1224331fe
 version: 1.0.0
 dataset_uuid: f21db043-e9c3-4b07-810d-e4fb226e9afe

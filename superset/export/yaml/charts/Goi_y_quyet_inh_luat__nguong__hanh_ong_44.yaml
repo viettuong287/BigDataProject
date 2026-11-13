@@ -25,8 +25,22 @@ params:
   allow_rearrange_columns: true
   table_timestamp_format: '%Y-%m'
   column_config:
+    priority:
+      d3NumberFormat: ',.2~f'
+    severity:
+      d3NumberFormat: ',.2~f'
+    topic:
+      d3NumberFormat: ',.2~f'
+    signal:
+      d3NumberFormat: ',.2~f'
     metric_value:
       d3NumberFormat: ',.2f'
+    detail:
+      d3NumberFormat: ',.2~f'
+    threshold:
+      d3NumberFormat: ',.2~f'
+    action:
+      d3NumberFormat: ',.2~f'
   conditional_formatting: []
   adhoc_filters: []
   datasource: 25__table

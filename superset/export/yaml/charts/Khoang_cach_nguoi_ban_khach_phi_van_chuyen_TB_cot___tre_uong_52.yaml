@@ -1,5 +1,5 @@
-slice_name: "Kho\u1EA3ng c\xE1ch seller \u2192 kh\xE1ch: ship TB (c\u1ED9t) & % tr\u1EC5\
-  \ (\u0111\u01B0\u1EDDng)"
+slice_name: "Kho\u1EA3ng c\xE1ch ng\u01B0\u1EDDi b\xE1n \u2192 kh\xE1ch: ph\xED v\u1EAD\
+  n chuy\u1EC3n TB (c\u1ED9t) & % tr\u1EC5 (\u0111\u01B0\u1EDDng)"
 description: "Ngu\u1ED3n: presentation.v_insight_distance"
 certified_by: null
 certification_details: null
@@ -10,9 +10,9 @@ params:
   metrics:
   - expressionType: SQL
     sqlExpression: MAX(avg_freight)
-    label: Ship TB (BRL)
+    label: "Ph\xED v\u1EADn chuy\u1EC3n TB (BRL)"
     hasCustomLabel: true
-    optionName: metric_ship_tb_brl_
+    optionName: "metric_ph\xED_v\u1EADn_chuy\u1EC3n_tb_brl_"
   metrics_b:
   - expressionType: SQL
     sqlExpression: MAX(late_pct)
@@ -48,6 +48,6 @@ params:
   datasource: 8__table
 query_context: null
 cache_timeout: 600
-uuid: 5e96606c-5a1f-419b-9a7d-5f1f852d9e90
+uuid: ba566fd5-de97-4bbe-babd-eb156ad0fb56
 version: 1.0.0
 dataset_uuid: e822f0e6-6a5b-4493-af82-c6f6200b5c47

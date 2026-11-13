@@ -1,4 +1,4 @@
-slice_name: "B\u1EA3ng payment mix"
+slice_name: "B\u1EA3ng c\u01A1 c\u1EA5u thanh to\xE1n"
 description: "Ngu\u1ED3n: presentation.v_payment_mix"
 certified_by: null
 certification_details: null
@@ -22,15 +22,23 @@ params:
   allow_rearrange_columns: true
   table_timestamp_format: '%Y-%m'
   column_config:
-    gmv:
-      d3NumberFormat: ',.0f'
+    main_payment_type:
+      d3NumberFormat: ',.2~f'
+    installment_label:
+      d3NumberFormat: ',.2~f'
     orders:
       d3NumberFormat: ',.0f'
+    pct_orders:
+      d3NumberFormat: ',.2~f'
+    gmv:
+      d3NumberFormat: ',.0f'
+    avg_order_value:
+      d3NumberFormat: ',.2~f'
   conditional_formatting: []
   adhoc_filters: []
   datasource: 24__table
 query_context: null
 cache_timeout: 600
-uuid: ed1d02b1-13ec-4ef8-8a02-07638c1b4e68
+uuid: df1facdb-d61d-4bc2-9af3-efd851e3c15b
 version: 1.0.0
 dataset_uuid: b55f3a1f-fda1-4719-a359-6d7a3d783d02

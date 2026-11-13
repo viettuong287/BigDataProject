@@ -20,7 +20,7 @@ params:
   y_axis_format: ',.0f'
   header_font_size: 0.3
   subheader_font_size: 0.125
-  subheader: is_valid_sale
+  subheader: "\u0111\u01A1n h\u1EE3p l\u1EC7 (is_valid_sale)"
   datasource: 12__table
 query_context: null
 cache_timeout: 600

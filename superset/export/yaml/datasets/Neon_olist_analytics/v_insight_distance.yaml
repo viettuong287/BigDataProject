@@ -1,6 +1,7 @@
 table_name: v_insight_distance
 main_dttm_col: null
-description: "View presentation.v_insight_distance tr\xEAn Neon (semantic layer)"
+description: "View presentation.v_insight_distance tr\xEAn Neon (t\u1EA7ng ng\u1EEF\
+  \ ngh\u0129a)"
 default_endpoint: null
 offset: 0
 cache_timeout: 600
@@ -17,7 +18,7 @@ always_filter_main_dttm: false
 uuid: e822f0e6-6a5b-4493-af82-c6f6200b5c47
 metrics:
 - metric_name: count
-  verbose_name: COUNT(*)
+  verbose_name: "S\u1ED1 d\xF2ng"
   metric_type: count
   expression: COUNT(*)
   description: null
@@ -26,11 +27,11 @@ metrics:
   extra: null
   warning_text: null
 columns:
-- column_name: avg_delay_days
-  verbose_name: "L\u1EC7ch h\u1EB9n TB (ng\xE0y)"
+- column_name: avg_freight
+  verbose_name: "Ph\xED v\u1EADn chuy\u1EC3n TB (BRL)"
   is_dttm: false
   is_active: true
-  type: DOUBLE PRECISION
+  type: NUMERIC(13, 2)
   advanced_data_type: null
   groupby: true
   filterable: true
@@ -38,11 +39,11 @@ columns:
   description: null
   python_date_format: null
   extra: null
-- column_name: avg_freight
-  verbose_name: Ship TB (BRL)
+- column_name: avg_delay_days
+  verbose_name: "L\u1EC7ch h\u1EB9n TB (ng\xE0y)"
   is_dttm: false
   is_active: true
-  type: NUMERIC(13, 2)
+  type: DOUBLE PRECISION
   advanced_data_type: null
   groupby: true
   filterable: true
@@ -67,6 +68,18 @@ columns:
   is_dttm: false
   is_active: true
   type: DOUBLE PRECISION
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: band_order
+  verbose_name: "Th\u1EE9 t\u1EF1 kho\u1EA3ng"
+  is_dttm: false
+  is_active: true
+  type: INTEGER
   advanced_data_type: null
   groupby: true
   filterable: true
@@ -103,18 +116,6 @@ columns:
   is_dttm: false
   is_active: true
   type: TEXT
-  advanced_data_type: null
-  groupby: true
-  filterable: true
-  expression: ''
-  description: null
-  python_date_format: null
-  extra: null
-- column_name: band_order
-  verbose_name: null
-  is_dttm: false
-  is_active: true
-  type: INTEGER
   advanced_data_type: null
   groupby: true
   filterable: true

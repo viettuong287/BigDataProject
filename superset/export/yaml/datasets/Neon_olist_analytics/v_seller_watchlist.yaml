@@ -1,6 +1,7 @@
 table_name: v_seller_watchlist
 main_dttm_col: null
-description: "View presentation.v_seller_watchlist tr\xEAn Neon (semantic layer)"
+description: "View presentation.v_seller_watchlist tr\xEAn Neon (t\u1EA7ng ng\u1EEF\
+  \ ngh\u0129a)"
 default_endpoint: null
 offset: 0
 cache_timeout: 600
@@ -17,7 +18,7 @@ always_filter_main_dttm: false
 uuid: a6bd5a0c-740f-454e-ad9b-80f9c28e002e
 metrics:
 - metric_name: count
-  verbose_name: COUNT(*)
+  verbose_name: "S\u1ED1 d\xF2ng"
   metric_type: count
   expression: COUNT(*)
   description: null
@@ -28,6 +29,18 @@ metrics:
 columns:
 - column_name: avg_distance_km
   verbose_name: "Kho\u1EA3ng c\xE1ch TB (km)"
+  is_dttm: false
+  is_active: true
+  type: DOUBLE PRECISION
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: avg_review_score
+  verbose_name: "\u0110i\u1EC3m \u0111\xE1nh gi\xE1 TB"
   is_dttm: false
   is_active: true
   type: DOUBLE PRECISION
@@ -110,11 +123,11 @@ columns:
   description: null
   python_date_format: null
   extra: null
-- column_name: avg_review_score
-  verbose_name: Review TB
+- column_name: seller_state
+  verbose_name: "Bang ng\u01B0\u1EDDi b\xE1n"
   is_dttm: false
   is_active: true
-  type: DOUBLE PRECISION
+  type: TEXT
   advanced_data_type: null
   groupby: true
   filterable: true
@@ -146,8 +159,8 @@ columns:
   description: null
   python_date_format: null
   extra: null
-- column_name: seller_state
-  verbose_name: Bang seller
+- column_name: seller_id
+  verbose_name: "M\xE3 ng\u01B0\u1EDDi b\xE1n"
   is_dttm: false
   is_active: true
   type: TEXT
@@ -183,19 +196,7 @@ columns:
   python_date_format: null
   extra: null
 - column_name: seller_short
-  verbose_name: Seller
-  is_dttm: false
-  is_active: true
-  type: TEXT
-  advanced_data_type: null
-  groupby: true
-  filterable: true
-  expression: ''
-  description: null
-  python_date_format: null
-  extra: null
-- column_name: seller_id
-  verbose_name: null
+  verbose_name: "Ng\u01B0\u1EDDi b\xE1n"
   is_dttm: false
   is_active: true
   type: TEXT

@@ -1,4 +1,5 @@
-dashboard_title: "Olist E-commerce \xB7 Analytics \u2192 Presentation"
+dashboard_title: "Th\u01B0\u01A1ng m\u1EA1i \u0111i\u1EC7n t\u1EED Olist \xB7 Ph\xE2\
+  n t\xEDch \u2192 Tr\xECnh b\xE0y"
 description: null
 css: null
 slug: olist-presentation
@@ -11,11 +12,11 @@ position:
     children: []
     id: CHART-cat_freight
     meta:
-      chartId: 14
+      chartId: 50
       height: 60
-      sliceName: "Ph\xED ship / doanh thu (%) \u2013 15 danh m\u1EE5c l\u1EDBn nh\u1EA5\
-        t"
-      uuid: 4f4b2d80-ca54-4242-82a2-44a73498c790
+      sliceName: "Ph\xED v\u1EADn chuy\u1EC3n / doanh thu (%) \u2013 15 danh m\u1EE5\
+        c l\u1EDBn nh\u1EA5t"
+      uuid: 92b1aac3-6ac3-46f8-95ec-447a96cc9678
       width: 5
     parents:
     - ROOT_ID
@@ -90,11 +91,11 @@ position:
     children: []
     id: CHART-geo_bubble
     meta:
-      chartId: 17
+      chartId: 51
       height: 70
-      sliceName: "Ng\xE0y giao TB vs review TB theo bang (k\xEDch th\u01B0\u1EDBc\
-        \ = doanh thu)"
-      uuid: 21cc915c-87bc-43e7-9165-e7ad63a069db
+      sliceName: "Ng\xE0y giao TB v\xE0 \u0111i\u1EC3m \u0111\xE1nh gi\xE1 TB theo\
+        \ bang (k\xEDch th\u01B0\u1EDBc = doanh thu)"
+      uuid: ae8a1398-1bcf-4aa7-a0f7-2e76a19024b8
       width: 6
     parents:
     - ROOT_ID
@@ -106,11 +107,11 @@ position:
     children: []
     id: CHART-geo_distance
     meta:
-      chartId: 19
+      chartId: 52
       height: 50
-      sliceName: "Kho\u1EA3ng c\xE1ch seller \u2192 kh\xE1ch: ship TB (c\u1ED9t) &\
-        \ % tr\u1EC5 (\u0111\u01B0\u1EDDng)"
-      uuid: 5e96606c-5a1f-419b-9a7d-5f1f852d9e90
+      sliceName: "Kho\u1EA3ng c\xE1ch ng\u01B0\u1EDDi b\xE1n \u2192 kh\xE1ch: ph\xED\
+        \ v\u1EADn chuy\u1EC3n TB (c\u1ED9t) & % tr\u1EC5 (\u0111\u01B0\u1EDDng)"
+      uuid: ba566fd5-de97-4bbe-babd-eb156ad0fb56
       width: 6
     parents:
     - ROOT_ID
@@ -183,10 +184,10 @@ position:
     children: []
     id: CHART-kpi_aov
     meta:
-      chartId: 4
+      chartId: 46
       height: 22
-      sliceName: "KPI \xB7 AOV (BRL/\u0111\u01A1n)"
-      uuid: 8d363ca5-0fa9-475a-a3a5-8324d33344be
+      sliceName: "KPI \xB7 Gi\xE1 tr\u1ECB TB m\u1ED7i \u0111\u01A1n (BRL)"
+      uuid: 7e7c9367-ef60-4b66-914a-d6d4859d7095
       width: 2
     parents:
     - ROOT_ID
@@ -198,10 +199,10 @@ position:
     children: []
     id: CHART-kpi_cust
     meta:
-      chartId: 3
+      chartId: 65
       height: 22
-      sliceName: "KPI \xB7 Kh\xE1ch h\xE0ng (unique)"
-      uuid: 655ec7d7-a6bb-40e1-b901-f70b7f00c095
+      sliceName: "KPI \xB7 Kh\xE1ch h\xE0ng (kh\xF4ng tr\xF9ng)"
+      uuid: 4aa428c3-4a4b-4b0e-97d7-2a9a9442662d
       width: 2
     parents:
     - ROOT_ID
@@ -258,10 +259,10 @@ position:
     children: []
     id: CHART-kpi_review
     meta:
-      chartId: 6
+      chartId: 47
       height: 22
-      sliceName: "KPI \xB7 Review trung b\xECnh"
-      uuid: 2d6208db-2c1b-41e7-ac2d-afe58ac2ff5e
+      sliceName: "KPI \xB7 \u0110i\u1EC3m \u0111\xE1nh gi\xE1 trung b\xECnh"
+      uuid: 2816e03c-24b1-4fb6-a31d-e089fc37f66d
       width: 2
     parents:
     - ROOT_ID
@@ -303,10 +304,11 @@ position:
     children: []
     id: CHART-pay_aov
     meta:
-      chartId: 41
+      chartId: 62
       height: 50
-      sliceName: "AOV theo s\u1ED1 k\u1EF3 tr\u1EA3 g\xF3p (BRL)"
-      uuid: 3367147e-bf7e-4ed2-b88c-685153d4c3c8
+      sliceName: "Gi\xE1 tr\u1ECB TB m\u1ED7i \u0111\u01A1n theo s\u1ED1 k\u1EF3 tr\u1EA3\
+        \ g\xF3p (BRL)"
+      uuid: 580fead4-6954-4331-bddd-25d413a41245
       width: 6
     parents:
     - ROOT_ID
@@ -334,11 +336,11 @@ position:
     children: []
     id: CHART-pay_pie
     meta:
-      chartId: 42
+      chartId: 63
       height: 50
-      sliceName: "C\u01A1 c\u1EA5u \u0111\u01A1n theo PTTT (l\u1ECDc \u0111\u01B0\u1EE3\
-        c theo th\xE1ng/bang)"
-      uuid: 2c757d67-b12b-449e-9cd1-798997fca4c8
+      sliceName: "C\u01A1 c\u1EA5u \u0111\u01A1n theo ph\u01B0\u01A1ng th\u1EE9c thanh\
+        \ to\xE1n (l\u1ECDc \u0111\u01B0\u1EE3c theo th\xE1ng/bang)"
+      uuid: 775f0057-0051-4184-86fe-12071577a289
       width: 6
     parents:
     - ROOT_ID
@@ -350,10 +352,10 @@ position:
     children: []
     id: CHART-pay_table
     meta:
-      chartId: 43
+      chartId: 64
       height: 50
-      sliceName: "B\u1EA3ng payment mix"
-      uuid: ed1d02b1-13ec-4ef8-8a02-07638c1b4e68
+      sliceName: "B\u1EA3ng c\u01A1 c\u1EA5u thanh to\xE1n"
+      uuid: df1facdb-d61d-4bc2-9af3-efd851e3c15b
       width: 6
     parents:
     - ROOT_ID
@@ -395,11 +397,11 @@ position:
     children: []
     id: CHART-rev_delay
     meta:
-      chartId: 39
+      chartId: 61
       height: 50
-      sliceName: "Ng\u01B0\u1EE1ng ng\xE0y tr\u1EC5: review TB (c\u1ED9t) & % 1 sao\
-        \ (\u0111\u01B0\u1EDDng)"
-      uuid: 80c06bfc-a654-4b66-a954-a28545c37d6c
+      sliceName: "Ng\u01B0\u1EE1ng ng\xE0y tr\u1EC5: \u0111i\u1EC3m \u0111\xE1nh gi\xE1\
+        \ TB (c\u1ED9t) & % 1 sao (\u0111\u01B0\u1EDDng)"
+      uuid: 4b90c83a-85d7-430a-892b-715847e9c604
       width: 8
     parents:
     - ROOT_ID
@@ -411,10 +413,11 @@ position:
     children: []
     id: CHART-rev_late
     meta:
-      chartId: 38
+      chartId: 60
       height: 50
-      sliceName: "Review TB: giao tr\u1EC5 vs \u0111\xFAng h\u1EA1n"
-      uuid: 37ba25aa-ecae-4559-a8f5-0583b0deda53
+      sliceName: "\u0110i\u1EC3m \u0111\xE1nh gi\xE1 TB: giao tr\u1EC5 v\xE0 \u0111\
+        \xFAng h\u1EA1n"
+      uuid: d53440ca-75db-4da9-a895-7306b85886be
       width: 4
     parents:
     - ROOT_ID
@@ -531,11 +534,12 @@ position:
     children: []
     id: CHART-sel_bubble
     meta:
-      chartId: 36
+      chartId: 58
       height: 60
-      sliceName: "Top 300 seller: ng\xE0y giao vs review (k\xEDch th\u01B0\u1EDBc\
-        \ = doanh thu, m\xE0u = watchlist)"
-      uuid: 1a88bf7d-257c-47dc-8cc7-baf124962356
+      sliceName: "Top 300 ng\u01B0\u1EDDi b\xE1n: ng\xE0y giao v\xE0 \u0111i\u1EC3\
+        m \u0111\xE1nh gi\xE1 (k\xEDch th\u01B0\u1EDBc = doanh thu, m\xE0u = danh\
+        \ s\xE1ch theo d\xF5i)"
+      uuid: 402661a5-4cda-4c8e-9ac5-d49f5020fd24
       width: 7
     parents:
     - ROOT_ID
@@ -547,11 +551,11 @@ position:
     children: []
     id: CHART-sel_pareto
     meta:
-      chartId: 35
+      chartId: 57
       height: 60
-      sliceName: "Pareto seller: s\u1ED1 seller (c\u1ED9t) & % doanh thu (\u0111\u01B0\
-        \u1EDDng) theo nh\xF3m"
-      uuid: 731cd1c8-47a6-40e6-9fb1-08d1a58ed430
+      sliceName: "Pareto ng\u01B0\u1EDDi b\xE1n: s\u1ED1 ng\u01B0\u1EDDi b\xE1n (c\u1ED9\
+        t) & % doanh thu (\u0111\u01B0\u1EDDng) theo nh\xF3m"
+      uuid: a8b9335e-9765-44bd-9e42-400528d281e0
       width: 5
     parents:
     - ROOT_ID
@@ -563,10 +567,10 @@ position:
     children: []
     id: CHART-sel_top
     meta:
-      chartId: 32
+      chartId: 54
       height: 22
-      sliceName: "KPI \xB7 Seller t\u1EA1o 80% doanh thu"
-      uuid: f8576295-4407-4498-9607-df71cb1fcdad
+      sliceName: "KPI \xB7 Ng\u01B0\u1EDDi b\xE1n t\u1EA1o 80% doanh thu"
+      uuid: 4904b5aa-07e0-41cc-93f5-bba88c5b7af5
       width: 3
     parents:
     - ROOT_ID
@@ -578,10 +582,10 @@ position:
     children: []
     id: CHART-sel_top_pct
     meta:
-      chartId: 33
+      chartId: 55
       height: 22
-      sliceName: "KPI \xB7 % seller t\u1EA1o 80% doanh thu"
-      uuid: 916f9e9b-5035-4672-ab2c-6911f435f38f
+      sliceName: "KPI \xB7 % ng\u01B0\u1EDDi b\xE1n t\u1EA1o 80% doanh thu"
+      uuid: 08b22aa6-88ac-498e-a21f-11fd3f7234fa
       width: 3
     parents:
     - ROOT_ID
@@ -593,10 +597,10 @@ position:
     children: []
     id: CHART-sel_total
     meta:
-      chartId: 31
+      chartId: 53
       height: 22
-      sliceName: "KPI \xB7 S\u1ED1 seller"
-      uuid: d08a9e25-acca-46ad-990d-9612acc06e2a
+      sliceName: "KPI \xB7 S\u1ED1 ng\u01B0\u1EDDi b\xE1n"
+      uuid: 60c6a908-1ce5-4a97-8181-4efdf8024243
       width: 3
     parents:
     - ROOT_ID
@@ -608,10 +612,10 @@ position:
     children: []
     id: CHART-sel_watch
     meta:
-      chartId: 34
+      chartId: 56
       height: 22
-      sliceName: "KPI \xB7 Seller trong watchlist"
-      uuid: 8857626b-c77d-423a-82c4-b1aa301aa862
+      sliceName: "KPI \xB7 Ng\u01B0\u1EDDi b\xE1n c\u1EA7n theo d\xF5i"
+      uuid: 995965a9-9138-4540-a5aa-4d41e0449b33
       width: 3
     parents:
     - ROOT_ID
@@ -623,10 +627,11 @@ position:
     children: []
     id: CHART-sel_watch_table
     meta:
-      chartId: 37
+      chartId: 59
       height: 70
-      sliceName: "Seller watchlist \u2013 c\u1EA3nh b\xE1o v\u1EADn h\xE0nh (153 seller)"
-      uuid: 33d1038d-6405-44f5-89bf-752c8e81ffb1
+      sliceName: "Ng\u01B0\u1EDDi b\xE1n c\u1EA7n theo d\xF5i (watchlist) \u2013 c\u1EA3\
+        nh b\xE1o v\u1EADn h\xE0nh (153 ng\u01B0\u1EDDi b\xE1n)"
+      uuid: 9eef404a-bcd7-4805-89bf-791eec581ed7
       width: 12
     parents:
     - ROOT_ID
@@ -653,10 +658,11 @@ position:
     children: []
     id: CHART-trend_late_review
     meta:
-      chartId: 9
+      chartId: 48
       height: 50
-      sliceName: "T\u1EF7 l\u1EC7 giao tr\u1EC5 (%) vs review TB theo th\xE1ng"
-      uuid: 6a4ec6cb-6e6d-4605-963f-5bee6a0ce915
+      sliceName: "T\u1EF7 l\u1EC7 giao tr\u1EC5 (%) v\xE0 \u0111i\u1EC3m \u0111\xE1\
+        nh gi\xE1 TB theo th\xE1ng"
+      uuid: f9e63d55-8daa-41a6-8a7f-76a1224331fe
       width: 6
     parents:
     - ROOT_ID
@@ -668,11 +674,11 @@ position:
     children: []
     id: CHART-trend_mom
     meta:
-      chartId: 10
+      chartId: 49
       height: 50
       sliceName: "T\u0103ng tr\u01B0\u1EDFng doanh thu so v\u1EDBi th\xE1ng tr\u01B0\
-        \u1EDBc (MoM %)"
-      uuid: fa5030d8-617a-4f70-bbda-96be2d5ad875
+        \u1EDBc (%)"
+      uuid: f3ab5d80-f1d4-400b-8d6f-73061a86dfbb
       width: 6
     parents:
     - ROOT_ID
@@ -700,7 +706,8 @@ position:
   HEADER_ID:
     id: HEADER_ID
     meta:
-      text: "Olist E-commerce \xB7 Analytics \u2192 Presentation"
+      text: "Th\u01B0\u01A1ng m\u1EA1i \u0111i\u1EC7n t\u1EED Olist \xB7 Ph\xE2n t\xED\
+        ch \u2192 Tr\xECnh b\xE0y"
     type: HEADER
   MARKDOWN-md_hints:
     children: []
@@ -711,13 +718,14 @@ position:
         \ d\u1EEF li\u1EC7u (view `presentation.v_decision_hints`).\nGiai \u0111o\u1EA1\
         n k\u1EBF ti\u1EBFp (**Presentation \u2192 Decision/Action**) c\xF3 th\u1EC3\
         \ \u0111\u1ECDc view n\xE0y b\u1EB1ng SQL/API \u0111\u1EC3:\n\n- g\u1EEDi\
-        \ **c\u1EA3nh b\xE1o seller** trong watchlist (m\u1EE9c \u0110\u1ECE = vi\
-        \ ph\u1EA1m \u2265 2 ti\xEAu ch\xED);\n- **c\u1EA3nh b\xE1o s\u1EDBm** \u0111\
-        \u01A1n tr\u1EC5 1\u20133 ng\xE0y, tr\u01B0\u1EDBc m\u1ED1c 4\u20137 ng\xE0\
-        y khi review r\u01A1i xu\u1ED1ng ~2,1 sao;\n- l\xEAn k\u1EBF ho\u1EA1ch **n\u0103\
-        ng l\u1EF1c v\u1EADn chuy\u1EC3n** tr\u01B0\u1EDBc th\xE1ng cao \u0111i\u1EC3\
-        m (T11, T2\u2013T3);\n- ch\u1EA1y **win-back** cho kh\xE1ch *At Risk* thay\
-        \ v\xEC 65k kh\xE1ch *One-shot Lost*.\n"
+        \ **c\u1EA3nh b\xE1o ng\u01B0\u1EDDi b\xE1n** trong danh s\xE1ch theo d\xF5\
+        i (m\u1EE9c \u0110\u1ECE = vi ph\u1EA1m \u2265 2 ti\xEAu ch\xED);\n- **c\u1EA3\
+        nh b\xE1o s\u1EDBm** \u0111\u01A1n tr\u1EC5 1\u20133 ng\xE0y, tr\u01B0\u1EDB\
+        c m\u1ED1c 4\u20137 ng\xE0y khi \u0111i\u1EC3m \u0111\xE1nh gi\xE1 r\u01A1\
+        i xu\u1ED1ng ~2,1 sao;\n- l\xEAn k\u1EBF ho\u1EA1ch **n\u0103ng l\u1EF1c v\u1EAD\
+        n chuy\u1EC3n** tr\u01B0\u1EDBc th\xE1ng cao \u0111i\u1EC3m (T11, T2\u2013\
+        T3);\n- ch\u1EA1y chi\u1EBFn d\u1ECBch **k\xE9o kh\xE1ch quay l\u1EA1i** cho\
+        \ nh\xF3m *At Risk* thay v\xEC 65 ngh\xECn kh\xE1ch *One-shot Lost*.\n"
       height: 60
       width: 4
     parents:
@@ -730,15 +738,15 @@ position:
     children: []
     id: MARKDOWN-md_lineage
     meta:
-      code: "### Ngu\u1ED3n d\u1EEF li\u1EC7u\n**Lu\u1ED3ng:** Spark (nh\xF3m Analytics)\
-        \ \u2192 Parquet `data/analytics`, `data/gold` \u2192 `loader/load_to_neon.py`\
-        \ (COPY) \u2192\nNeon Postgres (`analytics.*`, `gold.*`) \u2192 view `presentation.*`\
-        \ \u2192 Superset.\n\n- Khung th\u1EDDi gian KPI: **2017-01 \u2192 2018-08**\
-        \ (\u0111\xE3 b\u1ECF 2016 v\xE0 2018-09).\n- Kh\xE1ch = `customer_unique_id`;\
-        \ review t\xEDnh \u1EDF c\u1EA5p \u0111\u01A1n.\n- T\u1ED5ng doanh thu gold\
-        \ (m\u1ECDi th\xE1ng): **13.494.400,74 BRL** \u2014 ki\u1EC3m ch\u1EE9ng trong\
-        \ `evidence/validation.md`.\n- B\u1EA3ng b\xEAn ph\u1EA3i: l\u1EA7n n\u1EA1\
-        p g\u1EA7n nh\u1EA5t (`analytics.load_log`).\n"
+      code: "### Ngu\u1ED3n d\u1EEF li\u1EC7u\n**Lu\u1ED3ng:** Spark (nh\xF3m Ph\xE2\
+        n t\xEDch \u2013 Analytics) \u2192 Parquet `data/analytics`, `data/gold` \u2192\
+        \ `loader/load_to_neon.py` (COPY) \u2192\nNeon Postgres (`analytics.*`, `gold.*`)\
+        \ \u2192 view `presentation.*` \u2192 Superset.\n\n- Khung th\u1EDDi gian\
+        \ KPI: **2017-01 \u2192 2018-08** (\u0111\xE3 b\u1ECF 2016 v\xE0 2018-09).\n\
+        - Kh\xE1ch = `customer_unique_id`; \u0111i\u1EC3m \u0111\xE1nh gi\xE1 t\xED\
+        nh \u1EDF c\u1EA5p \u0111\u01A1n.\n- T\u1ED5ng doanh thu gold (m\u1ECDi th\xE1\
+        ng): **13.494.400,74 BRL** \u2014 ki\u1EC3m ch\u1EE9ng trong `evidence/validation.md`.\n\
+        - B\u1EA3ng b\xEAn ph\u1EA3i: l\u1EA7n n\u1EA1p g\u1EA7n nh\u1EA5t (`analytics.load_log`).\n"
       height: 60
       width: 4
     parents:
@@ -1086,7 +1094,7 @@ position:
     meta:
       defaultText: Tab title
       placeholder: Tab title
-      text: "5 \xB7 Seller"
+      text: "5 \xB7 Ng\u01B0\u1EDDi b\xE1n"
     parents:
     - ROOT_ID
     - TABS-main
@@ -1100,7 +1108,7 @@ position:
     meta:
       defaultText: Tab title
       placeholder: Tab title
-      text: "6 \xB7 Giao tr\u1EC5, review & thanh to\xE1n"
+      text: "6 \xB7 Giao tr\u1EC5, \u0111\xE1nh gi\xE1 & thanh to\xE1n"
     parents:
     - ROOT_ID
     - TABS-main
@@ -1139,8 +1147,8 @@ metadata:
     name: "Kho\u1EA3ng th\u1EDDi gian"
     filterType: filter_time
     type: NATIVE_FILTER
-    description: "\xC1p d\u1EE5ng cho chart c\xF3 c\u1ED9t month_date (2017-01 \u2192\
-      \ 2018-08)"
+    description: "\xC1p d\u1EE5ng cho bi\u1EC3u \u0111\u1ED3 c\xF3 c\u1ED9t month_date\
+      \ (2017-01 \u2192 2018-08)"
     cascadeParentIds: []
     defaultDataMask:
       extraFormData: {}
@@ -1152,11 +1160,11 @@ metadata:
       excluded:
       - 12
       - 13
-      - 14
+      - 50
       - 16
-      - 17
+      - 51
       - 18
-      - 19
+      - 52
       - 20
       - 21
       - 22
@@ -1168,34 +1176,34 @@ metadata:
       - 28
       - 29
       - 30
-      - 31
-      - 32
-      - 33
-      - 34
-      - 35
-      - 36
-      - 37
-      - 38
-      - 39
+      - 53
+      - 54
+      - 55
+      - 56
+      - 57
+      - 58
+      - 59
+      - 60
+      - 61
       - 40
-      - 41
-      - 43
+      - 62
+      - 64
       - 44
       - 45
     chartsInScope:
     - 1
     - 2
-    - 3
-    - 4
+    - 65
+    - 46
     - 5
-    - 6
+    - 47
     - 7
     - 8
-    - 9
-    - 10
+    - 48
+    - 49
     - 11
     - 15
-    - 42
+    - 63
     tabsInScope:
     - TAB-t1
     - TAB-t2
@@ -1219,40 +1227,40 @@ metadata:
       excluded:
       - 7
       - 8
-      - 9
-      - 10
+      - 48
+      - 49
       - 11
       - 12
       - 13
-      - 14
+      - 50
       - 15
-      - 19
+      - 52
       - 27
       - 29
       - 30
-      - 31
-      - 32
-      - 33
-      - 34
-      - 35
-      - 36
-      - 37
-      - 38
-      - 39
+      - 53
+      - 54
+      - 55
+      - 56
+      - 57
+      - 58
+      - 59
+      - 60
+      - 61
       - 40
-      - 41
-      - 43
+      - 62
+      - 64
       - 44
       - 45
     chartsInScope:
     - 1
     - 2
-    - 3
-    - 4
+    - 65
+    - 46
     - 5
-    - 6
+    - 47
     - 16
-    - 17
+    - 51
     - 18
     - 20
     - 21
@@ -1262,7 +1270,7 @@ metadata:
     - 25
     - 26
     - 28
-    - 42
+    - 63
     tabsInScope:
     - TAB-t1
     - TAB-t3
@@ -1295,40 +1303,40 @@ metadata:
       excluded:
       - 7
       - 8
-      - 9
-      - 10
+      - 48
+      - 49
       - 11
       - 12
       - 13
-      - 14
+      - 50
       - 15
-      - 19
+      - 52
       - 27
       - 29
       - 30
-      - 31
-      - 32
-      - 33
-      - 34
-      - 35
-      - 36
-      - 37
-      - 38
-      - 39
+      - 53
+      - 54
+      - 55
+      - 56
+      - 57
+      - 58
+      - 59
+      - 60
+      - 61
       - 40
-      - 41
-      - 43
+      - 62
+      - 64
       - 44
       - 45
     chartsInScope:
     - 1
     - 2
-    - 3
-    - 4
+    - 65
+    - 46
     - 5
-    - 6
+    - 47
     - 16
-    - 17
+    - 51
     - 18
     - 20
     - 21
@@ -1338,7 +1346,7 @@ metadata:
     - 25
     - 26
     - 28
-    - 42
+    - 63
     tabsInScope:
     - TAB-t1
     - TAB-t3
@@ -1371,19 +1379,19 @@ metadata:
       excluded:
       - 1
       - 2
-      - 3
-      - 4
+      - 65
+      - 46
       - 5
-      - 6
+      - 47
       - 7
       - 8
-      - 9
-      - 10
+      - 48
+      - 49
       - 11
       - 16
-      - 17
+      - 51
       - 18
-      - 19
+      - 52
       - 20
       - 21
       - 22
@@ -1394,25 +1402,25 @@ metadata:
       - 28
       - 29
       - 30
-      - 31
-      - 32
-      - 33
-      - 34
-      - 35
-      - 36
-      - 37
-      - 38
-      - 39
+      - 53
+      - 54
+      - 55
+      - 56
+      - 57
+      - 58
+      - 59
+      - 60
+      - 61
       - 40
-      - 41
-      - 42
-      - 43
+      - 62
+      - 63
+      - 64
       - 44
       - 45
     chartsInScope:
     - 12
     - 13
-    - 14
+    - 50
     - 15
     - 27
     tabsInScope:
@@ -1445,40 +1453,40 @@ metadata:
       excluded:
       - 1
       - 2
-      - 3
-      - 4
+      - 65
+      - 46
       - 5
-      - 6
+      - 47
       - 7
       - 8
-      - 9
-      - 10
+      - 48
+      - 49
       - 11
       - 12
       - 13
-      - 14
+      - 50
       - 15
       - 16
-      - 17
+      - 51
       - 18
-      - 19
+      - 52
       - 20
       - 27
       - 28
       - 30
-      - 31
-      - 32
-      - 33
-      - 34
-      - 35
-      - 36
-      - 37
-      - 38
-      - 39
+      - 53
+      - 54
+      - 55
+      - 56
+      - 57
+      - 58
+      - 59
+      - 60
+      - 61
       - 40
-      - 41
-      - 42
-      - 43
+      - 62
+      - 63
+      - 64
       - 44
       - 45
     chartsInScope:
@@ -1506,7 +1514,8 @@ metadata:
     name: "Ph\u01B0\u01A1ng th\u1EE9c thanh to\xE1n"
     filterType: filter_select
     type: NATIVE_FILTER
-    description: "PTTT ch\xEDnh c\u1EE7a \u0111\u01A1n"
+    description: "Ph\u01B0\u01A1ng th\u1EE9c thanh to\xE1n ch\xEDnh c\u1EE7a \u0111\
+      \u01A1n"
     cascadeParentIds: []
     defaultDataMask:
       extraFormData: {}
@@ -1518,17 +1527,17 @@ metadata:
       excluded:
       - 7
       - 8
-      - 9
-      - 10
+      - 48
+      - 49
       - 11
       - 12
       - 13
-      - 14
+      - 50
       - 15
       - 16
-      - 17
+      - 51
       - 18
-      - 19
+      - 52
       - 20
       - 21
       - 22
@@ -1540,28 +1549,28 @@ metadata:
       - 28
       - 29
       - 30
-      - 31
-      - 32
-      - 33
-      - 34
-      - 35
-      - 36
-      - 37
-      - 38
-      - 39
+      - 53
+      - 54
+      - 55
+      - 56
+      - 57
+      - 58
+      - 59
+      - 60
+      - 61
       - 44
       - 45
     chartsInScope:
     - 1
     - 2
-    - 3
-    - 4
+    - 65
+    - 46
     - 5
-    - 6
+    - 47
     - 40
-    - 41
-    - 42
-    - 43
+    - 62
+    - 63
+    - 64
     tabsInScope:
     - TAB-t1
     - TAB-t6
@@ -1577,7 +1586,7 @@ metadata:
       inverseSelection: false
       sortAscending: true
   - id: NATIVE_FILTER-07sellerstat
-    name: Bang seller
+    name: "Bang ng\u01B0\u1EDDi b\xE1n"
     filterType: filter_select
     type: NATIVE_FILTER
     description: "Bang c\u1EE7a ng\u01B0\u1EDDi b\xE1n"
@@ -1592,23 +1601,23 @@ metadata:
       excluded:
       - 1
       - 2
-      - 3
-      - 4
+      - 65
+      - 46
       - 5
-      - 6
+      - 47
       - 7
       - 8
-      - 9
-      - 10
+      - 48
+      - 49
       - 11
       - 12
       - 13
-      - 14
+      - 50
       - 15
       - 16
-      - 17
+      - 51
       - 18
-      - 19
+      - 52
       - 20
       - 21
       - 22
@@ -1620,22 +1629,22 @@ metadata:
       - 28
       - 29
       - 30
-      - 38
-      - 39
+      - 60
+      - 61
       - 40
-      - 41
-      - 42
-      - 43
+      - 62
+      - 63
+      - 64
       - 44
       - 45
     chartsInScope:
-    - 31
-    - 32
-    - 33
-    - 34
-    - 35
-    - 36
-    - 37
+    - 53
+    - 54
+    - 55
+    - 56
+    - 57
+    - 58
+    - 59
     tabsInScope:
     - TAB-t5
     targets:

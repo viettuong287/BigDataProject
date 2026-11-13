@@ -1,6 +1,7 @@
 table_name: v_repeat_categories
 main_dttm_col: null
-description: "View presentation.v_repeat_categories tr\xEAn Neon (semantic layer)"
+description: "View presentation.v_repeat_categories tr\xEAn Neon (t\u1EA7ng ng\u1EEF\
+  \ ngh\u0129a)"
 default_endpoint: null
 offset: 0
 cache_timeout: 600
@@ -17,7 +18,7 @@ always_filter_main_dttm: false
 uuid: 0d1bafe5-8b4e-4f19-91c3-f9e8b06582fe
 metrics:
 - metric_name: count
-  verbose_name: COUNT(*)
+  verbose_name: "S\u1ED1 d\xF2ng"
   metric_type: count
   expression: COUNT(*)
   description: null

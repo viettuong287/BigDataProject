@@ -1,5 +1,5 @@
-slice_name: "Ng\xE0y giao TB vs review TB theo bang (k\xEDch th\u01B0\u1EDBc = doanh\
-  \ thu)"
+slice_name: "Ng\xE0y giao TB v\xE0 \u0111i\u1EC3m \u0111\xE1nh gi\xE1 TB theo bang\
+  \ (k\xEDch th\u01B0\u1EDBc = doanh thu)"
 description: "Ngu\u1ED3n: presentation.v_state_logistics"
 certified_by: null
 certification_details: null
@@ -17,9 +17,9 @@ params:
   y:
     expressionType: SQL
     sqlExpression: MAX(avg_review_score)
-    label: Review TB
+    label: "\u0110\xE1nh gi\xE1 TB"
     hasCustomLabel: true
-    optionName: metric_review_tb
+    optionName: "metric_\u0111\xE1nh_gi\xE1_tb"
   size:
     expressionType: SQL
     sqlExpression: SUM(revenue)
@@ -30,7 +30,7 @@ params:
   row_limit: 100
   max_bubble_size: '40'
   x_axis_label: "Ng\xE0y giao trung b\xECnh"
-  y_axis_label: "Review trung b\xECnh"
+  y_axis_label: "\u0110i\u1EC3m \u0111\xE1nh gi\xE1 trung b\xECnh"
   xAxisFormat: ',.1f'
   y_axis_format: ',.2f'
   truncateYAxis: true
@@ -44,6 +44,6 @@ params:
   datasource: 10__table
 query_context: null
 cache_timeout: 600
-uuid: 21cc915c-87bc-43e7-9165-e7ad63a069db
+uuid: ae8a1398-1bcf-4aa7-a0f7-2e76a19024b8
 version: 1.0.0
 dataset_uuid: 1f671144-69dc-4c01-a388-d5be955f3986

@@ -1,5 +1,6 @@
-slice_name: "Top 300 seller: ng\xE0y giao vs review (k\xEDch th\u01B0\u1EDBc = doanh\
-  \ thu, m\xE0u = watchlist)"
+slice_name: "Top 300 ng\u01B0\u1EDDi b\xE1n: ng\xE0y giao v\xE0 \u0111i\u1EC3m \u0111\
+  \xE1nh gi\xE1 (k\xEDch th\u01B0\u1EDBc = doanh thu, m\xE0u = danh s\xE1ch theo d\xF5\
+  i)"
 description: "Ngu\u1ED3n: presentation.v_seller_pareto"
 certified_by: null
 certification_details: null
@@ -17,9 +18,9 @@ params:
   y:
     expressionType: SQL
     sqlExpression: MAX(avg_review_score)
-    label: Review TB
+    label: "\u0110\xE1nh gi\xE1 TB"
     hasCustomLabel: true
-    optionName: metric_review_tb
+    optionName: "metric_\u0111\xE1nh_gi\xE1_tb"
   size:
     expressionType: SQL
     sqlExpression: SUM(revenue)
@@ -33,7 +34,7 @@ params:
   row_limit: 300
   max_bubble_size: '25'
   x_axis_label: "Ng\xE0y giao trung b\xECnh"
-  y_axis_label: "Review trung b\xECnh"
+  y_axis_label: "\u0110i\u1EC3m \u0111\xE1nh gi\xE1 trung b\xECnh"
   xAxisFormat: ',.1f'
   y_axis_format: ',.2f'
   opacity: 0.6
@@ -43,6 +44,6 @@ params:
   datasource: 20__table
 query_context: null
 cache_timeout: 600
-uuid: 1a88bf7d-257c-47dc-8cc7-baf124962356
+uuid: 402661a5-4cda-4c8e-9ac5-d49f5020fd24
 version: 1.0.0
 dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

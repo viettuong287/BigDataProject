@@ -1,20 +1,21 @@
-slice_name: "Review TB: giao tr\u1EC5 vs \u0111\xFAng h\u1EA1n"
-description: "Ngu\u1ED3n: presentation.v_late_vs_review"
+slice_name: "Gi\xE1 tr\u1ECB TB m\u1ED7i \u0111\u01A1n theo s\u1ED1 k\u1EF3 tr\u1EA3\
+  \ g\xF3p (BRL)"
+description: "Ngu\u1ED3n: presentation.v_payment_mix"
 certified_by: null
 certification_details: null
 viz_type: echarts_timeseries_bar
 params:
   viz_type: echarts_timeseries_bar
-  x_axis: delivery_label
+  x_axis: installment_label
   metrics:
   - expressionType: SQL
-    sqlExpression: MAX(avg_review)
-    label: Review TB
+    sqlExpression: SUM(gmv) / NULLIF(SUM(orders), 0)
+    label: "Gi\xE1 tr\u1ECB TB/\u0111\u01A1n (BRL)"
     hasCustomLabel: true
-    optionName: metric_review_tb
+    optionName: "metric_gi\xE1_tr\u1ECB_tb_\u0111\u01A1n_brl_"
   groupby: []
   adhoc_filters: []
-  row_limit: 5
+  row_limit: 10
   truncate_metric: true
   show_legend: false
   legendOrientation: top
@@ -26,14 +27,14 @@ params:
   color_scheme: supersetColors
   only_total: true
   order_desc: true
-  x_axis_sort: Review TB
-  x_axis_sort_asc: false
+  x_axis_sort: installment_label
+  x_axis_sort_asc: true
   orientation: vertical
   show_value: true
   xAxisLabelRotation: 45
-  datasource: 22__table
+  datasource: 24__table
 query_context: null
 cache_timeout: 600
-uuid: 37ba25aa-ecae-4559-a8f5-0583b0deda53
+uuid: 580fead4-6954-4331-bddd-25d413a41245
 version: 1.0.0
-dataset_uuid: a332d7e0-4833-4d02-bd02-3732ef945b03
+dataset_uuid: b55f3a1f-fda1-4719-a359-6d7a3d783d02

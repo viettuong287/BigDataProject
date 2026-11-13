@@ -27,8 +27,28 @@ params:
   allow_rearrange_columns: true
   table_timestamp_format: '%Y-%m'
   column_config:
+    customer_state:
+      d3NumberFormat: ',.2~f'
+    state_name:
+      d3NumberFormat: ',.2~f'
+    region:
+      d3NumberFormat: ',.2~f'
+    orders:
+      d3NumberFormat: ',.2~f'
     revenue:
       d3NumberFormat: ',.0f'
+    revenue_share_pct:
+      d3NumberFormat: ',.2~f'
+    avg_order_value:
+      d3NumberFormat: ',.2~f'
+    freight_pct_of_revenue:
+      d3NumberFormat: ',.2~f'
+    avg_delivery_days:
+      d3NumberFormat: ',.2~f'
+    late_delivery_pct:
+      d3NumberFormat: ',.2~f'
+    avg_review_score:
+      d3NumberFormat: ',.2~f'
   conditional_formatting:
   - column: late_delivery_pct
     operator: '>'

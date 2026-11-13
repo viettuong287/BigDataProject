@@ -26,10 +26,26 @@ params:
   allow_rearrange_columns: true
   table_timestamp_format: '%Y-%m'
   column_config:
+    month_label:
+      d3NumberFormat: ',.2~f'
+    orders:
+      d3NumberFormat: ',.2~f'
+    customers:
+      d3NumberFormat: ',.2~f'
     revenue:
       d3NumberFormat: ',.0f'
     avg_order_value:
       d3NumberFormat: ',.2f'
+    late_delivery_pct:
+      d3NumberFormat: ',.2~f'
+    avg_review_score:
+      d3NumberFormat: ',.2~f'
+    revenue_mom_pct:
+      d3NumberFormat: ',.2~f'
+    revenue_yoy_pct:
+      d3NumberFormat: ',.2~f'
+    revenue_rank:
+      d3NumberFormat: ',.2~f'
   conditional_formatting:
   - column: late_delivery_pct
     operator: '>'

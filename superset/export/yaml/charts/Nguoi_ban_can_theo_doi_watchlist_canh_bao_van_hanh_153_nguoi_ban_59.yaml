@@ -1,4 +1,5 @@
-slice_name: "Seller watchlist \u2013 c\u1EA3nh b\xE1o v\u1EADn h\xE0nh (153 seller)"
+slice_name: "Ng\u01B0\u1EDDi b\xE1n c\u1EA7n theo d\xF5i (watchlist) \u2013 c\u1EA3\
+  nh b\xE1o v\u1EADn h\xE0nh (153 ng\u01B0\u1EDDi b\xE1n)"
 description: "Ngu\u1ED3n: presentation.v_seller_watchlist"
 certified_by: null
 certification_details: null
@@ -29,8 +30,30 @@ params:
   allow_rearrange_columns: true
   table_timestamp_format: '%Y-%m'
   column_config:
+    seller_short:
+      d3NumberFormat: ',.2~f'
+    seller_state:
+      d3NumberFormat: ',.2~f'
+    alert_level:
+      d3NumberFormat: ',.2~f'
+    violations:
+      d3NumberFormat: ',.2~f'
+    reasons:
+      d3NumberFormat: ',.2~f'
+    orders:
+      d3NumberFormat: ',.2~f'
     revenue:
       d3NumberFormat: ',.0f'
+    avg_review_score:
+      d3NumberFormat: ',.2~f'
+    avg_delivery_days:
+      d3NumberFormat: ',.2~f'
+    late_delivery_pct:
+      d3NumberFormat: ',.2~f'
+    active_months:
+      d3NumberFormat: ',.2~f'
+    recommended_action:
+      d3NumberFormat: ',.2~f'
   conditional_formatting:
   - column: avg_review_score
     operator: <
@@ -52,6 +75,6 @@ params:
   datasource: 21__table
 query_context: null
 cache_timeout: 600
-uuid: 33d1038d-6405-44f5-89bf-752c8e81ffb1
+uuid: 9eef404a-bcd7-4805-89bf-791eec581ed7
 version: 1.0.0
 dataset_uuid: a6bd5a0c-740f-454e-ad9b-80f9c28e002e

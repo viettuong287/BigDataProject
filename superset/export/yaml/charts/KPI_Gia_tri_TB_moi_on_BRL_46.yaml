@@ -1,4 +1,4 @@
-slice_name: "KPI \xB7 Review trung b\xECnh"
+slice_name: "KPI \xB7 Gi\xE1 tr\u1ECB TB m\u1ED7i \u0111\u01A1n (BRL)"
 description: "Ngu\u1ED3n: presentation.v_orders"
 certified_by: null
 certification_details: null
@@ -7,23 +7,23 @@ params:
   viz_type: big_number_total
   metric:
     expressionType: SQL
-    sqlExpression: AVG(review_score)
-    label: Review TB
+    sqlExpression: AVG(order_value)
+    label: "Gi\xE1 tr\u1ECB TB/\u0111\u01A1n"
     hasCustomLabel: true
-    optionName: metric_review_tb
+    optionName: "metric_gi\xE1_tr\u1ECB_tb_\u0111\u01A1n"
   adhoc_filters:
   - clause: WHERE
     subject: month_date
     operator: TEMPORAL_RANGE
     comparator: No filter
     expressionType: SIMPLE
-  y_axis_format: .2f
+  y_axis_format: ',.2f'
   header_font_size: 0.3
   subheader_font_size: 0.125
-  subheader: "sao, c\u1EA5p \u0111\u01A1n h\xE0ng"
+  subheader: "AOV \u2013 gi\xE1 tr\u1ECB h\xE0ng ho\xE1 TB m\u1ED7i \u0111\u01A1n"
   datasource: 12__table
 query_context: null
 cache_timeout: 600
-uuid: 2d6208db-2c1b-41e7-ac2d-afe58ac2ff5e
+uuid: 7e7c9367-ef60-4b66-914a-d6d4859d7095
 version: 1.0.0
 dataset_uuid: 5f023a25-e62c-495f-a53c-f190c6c3f714

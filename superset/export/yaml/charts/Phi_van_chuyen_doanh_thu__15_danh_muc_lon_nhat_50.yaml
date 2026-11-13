@@ -1,5 +1,5 @@
-slice_name: "Ph\xED ship / doanh thu (%) \u2013 15 danh m\u1EE5c l\u1EDBn nh\u1EA5\
-  t"
+slice_name: "Ph\xED v\u1EADn chuy\u1EC3n / doanh thu (%) \u2013 15 danh m\u1EE5c l\u1EDB\
+  n nh\u1EA5t"
 description: "Ngu\u1ED3n: presentation.v_category_pareto"
 certified_by: null
 certification_details: null
@@ -10,9 +10,9 @@ params:
   metrics:
   - expressionType: SQL
     sqlExpression: MAX(freight_to_revenue_pct)
-    label: Ship/doanh thu (%)
+    label: "Ph\xED v\u1EADn chuy\u1EC3n/doanh thu (%)"
     hasCustomLabel: true
-    optionName: metric_ship_doanh_thu_
+    optionName: "metric_ph\xED_v\u1EADn_chuy\u1EC3n_doanh_thu_"
   groupby: []
   adhoc_filters:
   - clause: WHERE
@@ -30,7 +30,7 @@ params:
   color_scheme: supersetColors
   only_total: true
   order_desc: true
-  x_axis_sort: Ship/doanh thu (%)
+  x_axis_sort: "Ph\xED v\u1EADn chuy\u1EC3n/doanh thu (%)"
   x_axis_sort_asc: true
   orientation: horizontal
   show_value: true
@@ -38,6 +38,6 @@ params:
   datasource: 13__table
 query_context: null
 cache_timeout: 600
-uuid: 4f4b2d80-ca54-4242-82a2-44a73498c790
+uuid: 92b1aac3-6ac3-46f8-95ec-447a96cc9678
 version: 1.0.0
 dataset_uuid: 59ee4502-2859-43d2-a81b-c9d3c0e276bd
