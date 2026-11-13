@@ -29,8 +29,13 @@ INFO = json.loads((ROOT / "superset" / "export" / "build_info.json").read_text(e
 DASH = f"{URL}/superset/dashboard/{INFO['dashboard_id']}/"
 F = {fid.split("-")[1][2:]: fid for fid in INFO["filters"]}  # 'customerst' -> NATIVE_FILTER-02customerst
 
-TABS = ["tong_quan_xu_huong", "danh_muc_mua_vu", "dia_ly_logistics", "khach_hang_rfm", "seller",
+TABS = ["tong_quan_xu_huong", "danh_muc_mua_vu", "dia_ly_logistics", "khach_hang_rfm", "nguoi_ban",
         "giao_tre_review_thanh_toan", "goi_y_quyet_dinh_nguon_du_lieu"]
+# Tên một chart chỉ có ở mỗi tab – dùng để kiểm tra nội dung đang hiển thị đúng tab trước khi chụp.
+TAB_MARK = ["KPI · Doanh thu (BRL)", "Pareto danh mục", "Bản đồ doanh thu theo bang", "KPI · Khách hàng (RFM)",
+            "KPI · Số người bán", "Điểm đánh giá TB: giao trễ và đúng hạn", "Gợi ý quyết định (luật"]
+SHOWN_JS = """() => [...document.querySelectorAll('.dashboard-component-chart-holder')]
+    .filter(h => h.offsetParent !== null).map(h => h.innerText || '').join('\\n')"""
 
 STATE_JS = """() => {
     const hs = [...document.querySelectorAll('.dashboard-component-chart-holder')]
@@ -62,7 +67,7 @@ FILTERS = [
     ("filter_tab4_rfm_khach_mua_lai_bang_RJ", 3,
      {**select("rfmsegment", "rfm_segment", ["Champions", "Loyal", "At Risk"]),
       **select("customerst", "customer_state", ["RJ"])}),
-    ("filter_tab5_bang_seller_SP", 4, select("sellerstat", "seller_state", ["SP"])),
+    ("filter_tab5_bang_nguoi_ban_SP", 4, select("sellerstat", "seller_state", ["SP"])),
     ("filter_tab6_pttt_boleto", 5, select("mainpaymen", "main_payment_type", ["boleto"])),
 ]
 
@@ -83,6 +88,26 @@ def wait_rendered(page, timeout_s: float = 180) -> tuple[float, dict]:
 def open_tab(page, idx: int) -> tuple[float, dict]:
     page.locator('[role="tab"]').nth(idx).click()
     return wait_rendered(page)
+
+
+def switch_tab(page, idx: int) -> tuple[float, dict]:
+    # Permalink có activeTabs chỉ tô tiêu đề tab, nội dung vẫn là tab 1; bấm lại tab đang "active" không có tác dụng.
+    page.locator('[role="tab"]').nth(1 if idx == 0 else 0).click()
+    wait_rendered(page)
+    return open_tab(page, idx)
+
+
+def shoot(page, path: Path, idx: int) -> None:
+    # Chỉ chụp viewport: full_page buộc Chromium nới viewport (1900 → 1906 px) và Superset 4.1 gỡ toàn bộ
+    # lưới chart của tab 5 khi resize, ảnh ra trắng. Viewport 1900 px đã chứa trọn nội dung mỗi tab.
+    for _ in range(3):
+        if TAB_MARK[idx] in page.evaluate(SHOWN_JS):
+            page.screenshot(path=str(path))
+            if TAB_MARK[idx] in page.evaluate(SHOWN_JS):
+                return
+        switch_tab(page, idx)
+        page.wait_for_timeout(1500)
+    raise RuntimeError(f"tab {idx + 1} không hiển thị đúng nội dung khi chụp {path.name}")
 
 
 def main() -> None:
@@ -126,8 +151,8 @@ def main() -> None:
                 rec[f"{run}_errors"] = len(st["errors"])
                 if run == "cold":
                     page.wait_for_timeout(1500)
-                    page.screenshot(path=str(EVID / f"dashboard_tab{i + 1}_{slug}.png"), full_page=True)
-                    if slug == "seller":
+                    shoot(page, EVID / f"dashboard_tab{i + 1}_{slug}.png", i)
+                    if slug == "nguoi_ban":
                         page.locator(".dashboard-component-chart-holder", has_text="Người bán cần theo dõi (watchlist)").first \
                             .screenshot(path=str(EVID / "watchlist_seller_canh_bao.png"))
                     if slug.startswith("goi_y"):
@@ -148,9 +173,9 @@ def main() -> None:
                                  headers=headers)
             page.goto(f"{URL}/superset/dashboard/p/{r.json()['key']}/", wait_until="domcontentloaded")
             page.wait_for_selector('[role="tab"]', timeout=120000)
-            secs, st = open_tab(page, idx)
+            secs, st = wait_rendered(page) if idx == 0 else switch_tab(page, idx)
             page.wait_for_timeout(1500)
-            page.screenshot(path=str(EVID / f"{name}.png"), full_page=True)
+            shoot(page, EVID / f"{name}.png", idx)
             load_rows.append({"kind": "filter", "scenario": name, "components": st["n"], "cold_s": round(secs, 2),
                               "warm_s": "", "errors": len(st["errors"])})
             print(f"[filter] {name:<45} {secs:6.2f}s  lỗi={st['errors']}", flush=True)
