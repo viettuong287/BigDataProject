@@ -1,0 +1,338 @@
+{
+  "summary": {
+    "PASS": 41,
+    "FAIL": 0,
+    "KNOWN": 0
+  },
+  "results": [
+    {
+      "id": "TC01",
+      "case": "Trang đăng nhập hiển thị thương hiệu Olist Insight",
+      "steps": "Mở /login/",
+      "expected": "Tiêu đề 'Olist Insight', logo + favicon Olist Insight, font Be Vietnam Pro, không lỗi console",
+      "result": "PASS",
+      "note": "title='Olist Insight', logo=olist-insight-logo.svg, font Be Vietnam Pro=True, lỗi console=0"
+    },
+    {
+      "id": "TC02",
+      "case": "Sai mật khẩu bị từ chối",
+      "steps": "Nhập admin / mật khẩu sai → Đăng nhập",
+      "expected": "Ở lại /login/, hiện thông báo 'Đăng nhập không hợp lệ'",
+      "result": "PASS",
+      "note": "thông báo: '×\\nĐăng nhập không hợp lệ. Vui lòng thử lại.'"
+    },
+    {
+      "id": "TC03",
+      "case": "Đăng nhập admin thành công, mặc định tiếng Việt",
+      "steps": "Phiên mới: nhập admin / mật khẩu đúng (.env)",
+      "expected": "Chuyển tới /superset/welcome/, giao diện tiếng Việt (locale vi)",
+      "result": "PASS",
+      "note": "→ /superset/welcome/; phiên mới mặc định locale=vi, menu 'Bảng điều khiển'=True; lỗi console=0"
+    },
+    {
+      "id": "TC04",
+      "case": "Tab 1 · Tổng quan & xu hướng @ 1440px",
+      "steps": "Mở dashboard (1440px), bấm tab 1",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "11/11 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=7 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC05",
+      "case": "Tab 2 · Danh mục & mùa vụ @ 1440px",
+      "steps": "Mở dashboard (1440px), bấm tab 2",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "4/4 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=0 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC06",
+      "case": "Tab 3 · Địa lý & logistics @ 1440px",
+      "steps": "Mở dashboard (1440px), bấm tab 3",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "5/5 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=0 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC07",
+      "case": "Tab 4 · Khách hàng & RFM @ 1440px",
+      "steps": "Mở dashboard (1440px), bấm tab 4",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "10/10 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=4 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC08",
+      "case": "Tab 5 · Người bán @ 1440px",
+      "steps": "Mở dashboard (1440px), bấm tab 5",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "7/7 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=4 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC09",
+      "case": "Tab 6 · Giao trễ, đánh giá & thanh toán @ 1440px",
+      "steps": "Mở dashboard (1440px), bấm tab 6",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "6/6 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=0 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC10",
+      "case": "Tab 7 · Gợi ý quyết định & nguồn dữ liệu @ 1440px",
+      "steps": "Mở dashboard (1440px), bấm tab 7",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "4/4 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=0 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC11",
+      "case": "Tab 1 · Tổng quan & xu hướng @ 1280px",
+      "steps": "Mở dashboard (1280px), bấm tab 1",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "11/11 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=7 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC12",
+      "case": "Tab 2 · Danh mục & mùa vụ @ 1280px",
+      "steps": "Mở dashboard (1280px), bấm tab 2",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "4/4 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=0 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC13",
+      "case": "Tab 3 · Địa lý & logistics @ 1280px",
+      "steps": "Mở dashboard (1280px), bấm tab 3",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "5/5 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=0 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC14",
+      "case": "Tab 4 · Khách hàng & RFM @ 1280px",
+      "steps": "Mở dashboard (1280px), bấm tab 4",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "10/10 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=4 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC15",
+      "case": "Tab 5 · Người bán @ 1280px",
+      "steps": "Mở dashboard (1280px), bấm tab 5",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "7/7 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=4 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC16",
+      "case": "Tab 6 · Giao trễ, đánh giá & thanh toán @ 1280px",
+      "steps": "Mở dashboard (1280px), bấm tab 6",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "6/6 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=0 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC17",
+      "case": "Tab 7 · Gợi ý quyết định & nguồn dữ liệu @ 1280px",
+      "steps": "Mở dashboard (1280px), bấm tab 7",
+      "expected": "Mọi chart/markdown hiển thị, không trạng thái lỗi/'Lỗi', không 'không có dữ liệu', không lỗi console, thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "4/4 thành phần, thanh menu cao 54px, lỗi chart=0, không dữ liệu=0, thẻ KPI=0 chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC18",
+      "case": "Lọc Khoảng thời gian 2018 + Bang khách hàng SP (tab 1)",
+      "steps": "Permalink: time_range 2018-01-01:2018-09-01, customer_state=SP; mở tab 1 ở 1440 và 1280 px",
+      "expected": "Thẻ doanh thu giảm so với không lọc; bảng KPI chỉ còn tháng 2018; thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "@1440px: doanh thu 13.449.530 → 2.960.326; bảng KPI 8 tháng ['2018-01']…['2018-08']; lỗi chart=0, KPI chồng chữ=0, lỗi console=0 | @1280px: doanh thu 13.449.530 → 2.960.326; bảng KPI 8 tháng ['2018-01']…['2018-08']; lỗi chart=0, KPI chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC19",
+      "case": "Lọc Danh mục (3 danh mục, tab 2)",
+      "steps": "Permalink: category ∈ {bed_bath_table, health_beauty, watches_gifts}; mở tab 2",
+      "expected": "Chart 'Doanh thu theo tháng của 6 danh mục' chỉ còn 3 danh mục đã chọn",
+      "result": "PASS",
+      "note": "@1440px: chart xu hướng danh mục có ['bed_bath_table', 'health_beauty', 'watches_gifts'], không còn danh mục khác; lỗi chart=0, KPI chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC20",
+      "case": "Lọc Vùng Nordeste (tab 3)",
+      "steps": "Permalink: region=Nordeste; mở tab 3",
+      "expected": "Bảng logistics chỉ còn 9 bang vùng Nordeste",
+      "result": "PASS",
+      "note": "@1440px: bảng logistics 9 bang, vùng=['Nordeste']; lỗi chart=0, KPI chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC21",
+      "case": "Lọc Phân khúc RFM (Champions/Loyal/At Risk) + bang RJ (tab 4)",
+      "steps": "Permalink: rfm_segment ∈ {Champions, Loyal, At Risk}, customer_state=RJ; mở tab 4 ở 1440 và 1280 px",
+      "expected": "Thẻ 'Khách hàng (RFM)' giảm; donut chỉ còn 3 phân khúc; thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "@1440px: khách RFM 94.983 → 414; donut phân khúc=['At Risk', 'Champions', 'Loyal']; lỗi chart=0, KPI chồng chữ=0, lỗi console=0 | @1280px: khách RFM 94.983 → 414; donut phân khúc=['At Risk', 'Champions', 'Loyal']; lỗi chart=0, KPI chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC22",
+      "case": "Lọc Bang người bán SP (tab 5)",
+      "steps": "Permalink: seller_state=SP; mở tab 5 ở 1440 và 1280 px",
+      "expected": "Thẻ 'Số người bán' giảm; bảng watchlist chỉ còn người bán bang SP; thẻ KPI không chồng chữ",
+      "result": "PASS",
+      "note": "@1440px: số người bán 3.053 → 1.822; watchlist bang=['SP'] (101 dòng); lỗi chart=0, KPI chồng chữ=0, lỗi console=0 | @1280px: số người bán 3.053 → 1.822; watchlist bang=['SP'] (101 dòng); lỗi chart=0, KPI chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC23",
+      "case": "Lọc Phương thức thanh toán boleto (tab 6)",
+      "steps": "Permalink: main_payment_type=boleto; mở tab 6",
+      "expected": "Donut và bảng cơ cấu thanh toán chỉ còn boleto",
+      "result": "PASS",
+      "note": "@1440px: donut PTTT=['boleto'], bảng cơ cấu=['boleto']; lỗi chart=0, KPI chồng chữ=0, lỗi console=0"
+    },
+    {
+      "id": "TC24",
+      "case": "Xoá bộ lọc khôi phục số liệu gốc",
+      "steps": "Mở permalink TC18 → 'Xoá tất cả' → 'Áp dụng bộ lọc'",
+      "expected": "Thẻ doanh thu trở về giá trị không lọc",
+      "result": "PASS",
+      "note": "doanh thu 2.960.326 → bấm 'Xoá tất cả' + 'Áp dụng' → 13.449.530 (gốc 13.449.530)"
+    },
+    {
+      "id": "TC25",
+      "case": "Chọn bộ lọc trên thanh bộ lọc (giao diện)",
+      "steps": "Tab 3 → ô 'Bang khách hàng' gõ SP, Enter → 'Áp dụng bộ lọc'",
+      "expected": "Bảng logistics chỉ còn SP; URL có native_filters_key",
+      "result": "PASS",
+      "note": "bảng logistics bang=['SP']; URL có native_filters_key=True"
+    },
+    {
+      "id": "TC26",
+      "case": "Đổi ngôn ngữ trên dashboard giữ nguyên trang, tab và bộ lọc",
+      "steps": "Sau TC25 (tab 3, lọc SP): menu cờ → English (chuột); rồi → Tiếng Việt (bàn phím: focus + Enter)",
+      "expected": "Tải lại đúng URL (native_filters_key), vẫn tab 3, bộ lọc SP còn; giao diện đổi en rồi vi",
+      "result": "PASS",
+      "note": "vi→en: URL giữ nguyên=True, tab=TABS-main-tab-TAB-t3, locale=en, chữ 'Apply filters'/'Dashboards'=True, bộ lọc SP còn=True | en→vi (bàn phím Enter): URL giữ nguyên=True, tab=TABS-main-tab-TAB-t3, locale=vi, chữ tiếng Việt=True; lỗi console=0"
+    },
+    {
+      "id": "TC27",
+      "case": "Đổi ngôn ngữ vi→en→vi tại Trang chủ",
+      "steps": "Mở /superset/welcome/ → English → Tiếng Việt",
+      "expected": "Ở nguyên /superset/welcome/; chữ giao diện đổi ('Home' rồi 'Trang chủ')",
+      "result": "PASS",
+      "note": "URL /superset/welcome/ giữ nguyên (True/True), locale en→vi, 'Home'=True, 'Trang chủ'=True, lỗi console=0"
+    },
+    {
+      "id": "TC28",
+      "case": "Đổi ngôn ngữ vi→en→vi tại Danh sách biểu đồ",
+      "steps": "Mở /chart/list/ → English → Tiếng Việt",
+      "expected": "Ở nguyên /chart/list/; chữ giao diện đổi ('Charts' rồi 'Biểu đồ')",
+      "result": "PASS",
+      "note": "URL /chart/list/ giữ nguyên (True/True), locale en→vi, 'Charts'=True, 'Biểu đồ'=True, lỗi console=0"
+    },
+    {
+      "id": "TC29",
+      "case": "Đổi ngôn ngữ vi→en→vi tại Danh sách tập dữ liệu",
+      "steps": "Mở /tablemodelview/list/ → English → Tiếng Việt",
+      "expected": "Ở nguyên /tablemodelview/list/; chữ giao diện đổi ('Datasets' rồi 'Tập dữ liệu')",
+      "result": "PASS",
+      "note": "URL /tablemodelview/list/ giữ nguyên (True/True), locale en→vi, 'Datasets'=True, 'Tập dữ liệu'=True, lỗi console=0"
+    },
+    {
+      "id": "TC30",
+      "case": "Đổi ngôn ngữ vi→en→vi tại SQL Lab",
+      "steps": "Mở /sqllab/ → English → Tiếng Việt",
+      "expected": "Ở nguyên /sqllab/; chữ giao diện đổi ('Dashboards' rồi 'Bảng điều khiển')",
+      "result": "PASS",
+      "note": "URL /sqllab/ giữ nguyên (True/True), locale en→vi, 'Dashboards'=True, 'Bảng điều khiển'=True, lỗi console=0"
+    },
+    {
+      "id": "TC31",
+      "case": "Logo → landing page",
+      "steps": "Trên dashboard bấm logo Olist Insight",
+      "expected": "Mở http://localhost:8090/ (landing Olist Insight)",
+      "result": "PASS",
+      "note": "href=http://localhost:8090/, sau khi bấm: http://localhost:8090/ ('Olist Insight · Từ Parquet đến quyết địn')"
+    },
+    {
+      "id": "TC32",
+      "case": "Nút 'Trang giới thiệu' → landing page",
+      "steps": "Bấm nút 'Trang giới thiệu' ở thanh menu phải",
+      "expected": "Mở landing ở tab mới",
+      "result": "PASS",
+      "note": "href=http://localhost:8090/, nhãn=\"Trang giới thiệu\", tab mới: http://localhost:8090/"
+    },
+    {
+      "id": "TC33",
+      "case": "Landing page tải được, không lỗi JS",
+      "steps": "Mở http://localhost:8090/ (trong Docker: http://web/)",
+      "expected": "HTTP 200, tiêu đề Olist Insight, không lỗi console/pageerror",
+      "result": "PASS",
+      "note": "HTTP 200, title='Olist Insight · Từ Parquet đến quyết định kinh doa', lỗi console=0"
+    },
+    {
+      "id": "TC34",
+      "case": "Landing tải data/kpi.json",
+      "steps": "Theo dõi request data/kpi.json khi mở trang",
+      "expected": "HTTP 200, JSON hợp lệ, phần Insight được điền số liệu",
+      "result": "PASS",
+      "note": "kpi.json HTTP 200, 12183 byte, 6 dòng top danh mục"
+    },
+    {
+      "id": "TC35",
+      "case": "Biểu đồ hero 'live replay' chạy",
+      "steps": "Đọc dòng ticker + số cột SVG, chờ 3,5 s, đọc lại",
+      "expected": "Ticker đổi tháng, số cột tăng/không giảm",
+      "result": "PASS",
+      "note": "ticker 'Tháng 3/2017 · doanh thu R$ ' → 'Tháng 7/2017 · doanh thu R$ '; số cột 20 → 20"
+    },
+    {
+      "id": "TC36",
+      "case": "Nút 'Mở dashboard' mở đúng dashboard Superset",
+      "steps": "Đọc href các nút dashboard, mở URL đó với phiên đã đăng nhập",
+      "expected": "href = http://localhost:8088/superset/dashboard/olist-presentation/; trang dashboard 7 tab hiển thị",
+      "result": "PASS",
+      "note": "2 link 'dashboard' → ['http://localhost:8088/superset/dashboard/olist-presentation/']; mở link (đã đăng nhập) thấy 7 tab=True"
+    },
+    {
+      "id": "TC37",
+      "case": "Link GitHub đúng",
+      "steps": "Đọc mọi link github.com trên landing, GET thử",
+      "expected": "Mọi link = https://github.com/viettuong287/BigDataProject, HTTP 200",
+      "result": "PASS",
+      "note": "href=['https://github.com/viettuong287/BigDataProject'], GET https://github.com/viettuong287/BigDataProject → 200"
+    },
+    {
+      "id": "TC38",
+      "case": "Landing responsive 390 px",
+      "steps": "Mở landing với viewport 390×844 (mobile)",
+      "expected": "Không cuộn ngang (scrollWidth ≤ 390), không lỗi JS",
+      "result": "PASS",
+      "note": "scrollWidth=390, innerWidth=390, lỗi console=0"
+    },
+    {
+      "id": "TC39",
+      "case": "ZIP export dashboard đầy đủ",
+      "steps": "Đọc superset/export/dashboard_olist_presentation.zip",
+      "expected": "1 dashboard (có CSS) + 45 chart",
+      "result": "PASS",
+      "note": "45 chart, 1 dashboard, css Olist Insight trong YAML=True"
+    },
+    {
+      "id": "TC40",
+      "case": "Import dashboard từ ZIP (import_dashboard.py)",
+      "steps": "docker compose run --rm tools python superset/import_dashboard.py",
+      "expected": "HTTP 200, rồi dashboard vẫn chạy (TC04–TC30 chạy sau import)",
+      "result": "PASS",
+      "note": "200 {\"message\":\"OK\"}"
+    },
+    {
+      "id": "TC41",
+      "case": "Lệnh chạy trong README hợp lệ",
+      "steps": "Kiểm script/service README nhắc tới; docker compose config -q (mọi profile)",
+      "expected": "Mọi tệp tồn tại, service có trong compose, config hợp lệ",
+      "result": "PASS",
+      "note": "12 script được README nhắc đều tồn tại; docker compose config: 0/0 (0 = hợp lệ); service: ['screenshots', 'superset', 'superset-db', 'tools', 'web']"
+    }
+  ],
+  "benign_console": {}
+}

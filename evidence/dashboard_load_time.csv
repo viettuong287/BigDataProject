@@ -1,14 +1,14 @@
 kind,scenario,components,cold_s,warm_s,errors
-tab,1 · tong_quan_xu_huong,11,6.64,0.98,0
-tab,2 · danh_muc_mua_vu,4,3.98,1.13,0
-tab,3 · dia_ly_logistics,5,4.02,1.1,0
-tab,4 · khach_hang_rfm,10,8.38,2.5,0
-tab,5 · nguoi_ban,7,12.18,2.46,0
-tab,6 · giao_tre_review_thanh_toan,6,7.72,1.35,0
-tab,7 · goi_y_quyet_dinh_nguon_du_lieu,4,2.42,1.19,0
-filter,filter_tab1_thoi_gian_2018_bang_SP,11,4.72,,0
-filter,filter_tab2_danh_muc_bed_bath_health_watches,4,3.72,,0
-filter,filter_tab3_vung_nordeste,5,2.13,,0
-filter,filter_tab4_rfm_khach_mua_lai_bang_RJ,10,3.52,,0
-filter,filter_tab5_bang_nguoi_ban_SP,7,3.73,,0
-filter,filter_tab6_pttt_boleto,6,2.45,,0
+tab,1 · tong_quan_xu_huong,11,5.52,1.0,0
+tab,2 · danh_muc_mua_vu,4,3.74,0.94,0
+tab,3 · dia_ly_logistics,5,3.83,1.51,0
+tab,4 · khach_hang_rfm,10,6.38,2.61,0
+tab,5 · nguoi_ban,7,5.55,3.39,0
+tab,6 · giao_tre_review_thanh_toan,6,3.65,1.92,0
+tab,7 · goi_y_quyet_dinh_nguon_du_lieu,4,2.71,1.05,0
+filter,filter_tab1_thoi_gian_2018_bang_SP,11,4.89,,0
+filter,filter_tab2_danh_muc_bed_bath_health_watches,4,3.37,,0
+filter,filter_tab3_vung_nordeste,5,2.66,,0
+filter,filter_tab4_rfm_khach_mua_lai_bang_RJ,10,3.98,,0
+filter,filter_tab5_bang_nguoi_ban_SP,7,4.69,,0
+filter,filter_tab6_pttt_boleto,6,2.0,,0

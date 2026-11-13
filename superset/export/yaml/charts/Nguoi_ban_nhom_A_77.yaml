@@ -1,4 +1,4 @@
-slice_name: "KPI \xB7 Ng\u01B0\u1EDDi b\xE1n c\u1EA7n theo d\xF5i"
+slice_name: "Ng\u01B0\u1EDDi b\xE1n nh\xF3m A"
 description: "Ngu\u1ED3n: presentation.v_seller_pareto"
 certified_by: null
 certification_details: null
@@ -7,18 +7,18 @@ params:
   viz_type: big_number_total
   metric:
     expressionType: SQL
-    sqlExpression: SUM(CASE WHEN is_watchlist THEN 1 ELSE 0 END)
-    label: "C\u1EA7n theo d\xF5i"
+    sqlExpression: SUM(CASE WHEN cumulative_share_pct <= 80 THEN 1 ELSE 0 END)
+    label: "Ng\u01B0\u1EDDi b\xE1n nh\xF3m A"
     hasCustomLabel: true
-    optionName: "metric_c\u1EA7n_theo_d\xF5i"
+    optionName: "metric_ng\u01B0\u1EDDi_b\xE1n_nh\xF3m_a"
   adhoc_filters: []
   y_axis_format: ',.0f'
   header_font_size: 0.3
   subheader_font_size: 0.125
-  subheader: "top 10% doanh thu, v\u1EADn h\xE0nh k\xE9m (watchlist)"
+  subheader: "t\u1EA1o 80% doanh thu (Pareto)"
   datasource: 20__table
 query_context: null
 cache_timeout: 600
-uuid: 995965a9-9138-4540-a5aa-4d41e0449b33
+uuid: 96c49fab-297f-475a-afa6-263b94db82f4
 version: 1.0.0
 dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

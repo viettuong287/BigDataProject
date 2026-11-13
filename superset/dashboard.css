@@ -151,6 +151,34 @@ body {
   font-size: 13px !important;
   line-height: 1.35 !important;
 }
+/* Tiêu đề thẻ KPI 1 dòng: chiều cao tiêu đề cố định nên Superset tính đúng chiều cao phần số, không chồng chữ
+   (khi có bộ lọc, biểu tượng phễu chiếm thêm chỗ; tiêu đề bị cắt "…" thì Superset hiện tooltip đầy đủ). */
+.dashboard-component-chart-holder:has([data-test-viz-type^="big_number"]) .header-title {
+  display: block !important;
+  min-width: 0;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  -webkit-line-clamp: unset !important;
+}
+/* Phễu bộ lọc + nút "⋮" đưa lên góc phải trên của thẻ KPI để tiêu đề dùng hết bề ngang thẻ (thẻ rộng 2/12 cột). */
+.dashboard-component-chart-holder:has([data-test-viz-type^="big_number"]) .chart-slice > div:has(> .header-title) {
+  position: relative;
+  padding-top: 14px;
+}
+.dashboard-component-chart-holder:has([data-test-viz-type^="big_number"]) .header-controls {
+  position: absolute !important;
+  top: -6px;
+  right: -4px;
+  margin: 0 !important;
+}
+.dashboard-component-chart-holder:has([data-test-viz-type^="big_number"]) .header-title .editable-title,
+.dashboard-component-chart-holder:has([data-test-viz-type^="big_number"]) .header-title a { white-space: nowrap !important; }
+.superset-legacy-chart-big-number .subheader-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .dashboard-component-chart-holder:has([data-test-viz-type^="big_number"]) .header-controls .dot { background-color: var(--oi-muted) !important; }
 .superset-legacy-chart-big-number .header-line {
   color: #fff !important;

@@ -1,4 +1,4 @@
-slice_name: "KPI \xB7 T\u1EF7 l\u1EC7 giao tr\u1EC5"
+slice_name: "\u0110\xE1nh gi\xE1 TB"
 description: "Ngu\u1ED3n: presentation.v_orders"
 certified_by: null
 certification_details: null
@@ -7,23 +7,23 @@ params:
   viz_type: big_number_total
   metric:
     expressionType: SQL
-    sqlExpression: AVG(late_flag)
-    label: "% tr\u1EC5"
+    sqlExpression: AVG(review_score)
+    label: "\u0110\xE1nh gi\xE1 TB"
     hasCustomLabel: true
-    optionName: "metric__tr\u1EC5"
+    optionName: "metric_\u0111\xE1nh_gi\xE1_tb"
   adhoc_filters:
   - clause: WHERE
     subject: month_date
     operator: TEMPORAL_RANGE
     comparator: No filter
     expressionType: SIMPLE
-  y_axis_format: .2%
+  y_axis_format: .2f
   header_font_size: 0.3
   subheader_font_size: 0.125
-  subheader: "tr\xEAn \u0111\u01A1n \u0111\xE3 giao"
+  subheader: "sao, c\u1EA5p \u0111\u01A1n h\xE0ng"
   datasource: 12__table
 query_context: null
 cache_timeout: 600
-uuid: fbe391e4-51b9-4566-91d8-a84eab6a4a1c
+uuid: 47365a9f-f200-4571-b2a9-286eb5df27be
 version: 1.0.0
 dataset_uuid: 5f023a25-e62c-495f-a53c-f190c6c3f714

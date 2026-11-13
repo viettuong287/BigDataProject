@@ -7,7 +7,7 @@ Bảng: Môi trường cài đặt và triển khai
 |---|---|
 | Máy chạy | Windows 11, PowerShell, Docker Desktop (Docker 29, Compose v2); mạng Internet tại Việt Nam → Neon Singapore (RTT ~{{var:latency_rtt_ms}} ms) |
 | Container `tools` | `python:3.12-slim` + pyarrow 17, pandas 2.2, psycopg 3.2, SQLAlchemy 2.0, requests |
-| Superset | `apache/superset:4.1.2` + `psycopg2-binary`, 4 worker Gunicorn, cache filesystem 600 s, locale mặc định `vi` |
+| Superset | `apache/superset:4.1.2` + `psycopg2-binary`, 4 worker Gunicorn, cache filesystem 600 s, giao diện mặc định tiếng Việt, theme Olist Insight |
 | Landing page | `nginx:1.27-alpine` (service `web`, cổng 8090), phục vụ thư mục `web/` |
 | Metadata Superset | `postgres:16-alpine` (container `superset-db`, volume riêng) |
 | Ảnh chụp / đo tải | Playwright + Chromium headless, viewport 1600×1900 |
@@ -39,19 +39,21 @@ Sau khi nạp, `loader/validate.py` đọc lại Parquet để so số dòng v�
 
 Superset được đóng gói từ image `apache/superset:4.1.2` cài thêm `psycopg2-binary`; `docker-init.sh` chạy `superset db upgrade`, tạo tài khoản quản trị từ biến môi trường, `superset init` rồi khởi động web server với 4 worker — mọi bước idempotent. Metadata nằm trong container Postgres 16 `superset-db` thay vì SQLite. `superset/build_dashboard.py` dựng toàn bộ dashboard qua **REST API** (dashboard-as-code): lấy token, tạo *Database* trỏ tới Neon, đăng ký 22 view thành dataset, tạo 45 chart, dashboard 7 tab và 7 native filter kèm phạm vi; chạy lại sẽ cập nhật thay vì tạo trùng. Bản export `superset/export/dashboard_olist_presentation.zip` cùng `import_dashboard.py` là phương án dự phòng. Nhờ vậy dashboard dựng lại giống hệt trên máy khác chỉ bằng một lệnh.
 
-**Giao diện tiếng Việt.** Superset 4.1.2 không có gói ngôn ngữ `vi`, nên nhóm tự soạn `superset/i18n/vi/LC_MESSAGES/messages.po` gồm 536 chuỗi hay gặp (menu, đăng nhập, trang chủ, thanh tiêu đề và menu dashboard, thanh bộ lọc, bộ chọn thời gian, menu "⋮" của chart, nút chung). Khi build image, `build_catalog.py` biên dịch thành `messages.mo` (backend) và `messages.json` (frontend); `superset_config.py` đặt `BABEL_DEFAULT_LOCALE = "vi"`, giữ English trong bộ chọn ngôn ngữ và dùng định dạng số/ngày Việt Nam. Phần còn tiếng Anh: chuỗi chưa dịch ở SQL Lab, màn hình sửa chart, trang quản trị; nút "All/Inv" của chú giải ECharts, chữ "… ago", ô "153 record" của bảng và giá trị dữ liệu gốc (tên danh mục, phân khúc *Champions*, *At Risk*).
+**Giao diện tiếng Việt.** Superset 4.1.2 không có gói ngôn ngữ `vi`, nên nhóm tự soạn `superset/i18n/vi/LC_MESSAGES/messages.po` gồm 536 chuỗi hay gặp (menu, đăng nhập, trang chủ, thanh tiêu đề và menu dashboard, thanh bộ lọc, bộ chọn thời gian, menu "⋮" của chart, nút chung). Khi build image, `build_catalog.py` biên dịch thành `messages.mo` (backend) và `messages.json` (frontend). `BABEL_DEFAULT_LOCALE` giữ `en` (Superset dịch nhãn menu một lần lúc khởi động), tiếng Việt được gán mặc định cho từng phiên mới qua `FLASK_APP_MUTATOR`. Bấm cờ ngôn ngữ vốn bị đưa về trang chủ; script trong `tail_js_custom_extra.html` gọi ngầm `/lang/<mã>` rồi tải lại đúng URL, giữ tab và bộ lọc (`native_filters_key`). Số/ngày định dạng kiểu Việt Nam. Còn tiếng Anh: chuỗi chưa dịch ở SQL Lab, màn hình sửa chart, trang quản trị, vài nhãn ECharts và giá trị dữ liệu gốc (*Champions*, *At Risk*).
+
+**Giao diện "Olist Insight".** Cùng nhận diện với landing: `APP_NAME`, logo, favicon, nút "Trang giới thiệu"; `THEME_OVERRIDES` (chàm `#6366f1`, xanh ngọc `#10b981`, font Be Vietnam Pro); bảng màu chart `olistInsight`/`olistInsightSeq`; `dashboard.css` (đi kèm ZIP) tạo nền gradient tối, thẻ KPI kính tối. Superset 4.1 chưa có dark mode cho chart nên thẻ biểu đồ giữ nền sáng cho dễ đọc.
 
 **Landing page.** `docker compose up -d web` chạy nginx phục vụ `web/` ở cổng 8090; sau mỗi lần nạp, `scripts/export_landing_kpi.py` (container `tools`) xuất lại `web/data/kpi.json` từ Neon, `scripts/screenshot_landing.py` chụp ảnh desktop và mobile.
 
 ## 5.4. Xử lý lỗi và các vấn đề kỹ thuật
 
+Các lệnh chạy end-to-end (build, nạp, kiểm chứng, dựng dashboard, tái tạo minh chứng) ở Phụ lục A.
+
 Bảng: Các vấn đề kỹ thuật đã gặp và cách xử lý
 | Vấn đề | Nguyên nhân | Cách xử lý |
 |---|---|---|
-| Máy Windows không có Python | Môi trường không đồng nhất | Container `tools` chạy mọi script |
 | `COPY`/DDL qua endpoint pooled có thể lỗi | PgBouncer chế độ transaction không giữ phiên | Loader tự đổi sang endpoint direct |
-| Superset không kết nối được Postgres | Image gốc không có driver | Cài `psycopg2-binary` trong Dockerfile |
-| Script khởi động lỗi `\r` | Tệp soạn trên Windows dùng CRLF | `sed -i 's/\r$//'` trong Dockerfile |
+| Superset không kết nối Postgres; script khởi động lỗi `\r` | Image gốc thiếu driver; tệp CRLF từ Windows | Cài `psycopg2-binary`; `sed -i 's/\r$//'` trong Dockerfile |
 | Chart tải song song phải xếp hàng | Metadata SQLite khoá ghi toàn cục | Chuyển metadata sang Postgres 16, 4 worker Gunicorn |
 | Lần mở dashboard đầu chậm (~{{var:chart_force_median}} ms/chart) | Superset dùng NullPool, mỗi chart mở kết nối TLS mới | Cache kết quả 600 s; endpoint pooled; đề xuất đặt Superset cùng vùng |
 | Tổng tiền lệch vài xu / timestamp không hợp lệ | Số thực cho tiền; Arrow lưu nano giây | `NUMERIC(p,s)`; ép timestamp về micro giây |
@@ -59,6 +61,6 @@ Bảng: Các vấn đề kỹ thuật đã gặp và cách xử lý
 | Bộ lọc thời gian / bản đồ không hoạt động | Thiếu cột DATE; Country Map cần mã ISO | `month_date`; `dim_state.iso_code = 'BR-xx'` |
 | Bộ lọc vừa dựng bị ghi đè | Tab trình duyệt đang mở lưu lại trạng thái dashboard cũ | Tải lại trang sau khi chạy `build_dashboard.py` |
 | Superset không có tiếng Việt | Bản 4.1.2 không kèm gói `vi` | Tự soạn `messages.po`, biên dịch `.mo`/`.json` khi build image |
-| Ảnh tab 5 trắng; ảnh bộ lọc hiện nhầm tab 1 | Chụp full-page làm viewport đổi kích thước, Superset gỡ lưới chart; permalink chỉ tô tiêu đề tab | Chụp theo viewport, chuyển tab rồi quay lại, kiểm tra tên chart của tab trước khi lưu ảnh |
-
-Các lệnh chạy end-to-end (build, nạp, kiểm chứng, dựng dashboard, tái tạo minh chứng) ở Phụ lục A.
+| Đổi sang English: menu vẫn tiếng Việt, bị đưa về trang chủ | Nhãn menu dịch lúc khởi động theo locale mặc định; `/lang/<mã>` chuyển hướng theo lịch sử server | Mặc định `en` lúc khởi động, `vi` cho phiên mới; `fetch` `/lang/<mã>` rồi tải lại đúng URL |
+| Tiêu đề thẻ KPI chồng số khi lọc | Biểu tượng phễu làm tiêu đề xuống 3–4 dòng | Tiêu đề ngắn 1 dòng, phễu lên góc thẻ; QA đo ở 1440/1280 px |
+| Ảnh tab 5 trắng, ảnh lọc nhầm tab | Chụp full-page làm Superset gỡ lưới chart | Chụp theo viewport, kiểm tên chart của tab |

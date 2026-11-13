@@ -1,4 +1,4 @@
-slice_name: "KPI \xB7 \u0110\u01A1n h\xE0ng h\u1EE3p l\u1EC7"
+slice_name: Doanh thu
 description: "Ngu\u1ED3n: presentation.v_orders"
 certified_by: null
 certification_details: null
@@ -7,10 +7,10 @@ params:
   viz_type: big_number_total
   metric:
     expressionType: SQL
-    sqlExpression: COUNT(*)
-    label: "S\u1ED1 \u0111\u01A1n"
+    sqlExpression: SUM(revenue)
+    label: Doanh thu (BRL)
     hasCustomLabel: true
-    optionName: "metric_s\u1ED1_\u0111\u01A1n"
+    optionName: metric_doanh_thu_brl_
   adhoc_filters:
   - clause: WHERE
     subject: month_date
@@ -20,10 +20,10 @@ params:
   y_axis_format: ',.0f'
   header_font_size: 0.3
   subheader_font_size: 0.125
-  subheader: "\u0111\u01A1n h\u1EE3p l\u1EC7 (is_valid_sale)"
+  subheader: "BRL, t\u1ED5ng gi\xE1 s\u1EA3n ph\u1EA9m \u0111\u01A1n h\u1EE3p l\u1EC7"
   datasource: 12__table
 query_context: null
 cache_timeout: 600
-uuid: e7ddc7bf-0665-4b71-a283-74134ad431f1
+uuid: b7a83889-d0b2-4049-9ab5-d9ff55254f4d
 version: 1.0.0
 dataset_uuid: 5f023a25-e62c-495f-a53c-f190c6c3f714

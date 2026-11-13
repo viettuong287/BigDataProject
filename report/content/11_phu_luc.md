@@ -98,7 +98,11 @@ Mã SQL đầy đủ: `sql/10_presentation_views.sql` (tầng ngữ nghĩa) và 
 
 {{shot:evidence/neon_tables_inventory.png||Kiểm kê Neon sinh từ catalog database: 25 bảng, 22 view, số dòng, dung lượng, 0,25 CU, PostgreSQL 18|h=13}}
 
-## E.5. Danh sách tệp minh chứng
+## E.5. Kiểm thử QA chức năng
+
+{{qa:full}}
+
+## E.6. Danh sách tệp minh chứng
 
 {{evidence_files}}
 

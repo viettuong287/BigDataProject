@@ -622,7 +622,9 @@ def extra_vars() -> dict[str, str]:
         v.update(dash_tabs=str(len(tabs)), dash_components=str(sum(int(r["components"]) for r in tabs)),
                  dash_cold_max=fmt_num(float(worst["cold_s"]), 2), dash_errors=str(sum(int(r["errors"] or 0) for r in rows)),
                  dash_cold_max_tab=tab_label(worst["scenario"]).split("·")[-1].strip(),
-                 dash_cold_over5=f"{sum(1 for r in tabs if float(r['cold_s']) > 5)}/{len(tabs)}")
+                 dash_cold_over5=f"{sum(1 for r in tabs if float(r['cold_s']) > 5)}/{len(tabs)}",
+                 dash_cold_verdict=("Đạt" if all(float(r["cold_s"]) <= 5 for r in tabs) else
+                                    "Đạt một phần" if s and s["tab_cold_median_s"] < 5 else "Chưa đạt"))
     if flt:
         t = [float(r["cold_s"]) for r in flt]
         v.update(filter_n=str(len(flt)), filter_min=fmt_num(min(t), 2), filter_max=fmt_num(max(t), 2),
@@ -633,6 +635,11 @@ def extra_vars() -> dict[str, str]:
         v.update(scale_max=hi["factor"], scale_rows=fmt_int(hi["rows"]), scale_raw_lo=fmt_num(float(lo["raw_month_category_ms"]), 1),
                  scale_raw_hi=fmt_num(float(hi["raw_month_category_ms"]), 1), scale_view=fmt_num(float(hi["preaggregated_view_ms"]), 1),
                  scale_idx_hi=fmt_num(float(hi["raw_filtered_indexed_ms"]), 1))
+    qa = evidence_json("qa_results.json").get("summary")
+    if qa:
+        total = qa["PASS"] + qa["FAIL"] + qa["KNOWN"]
+        v.update(qa_total=str(total), qa_pass=str(qa["PASS"]), qa_fail=str(qa["FAIL"]), qa_known=str(qa["KNOWN"]),
+                 qa_verdict="Đạt" if qa["FAIL"] == 0 else "Chưa đạt")
     nj = evidence_json("neon_project.json")
     if nj:
         v.update(neon_cu=nj.get("autoscaling_cu", "").replace(".", ","), neon_plan=nj.get("plan", ""),

@@ -1,4 +1,4 @@
-slice_name: "KPI \xB7 S\u1ED1 ng\u01B0\u1EDDi b\xE1n"
+slice_name: "C\u1EA7n theo d\xF5i"
 description: "Ngu\u1ED3n: presentation.v_seller_pareto"
 certified_by: null
 certification_details: null
@@ -7,18 +7,18 @@ params:
   viz_type: big_number_total
   metric:
     expressionType: SQL
-    sqlExpression: COUNT(*)
-    label: "Ng\u01B0\u1EDDi b\xE1n"
+    sqlExpression: SUM(CASE WHEN is_watchlist THEN 1 ELSE 0 END)
+    label: "C\u1EA7n theo d\xF5i"
     hasCustomLabel: true
-    optionName: "metric_ng\u01B0\u1EDDi_b\xE1n"
+    optionName: "metric_c\u1EA7n_theo_d\xF5i"
   adhoc_filters: []
   y_axis_format: ',.0f'
   header_font_size: 0.3
   subheader_font_size: 0.125
-  subheader: ''
+  subheader: "top 10% doanh thu, v\u1EADn h\xE0nh k\xE9m"
   datasource: 20__table
 query_context: null
 cache_timeout: 600
-uuid: 60c6a908-1ce5-4a97-8181-4efdf8024243
+uuid: 9eceaf3c-4def-4e18-9893-dc0901a79bdc
 version: 1.0.0
 dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

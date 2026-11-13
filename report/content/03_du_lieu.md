@@ -65,7 +65,7 @@ Các điều khoản:
 
 ## 3.6. Yêu cầu chức năng và phi chức năng
 
-**Chức năng:** (F1) nạp toàn bộ bảng vào tầng phục vụ đúng kiểu dữ liệu; (F2) ghi nhật ký mỗi lần nạp; (F3) định nghĩa KPI thống nhất, tổng hợp đúng; (F4) dashboard có thẻ KPI, xu hướng, Pareto, bản đồ, bảng chi tiết và bộ lọc theo tháng, bang, danh mục, phân khúc; (F5) cung cấp gợi ý quyết định cho giai đoạn sau. **Phi chức năng:** (N1) đúng đắn 100% so với Parquet và số neo; (N2) truy vấn dashboard trung vị < 300 ms, p95 < 500 ms; (N3) tái lập bằng Docker Compose và script; (N4) TLS bắt buộc, bí mật chỉ trong `.env`; (N5) nằm trong gói miễn phí Neon và không đổi kiến trúc khi dữ liệu ×10. Mức đáp ứng được đánh giá ở Mục 6.7.
+**Chức năng:** (F1) nạp toàn bộ bảng vào tầng phục vụ đúng kiểu dữ liệu; (F2) ghi nhật ký mỗi lần nạp; (F3) định nghĩa KPI thống nhất, tổng hợp đúng; (F4) dashboard có thẻ KPI, xu hướng, Pareto, bản đồ, bảng chi tiết và bộ lọc theo tháng, bang, danh mục, phân khúc; (F5) cung cấp gợi ý quyết định cho giai đoạn sau. **Phi chức năng:** (N1) đúng đắn 100% so với Parquet và số neo; (N2) truy vấn dashboard trung vị < 300 ms, p95 < 500 ms; (N3) tái lập bằng Docker Compose và script; (N4) TLS bắt buộc, bí mật chỉ trong `.env`; (N5) nằm trong gói miễn phí Neon và không đổi kiến trúc khi dữ liệu ×10. Mức đáp ứng được đánh giá ở Mục 6.8.
 
 ## 3.7. Định nghĩa KPI
 

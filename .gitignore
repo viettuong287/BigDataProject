@@ -6,3 +6,4 @@ venv/
 report/.venv/
 ~$*.docx
 superset_home/
+.tmp_*/

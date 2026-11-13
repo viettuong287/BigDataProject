@@ -1,4 +1,4 @@
-slice_name: "KPI \xB7 % ng\u01B0\u1EDDi b\xE1n t\u1EA1o 80% doanh thu"
+slice_name: "% ng\u01B0\u1EDDi b\xE1n nh\xF3m A"
 description: "Ngu\u1ED3n: presentation.v_seller_pareto"
 certified_by: null
 certification_details: null
@@ -19,6 +19,6 @@ params:
   datasource: 20__table
 query_context: null
 cache_timeout: 600
-uuid: 08b22aa6-88ac-498e-a21f-11fd3f7234fa
+uuid: 5439be2c-be1b-4edc-a793-ffeade9cdcfb
 version: 1.0.0
 dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

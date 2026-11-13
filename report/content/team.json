@@ -21,7 +21,7 @@
         "Viết loader Parquet → Neon (COPY, khoá chính, load_log) và script kiểm chứng",
         "Docker Compose, tích hợp toàn hệ thống, quản lý repo GitHub"
       ],
-      "contribution": "33%"
+      "contribution": "100%"
     },
     {
       "name": "Nguyễn Hoàng Phi Long",
@@ -32,7 +32,7 @@
         "Luật gợi ý quyết định (v_decision_hints, v_seller_watchlist)",
         "Dựng dashboard 7 tab, 45 chart bằng REST API; cấu hình 7 bộ lọc native"
       ],
-      "contribution": "33%"
+      "contribution": "100%"
     },
     {
       "name": "Mai Hồng Phong",
@@ -43,7 +43,7 @@
         "Chụp ảnh minh chứng, kiểm thử bộ lọc, kiểm kê Neon",
         "Viết báo cáo, tài liệu hướng dẫn chạy, tổng hợp tài liệu tham khảo"
       ],
-      "contribution": "34%"
+      "contribution": "100%"
     }
   ]
 }

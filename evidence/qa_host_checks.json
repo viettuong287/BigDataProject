@@ -1,0 +1,17 @@
+{
+    "compose_config":  {
+                           "exit":  0,
+                           "exit_all_profiles":  0
+                       },
+    "services":  [
+                     "screenshots",
+                     "superset-db",
+                     "superset",
+                     "tools",
+                     "web"
+                 ],
+    "import":  {
+                   "exit":  0,
+                   "output":  "200 {\"message\":\"OK\"}"
+               }
+}

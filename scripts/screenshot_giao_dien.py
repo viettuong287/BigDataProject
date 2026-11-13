@@ -25,8 +25,9 @@ DASH = f"{URL}/superset/dashboard/olist-presentation/"
 
 TABS = ["tab1_tong_quan", "tab2_danh_muc", "tab3_dia_ly", "tab4_khach_hang_rfm", "tab5_nguoi_ban",
         "tab6_giao_tre_thanh_toan", "tab7_goi_y_quyet_dinh"]
-TAB_MARK = ["KPI · Doanh thu (BRL)", "Pareto danh mục", "Bản đồ doanh thu theo bang", "KPI · Khách hàng (RFM)",
-            "KPI · Số người bán", "Điểm đánh giá TB: giao trễ và đúng hạn", "Gợi ý quyết định (luật"]
+TAB_MARK = ["Doanh thu tháng gần nhất & xu hướng", "Pareto danh mục", "Bản đồ doanh thu theo bang",
+            "Phân bố khách theo phân khúc RFM", "Pareto người bán", "Điểm đánh giá TB: giao trễ và đúng hạn",
+            "Gợi ý quyết định (luật"]
 STATE_JS = """() => {
     const hs = [...document.querySelectorAll('.dashboard-component-chart-holder')]
         .filter(h => h.offsetParent !== null && h.getBoundingClientRect().width > 0);

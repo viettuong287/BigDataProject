@@ -1,4 +1,4 @@
-slice_name: "KPI \xB7 Ng\u01B0\u1EDDi b\xE1n t\u1EA1o 80% doanh thu"
+slice_name: "S\u1ED1 ng\u01B0\u1EDDi b\xE1n"
 description: "Ngu\u1ED3n: presentation.v_seller_pareto"
 certified_by: null
 certification_details: null
@@ -7,18 +7,18 @@ params:
   viz_type: big_number_total
   metric:
     expressionType: SQL
-    sqlExpression: SUM(CASE WHEN cumulative_share_pct <= 80 THEN 1 ELSE 0 END)
-    label: "Ng\u01B0\u1EDDi b\xE1n nh\xF3m A"
+    sqlExpression: COUNT(*)
+    label: "Ng\u01B0\u1EDDi b\xE1n"
     hasCustomLabel: true
-    optionName: "metric_ng\u01B0\u1EDDi_b\xE1n_nh\xF3m_a"
+    optionName: "metric_ng\u01B0\u1EDDi_b\xE1n"
   adhoc_filters: []
   y_axis_format: ',.0f'
   header_font_size: 0.3
   subheader_font_size: 0.125
-  subheader: "nh\xF3m A Pareto"
+  subheader: "to\xE0n b\u1ED9 ng\u01B0\u1EDDi b\xE1n (Pareto)"
   datasource: 20__table
 query_context: null
 cache_timeout: 600
-uuid: 4904b5aa-07e0-41cc-93f5-bba88c5b7af5
+uuid: 3772c839-9fe2-4806-bb25-59375f8124d2
 version: 1.0.0
 dataset_uuid: a8de400f-949b-47ca-ab20-9e67958da61b

@@ -69,6 +69,7 @@ services:
     env_file: .env
     environment:
       SUPERSET_URL: http://superset:8088
+      TZ: ICT-7  # dạng POSIX (UTC+7): image Playwright không có tzdata nên "Asia/Ho_Chi_Minh" rơi về UTC
     volumes:
       - .:/work
     working_dir: /work

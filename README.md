@@ -117,8 +117,12 @@ dataset. Phương án dự phòng: `docker compose run --rm tools python superse
 `superset/i18n/vi/LC_MESSAGES/messages.po` (536 chuỗi hay gặp: menu, trang đăng nhập, trang chủ, thanh tiêu đề và menu
 dashboard, thanh bộ lọc, bộ chọn thời gian, menu "⋮" của biểu đồ, nút chung, một phần màn hình sửa biểu đồ).
 Khi build image, `superset/i18n/build_catalog.py` biên dịch thành `messages.mo` (backend) và `messages.json`
-(frontend) trong `superset/translations/vi/`. `superset_config.py` đặt `BABEL_DEFAULT_LOCALE = "vi"`, giữ English trong
-bộ chọn ngôn ngữ (cờ ở góc phải thanh menu) và dùng định dạng số/ngày kiểu Việt Nam (`13.494.400,74`).
+(frontend) trong `superset/translations/vi/`. Phiên mới luôn mặc định tiếng Việt (`DEFAULT_UI_LOCALE = "vi"`, gán trong
+`FLASK_APP_MUTATOR`), còn `BABEL_DEFAULT_LOCALE` giữ là `"en"`: Superset dịch nhãn menu trái một lần lúc khởi động theo
+locale mặc định, đặt `"vi"` thì chọn English menu vẫn kẹt tiếng Việt. English vẫn có trong bộ chọn ngôn ngữ (cờ ở góc phải
+thanh menu); bấm cờ thì script trong `tail_js_custom_extra.html` gọi ngầm `/lang/<mã>` rồi tải lại **đúng trang đang mở**
+(giữ URL, tab dashboard, bộ lọc `native_filters_key`) thay vì để Superset chuyển về trang chủ. Số/ngày định dạng kiểu
+Việt Nam (`13.494.400,74`).
 Sau khi sửa `messages.po`: `docker compose build superset && docker compose up -d superset`. Tên dashboard, tab,
 biểu đồ, nhãn cột/metric và bộ lọc là tiếng Việt, đặt trong `build_dashboard.py`.
 Phần còn tiếng Anh: chuỗi chưa có trong bản dịch (chủ yếu ở SQL Lab, màn hình sửa biểu đồ, trang quản trị), nút
@@ -153,7 +157,14 @@ docker compose run --rm tools python scripts/neon_inventory.py       # kiểm k�
 docker exec olist-superset bash -c 'rm -rf /app/superset_home/cache/*'
 docker compose run --rm screenshots                                  # ảnh + thời gian tải cold/cache
 docker compose run --rm screenshots python scripts/render_diagrams.py  # PNG sơ đồ + ảnh kiểm kê Neon
+powershell -ExecutionPolicy Bypass -File scripts\qa_run.ps1          # kiểm thử QA tự động → evidence/qa_test_cases.md
 ```
+
+**Kiểm thử QA** (`scripts/qa_run.ps1` → `scripts/qa_check.py`, Playwright): đăng nhập/sai mật khẩu, 7 tab ở 1440 và
+1280 px (chart lỗi, lỗi console, thẻ KPI chồng chữ đo bằng hình học), 6 kịch bản bộ lọc + xoá lọc + chọn lọc trên giao diện
+(kiểm giá trị qua response `/api/v1/chart/data`), đổi ngôn ngữ vi↔en tại chỗ trên dashboard/trang chủ/danh sách/SQL Lab,
+link logo và "Trang giới thiệu", landing page (JS, `kpi.json`, live replay, link, 390 px), ZIP export/import,
+`docker compose config` và lệnh README. Bảng kết quả: `evidence/qa_test_cases.md`.
 
 **Bước 4 – landing page giới thiệu (tuỳ chọn):**
 
@@ -221,7 +232,7 @@ At Risk; 17,65% seller tạo 80% doanh thu.
 | Nạp dữ liệu | Lần chạy 13/11/2026: 23 bảng, 505.592 dòng, Parquet 42,9 MB, 285 s (đọc + COPY + index); COPY 1.972 dòng/s (nút thắt là upload ~0,25–0,75 MB/s từ máy local) | `load_run.log`, `load_log.csv` |
 | Kiểm chứng | 23/23 bảng khớp số dòng; 19/19 số neo đạt (SUM revenue = 13.494.400,74; đỉnh 11/2017 MoM +52,06%; review 2,56 vs 4,29; mua lại 2.887/94.983 = 3,04%) | `validation.md`, `validation.json` |
 | Độ trễ truy vấn | 21 truy vấn dashboard: trung vị 173 ms phía client, 1,25 ms phía server; RTT 105 ms; kết nối TLS mới 1,1 s | `query_latency.md/.csv` |
-| Thời gian tải dashboard | Tab: trung vị 6,6 s cold → 1,2 s khi có cache; chart qua API: 1.880 ms → 75 ms (đo 13/11/2026) | `dashboard_load_latency.md`, `dashboard_load_time.csv`, `superset_chart_latency.csv` |
+| Thời gian tải dashboard | Tab: trung vị 3,8 s cold → 1,5 s khi có cache (3/7 tab cold > 5 s, chậm nhất 6,4 s); chart qua API: 1.558 ms → 67 ms (đo 13/11/2026, theme Olist Insight) | `dashboard_load_latency.md`, `dashboard_load_time.csv`, `superset_chart_latency.csv` |
 | Thí nghiệm scale | ×10 = 1,12 triệu dòng: dữ liệu thô 47 → 507 ms, view tổng hợp 1,1 ms; sinh dữ liệu ~1 triệu dòng/s phía server | `scale_experiment.md/.csv` |
 | Ảnh dashboard | 7 tab | `dashboard_tab1…7_*.png` |
 | Ảnh bộ lọc | 6 kịch bản (thời gian + bang, danh mục, vùng, RFM + bang, bang người bán, PTTT), giao diện tiếng Việt | `filter_*.png` |
@@ -231,6 +242,7 @@ At Risk; 17,65% seller tạo 80% doanh thu.
 | Kiến trúc | Sơ đồ data-flow | `architecture_pipeline.png`, `docs/architecture.png` |
 | Landing page | Trang giới thiệu tại `:8090`, số liệu thật từ Neon, chụp ở 1440 px và 390 px (không lỗi JS) | `landing_page_desktop.png`, `landing_page_mobile.png` |
 | Giao diện đồng bộ | Superset mang thương hiệu Olist Insight: đăng nhập, 7 tab (0 chart lỗi), ảnh so sánh landing ↔ dashboard (`scripts/screenshot_giao_dien.py`) | `superset_giao_dien_dong_bo_*.png` |
+| Kiểm thử QA | 41 ca tự động (đăng nhập, 7 tab × 2 độ rộng, 6 bộ lọc, đổi ngôn ngữ, landing, export/import, README) | `qa_test_cases.md`, `qa_results.json`, `qa_kpi_loc_1280.png` |
 
 ## 9. Hạn chế đã biết
 

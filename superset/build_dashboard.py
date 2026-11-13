@@ -205,12 +205,13 @@ ORDERS_CNT = M("Số đơn", "COUNT(*)")
 TABS = [
     ("Tổng quan & xu hướng", [
         [
-            ("kpi_rev", "v_orders", "KPI · Doanh thu (BRL)", big(REV, sub="Tổng giá sản phẩm, đơn hợp lệ", filters=[TF()]), 2, 22),
-            ("kpi_orders", "v_orders", "KPI · Đơn hàng hợp lệ", big(ORDERS_CNT, sub="đơn hợp lệ (is_valid_sale)", filters=[TF()]), 2, 22),
-            ("kpi_cust", "v_orders", "KPI · Khách hàng (không trùng)", big(M("Khách", "COUNT(DISTINCT customer_unique_id)"), sub="khách duy nhất (customer_unique_id)", filters=[TF()]), 2, 22),
-            ("kpi_aov", "v_orders", "KPI · Giá trị TB mỗi đơn (BRL)", big(M("Giá trị TB/đơn", "AVG(order_value)"), fmt=",.2f", sub="AOV – giá trị hàng hoá TB mỗi đơn", filters=[TF()]), 2, 22),
-            ("kpi_late", "v_orders", "KPI · Tỷ lệ giao trễ", big(M("% trễ", "AVG(late_flag)"), fmt=".2%", sub="trên đơn đã giao", filters=[TF()]), 2, 22),
-            ("kpi_review", "v_orders", "KPI · Điểm đánh giá trung bình", big(M("Đánh giá TB", "AVG(review_score)"), fmt=".2f", sub="sao, cấp đơn hàng", filters=[TF()]), 2, 22),
+            # Tiêu đề thẻ KPI phải ngắn: thẻ rộng 2/12 cột, khi có bộ lọc Superset chèn thêm biểu tượng phễu vào tiêu đề.
+            ("kpi_rev", "v_orders", "Doanh thu", big(REV, sub="BRL, tổng giá sản phẩm đơn hợp lệ", filters=[TF()]), 2, 22),
+            ("kpi_orders", "v_orders", "Đơn hàng", big(ORDERS_CNT, sub="đơn hợp lệ (is_valid_sale)", filters=[TF()]), 2, 22),
+            ("kpi_cust", "v_orders", "Khách hàng", big(M("Khách", "COUNT(DISTINCT customer_unique_id)"), sub="không trùng (customer_unique_id)", filters=[TF()]), 2, 22),
+            ("kpi_aov", "v_orders", "Giá trị TB/đơn", big(M("Giá trị TB/đơn", "AVG(order_value)"), fmt=",.2f", sub="AOV, BRL mỗi đơn", filters=[TF()]), 2, 22),
+            ("kpi_late", "v_orders", "Tỷ lệ giao trễ", big(M("% trễ", "AVG(late_flag)"), fmt=".2%", sub="trên đơn đã giao", filters=[TF()]), 2, 22),
+            ("kpi_review", "v_orders", "Đánh giá TB", big(M("Đánh giá TB", "AVG(review_score)"), fmt=".2f", sub="sao, cấp đơn hàng", filters=[TF()]), 2, 22),
         ],
         [
             ("trend_big", "v_kpi_monthly", "Doanh thu tháng gần nhất & xu hướng", big_trend(REV), 4, 50),
@@ -290,10 +291,10 @@ TABS = [
     ]),
     ("Khách hàng & RFM", [
         [
-            ("rfm_total", "v_rfm_customers", "KPI · Khách hàng (RFM)", big(M("Khách", "COUNT(*)"), sub="customer_unique_id"), 3, 22),
-            ("rfm_repeat", "v_rfm_customers", "KPI · Khách mua lại (≥2 đơn)", big(M("Khách mua lại", "SUM(CASE WHEN frequency >= 2 THEN 1 ELSE 0 END)"), sub="frequency ≥ 2"), 3, 22),
-            ("rfm_rate", "v_rfm_customers", "KPI · Tỷ lệ mua lại", big(M("Tỷ lệ mua lại", "AVG(CASE WHEN frequency >= 2 THEN 1.0 ELSE 0 END)"), fmt=".2%", sub="~97% khách chỉ mua 1 lần"), 3, 22),
-            ("rfm_monetary", "v_rfm_customers", "KPI · Chi tiêu TB / khách (BRL)", big(M("Chi tiêu TB", "AVG(monetary)"), fmt=",.2f", sub="tổng giá trị mua trọn đời"), 3, 22),
+            ("rfm_total", "v_rfm_customers", "Khách hàng (RFM)", big(M("Khách", "COUNT(*)"), sub="customer_unique_id"), 3, 22),
+            ("rfm_repeat", "v_rfm_customers", "Khách mua lại", big(M("Khách mua lại", "SUM(CASE WHEN frequency >= 2 THEN 1 ELSE 0 END)"), sub="≥ 2 đơn (frequency ≥ 2)"), 3, 22),
+            ("rfm_rate", "v_rfm_customers", "Tỷ lệ mua lại", big(M("Tỷ lệ mua lại", "AVG(CASE WHEN frequency >= 2 THEN 1.0 ELSE 0 END)"), fmt=".2%", sub="~97% khách chỉ mua 1 lần"), 3, 22),
+            ("rfm_monetary", "v_rfm_customers", "Chi tiêu TB/khách", big(M("Chi tiêu TB", "AVG(monetary)"), fmt=",.2f", sub="BRL, giá trị mua trọn đời"), 3, 22),
         ],
         [
             ("rfm_pie", "v_rfm_customers", "Phân bố khách theo phân khúc RFM (luật)", pie(M("Số khách", "COUNT(*)"), "rfm_segment"), 6, 55),
@@ -317,10 +318,10 @@ TABS = [
     ]),
     ("Người bán", [
         [
-            ("sel_total", "v_seller_pareto", "KPI · Số người bán", big(M("Người bán", "COUNT(*)")), 3, 22),
-            ("sel_top", "v_seller_pareto", "KPI · Người bán tạo 80% doanh thu", big(M("Người bán nhóm A", "SUM(CASE WHEN cumulative_share_pct <= 80 THEN 1 ELSE 0 END)"), sub="nhóm A Pareto"), 3, 22),
-            ("sel_top_pct", "v_seller_pareto", "KPI · % người bán tạo 80% doanh thu", big(M("% người bán nhóm A", "AVG(CASE WHEN cumulative_share_pct <= 80 THEN 1.0 ELSE 0 END)"), fmt=".2%", sub="tập trung hơn quy tắc 20/80"), 3, 22),
-            ("sel_watch", "v_seller_pareto", "KPI · Người bán cần theo dõi", big(M("Cần theo dõi", "SUM(CASE WHEN is_watchlist THEN 1 ELSE 0 END)"), sub="top 10% doanh thu, vận hành kém (watchlist)"), 3, 22),
+            ("sel_total", "v_seller_pareto", "Số người bán", big(M("Người bán", "COUNT(*)"), sub="toàn bộ người bán (Pareto)"), 3, 22),
+            ("sel_top", "v_seller_pareto", "Người bán nhóm A", big(M("Người bán nhóm A", "SUM(CASE WHEN cumulative_share_pct <= 80 THEN 1 ELSE 0 END)"), sub="tạo 80% doanh thu (Pareto)"), 3, 22),
+            ("sel_top_pct", "v_seller_pareto", "% người bán nhóm A", big(M("% người bán nhóm A", "AVG(CASE WHEN cumulative_share_pct <= 80 THEN 1.0 ELSE 0 END)"), fmt=".2%", sub="tập trung hơn quy tắc 20/80"), 3, 22),
+            ("sel_watch", "v_seller_pareto", "Cần theo dõi", big(M("Cần theo dõi", "SUM(CASE WHEN is_watchlist THEN 1 ELSE 0 END)"), sub="top 10% doanh thu, vận hành kém"), 3, 22),
         ],
         [
             ("sel_pareto", "v_seller_pareto", "Pareto người bán: số người bán (cột) & % doanh thu (đường) theo nhóm",

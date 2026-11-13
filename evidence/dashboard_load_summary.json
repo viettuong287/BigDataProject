@@ -1,14 +1,14 @@
 {
   "dashboard_shell_s": {
-    "cold": 2.09,
-    "warm": 4.51
+    "cold": 3.93,
+    "warm": 4.13
   },
-  "tabs_cold_total_s": 45.34,
-  "tabs_warm_total_s": 10.71,
-  "tab_cold_median_s": 6.64,
-  "tab_warm_median_s": 1.19,
+  "tabs_cold_total_s": 31.38,
+  "tabs_warm_total_s": 12.42,
+  "tab_cold_median_s": 3.83,
+  "tab_warm_median_s": 1.51,
   "charts_measured": 44,
   "charts_ok": 44,
-  "chart_force_median_ms": 1879.6999999999998,
-  "chart_cache_median_ms": 74.7
+  "chart_force_median_ms": 1557.7,
+  "chart_cache_median_ms": 66.94999999999999
 }

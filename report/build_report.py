@@ -838,6 +838,36 @@ class Renderer:
                    "Thời gian hiển thị từng tab dashboard: cold và có cache (`evidence/dashboard_load_time.csv`)",
                    widths=[7.0, 2.2, 3.6, 3.2])
 
+    QA_GROUPS = [("Đăng nhập, thương hiệu; link về landing; landing page (JS, kpi.json, 390 px)", [(1, 3), (31, 38)]),
+                 ("7 tab dashboard ở 1440 px và 1280 px (chart, console, thẻ KPI)", [(4, 17)]),
+                 ("Bộ lọc native: 6 kịch bản, xoá lọc, chọn trên giao diện", [(18, 25)]),
+                 ("Đổi ngôn ngữ vi ↔ en tại chỗ (dashboard, trang chủ, danh sách, SQL Lab)", [(26, 30)]),
+                 ("ZIP export, import, lệnh README", [(39, 41)])]
+
+    def d_qa(self, arg):
+        data = I.evidence_json("qa_results.json")
+        res = data.get("results") if data else None
+        if not res:
+            self.paragraph(I.placeholder("thiếu evidence/qa_results.json – chạy scripts/qa_run.ps1"), indent=False)
+            return
+        if arg == "full":
+            body = [[r["id"], r["case"], r["expected"], f"**{r['result']}**"] for r in res]
+            self.table(["ID", "Ca kiểm thử", "Kỳ vọng", "Kết quả"], body,
+                       "Toàn bộ ca kiểm thử QA tự động (`scripts/qa_check.py`; bước và ghi chú chi tiết trong `evidence/qa_test_cases.md`)",
+                       font_size=8.5, widths=[1.2, 5.6, 7.6, 1.6])
+            return
+        num = lambda r: int(r["id"][2:])  # noqa: E731
+        body = []
+        for name, spans in self.QA_GROUPS:
+            g = [r for r in res if any(lo <= num(r) <= hi for lo, hi in spans)]
+            body.append([name, ", ".join(f"TC{lo:02d}–{hi:02d}" for lo, hi in spans), str(len(g))] +
+                        [str(sum(r["result"] == k for r in g)) for k in ("PASS", "FAIL", "KNOWN")])
+        s = data["summary"]
+        body.append(["**Tổng**", "", f"**{len(res)}**", f"**{s['PASS']}**", f"**{s['FAIL']}**", f"**{s['KNOWN']}**"])
+        self.table(["Nhóm ca kiểm thử", "Mã", "Số ca", "PASS", "FAIL", "KNOWN"], body,
+                   "Tóm tắt kiểm thử QA tự động (`evidence/qa_test_cases.md`, chi tiết ở Phụ lục E)",
+                   widths=[7.4, 2.6, 1.4, 1.5, 1.4, 1.9])
+
     def d_scale(self, _):
         rows = I.evidence_csv("scale_experiment.csv")
         if not rows:

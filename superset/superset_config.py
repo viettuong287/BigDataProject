@@ -29,7 +29,22 @@ ROW_LIMIT = 50000
 
 # Giao diện tiếng Việt mặc định; bản dịch "vi" do superset/i18n/build_catalog.py biên dịch lúc build image.
 # Giữ English trong bộ chọn ngôn ngữ (cờ ở góc phải thanh menu).
-BABEL_DEFAULT_LOCALE = "vi"
+# BABEL_DEFAULT_LOCALE phải là "en": Superset dịch nhãn menu trái (Bảng điều khiển, Biểu đồ...) một lần lúc khởi động
+# theo locale mặc định rồi chỉ dịch lại theo msgid; mặc định "vi" làm nhãn kẹt tiếng Việt khi người dùng chọn English.
+# Tiếng Việt mặc định được gán cho từng phiên trong FLASK_APP_MUTATOR bên dưới.
+BABEL_DEFAULT_LOCALE = "en"
+DEFAULT_UI_LOCALE = "vi"
+
+
+def FLASK_APP_MUTATOR(app):  # noqa: N802
+    from flask import request, session
+
+    @app.before_request
+    def _default_ui_locale():
+        if "locale" not in session and not request.path.startswith(("/static/", "/health")):
+            session["locale"] = DEFAULT_UI_LOCALE
+
+
 LANGUAGES = {
     "vi": {"flag": "vn", "name": "Tiếng Việt"},
     "en": {"flag": "us", "name": "English"},

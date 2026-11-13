@@ -9,11 +9,11 @@
 5. **Đầu ra cho Decision/Action:** truy vấn `v_decision_hints` và `v_seller_watchlist` (Mục 7.4).
 6. **Giới thiệu:** `docker compose up -d web` — landing page `http://localhost:8090` (Mục 7.5).
 
-Các ảnh dưới đây được Playwright chụp tự động từ hệ thống đang chạy với giao diện Superset tiếng Việt (toàn bộ 7 tab và 6 kịch bản lọc ở `evidence/`; một số tab ở Phụ lục E); để dễ đọc, báo cáo cắt phần chính của mỗi ảnh.
+Các ảnh dưới đây được Playwright chụp tự động từ hệ thống đang chạy với giao diện Superset tiếng Việt và theme Olist Insight (toàn bộ 7 tab và 6 kịch bản lọc ở `evidence/`; một số tab ở Phụ lục E); để dễ đọc, báo cáo cắt phần chính của mỗi ảnh.
 
 ## 7.2. Dashboard và nội dung phân tích
 
-{{shot:evidence/dashboard_tab1_tong_quan_xu_huong.png|270,170,1590,1200|Tab 1 "Tổng quan & xu hướng": 6 thẻ KPI khung 2017-01 → 2018-08, doanh thu tháng gần nhất, doanh thu & số đơn theo tháng, % trễ vs review, MoM|h=11.5}}
+{{shot:evidence/dashboard_tab1_tong_quan_xu_huong.png|270,170,1590,1200|Tab 1 "Tổng quan & xu hướng": 6 thẻ KPI khung 2017-01 → 2018-08, doanh thu tháng gần nhất, doanh thu & số đơn theo tháng, % trễ vs review, MoM|h=10}}
 
 **Tổng quan.** Sáu thẻ KPI tính trên `v_orders`: doanh thu 13.449.530 BRL, 97.905 đơn hợp lệ, 94.703 khách, AOV 160,19 BRL, tỷ lệ trễ 8,13%, review 4,12. Doanh thu tăng từ ~120 nghìn BRL (01/2017) lên đỉnh **1.003.862 BRL vào 11/2017** (Black Friday, MoM +52,06%). Thông điệp cho ban điều hành: **bán nhiều không đồng nghĩa vận hành tốt** — 11/2017 trễ 14,31%, review 3,95; 03/2018 trễ 21,36%, review 3,76; trong khi 04–05/2018 doanh thu gần bằng đỉnh mà trễ chỉ 5–8%.
 

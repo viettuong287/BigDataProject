@@ -32,8 +32,9 @@ F = {fid.split("-")[1][2:]: fid for fid in INFO["filters"]}  # 'customerst' -> N
 TABS = ["tong_quan_xu_huong", "danh_muc_mua_vu", "dia_ly_logistics", "khach_hang_rfm", "nguoi_ban",
         "giao_tre_review_thanh_toan", "goi_y_quyet_dinh_nguon_du_lieu"]
 # Tên một chart chỉ có ở mỗi tab – dùng để kiểm tra nội dung đang hiển thị đúng tab trước khi chụp.
-TAB_MARK = ["KPI · Doanh thu (BRL)", "Pareto danh mục", "Bản đồ doanh thu theo bang", "KPI · Khách hàng (RFM)",
-            "KPI · Số người bán", "Điểm đánh giá TB: giao trễ và đúng hạn", "Gợi ý quyết định (luật"]
+TAB_MARK = ["Doanh thu tháng gần nhất & xu hướng", "Pareto danh mục", "Bản đồ doanh thu theo bang",
+            "Phân bố khách theo phân khúc RFM", "Pareto người bán", "Điểm đánh giá TB: giao trễ và đúng hạn",
+            "Gợi ý quyết định (luật"]
 SHOWN_JS = """() => [...document.querySelectorAll('.dashboard-component-chart-holder')]
     .filter(h => h.offsetParent !== null).map(h => h.innerText || '').join('\\n')"""
 
@@ -102,6 +103,9 @@ def shoot(page, path: Path, idx: int) -> None:
     # lưới chart của tab 5 khi resize, ảnh ra trắng. Viewport 1900 px đã chứa trọn nội dung mỗi tab.
     for _ in range(3):
         if TAB_MARK[idx] in page.evaluate(SHOWN_JS):
+            # Chuột còn đứng trên tab vừa bấm ở lượt trước sẽ tô nền "hover" cho tab đó: dời ra vùng trống thanh bộ lọc.
+            page.mouse.move(130, 1000)
+            page.wait_for_timeout(300)
             page.screenshot(path=str(path))
             if TAB_MARK[idx] in page.evaluate(SHOWN_JS):
                 return
@@ -215,6 +219,8 @@ def main() -> None:
 
     tabs = [r for r in load_rows if r["kind"] == "tab"]
     ok = [r for r in lat_rows if r["status"] == "ok"]
+    prev_path = EVID / "dashboard_load_summary.json"
+    prev = json.loads(prev_path.read_text(encoding="utf-8")) if prev_path.exists() else None
     summary = {
         "dashboard_shell_s": shell,
         "tabs_cold_total_s": round(sum(r["cold_s"] for r in tabs), 2),
@@ -226,7 +232,65 @@ def main() -> None:
         "chart_cache_median_ms": statistics.median(r["cache_median_ms"] for r in ok) if ok else None,
     }
     (EVID / "dashboard_load_summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    write_latency_md(load_rows, lat_rows, summary, prev)
     print(json.dumps(summary, ensure_ascii=False, indent=2))
+
+
+TAB_VI = ["Tổng quan & xu hướng", "Danh mục & mùa vụ", "Địa lý & logistics", "Khách hàng & RFM", "Người bán",
+          "Giao trễ, đánh giá & thanh toán", "Gợi ý quyết định & nguồn dữ liệu"]
+
+
+def vn(x: float, nd: int = 2) -> str:
+    return f"{x:,.{nd}f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def write_latency_md(load_rows: list[dict], lat_rows: list[dict], s: dict, prev: dict | None) -> None:
+    """Sinh evidence/dashboard_load_latency.md từ số đo của lần chạy này (so với lần trước nếu có)."""
+    tabs = [r for r in load_rows if r["kind"] == "tab"]
+    flt = [r["cold_s"] for r in load_rows if r["kind"] == "filter"]
+    ok = [r for r in lat_rows if r["status"] == "ok"]
+    worst = max(tabs, key=lambda r: r["cold_s"])
+    force = [r["force_median_ms"] for r in ok]
+    lines = [
+        "# Thời gian tải dashboard Superset: cold vs cache", "",
+        f"Đo ngày {time.strftime('%Y-%m-%d %H:%M')} bằng `scripts/take_screenshots.py` (Playwright + Chromium headless, "
+        "viewport 1600×1900), Superset 4.1.2 giao diện tiếng Việt, theme Olist Insight, trong Docker (4 worker gunicorn), "
+        "dữ liệu trên Neon `aws-ap-southeast-1` (0,25 CU). \"Cold\" = đã xoá cache Superset trước khi chạy, mọi chart phải "
+        "truy vấn Neon; \"cache\" = mở lại ngay sau đó (cache kết quả 600 s). Thời gian render = từ lúc bấm tab tới khi mọi "
+        "chart trong tab hết spinner.", "",
+        "## 1. Theo tab (`dashboard_load_time.csv`)", "",
+        "| Tab | Số thành phần | Cold (s) | Cache (s) |", "|---|---:|---:|---:|",
+    ]
+    lines += [f"| {i + 1} · {TAB_VI[i]} | {r['components']} | {vn(r['cold_s'])} | {vn(r['warm_s'])} |" for i, r in enumerate(tabs)]
+    lines += [f"| **Trung vị** | | **{vn(s['tab_cold_median_s'])}** | **{vn(s['tab_warm_median_s'])}** |",
+              f"| **Tổng 7 tab** | {sum(r['components'] for r in tabs)} | **{vn(s['tabs_cold_total_s'])}** | **{vn(s['tabs_warm_total_s'])}** |", "",
+              f"Khung dashboard (HTML + JS) tải trong ~{vn(s['dashboard_shell_s']['cold'], 1)} s. "
+              f"Lỗi chart: {sum(r['errors'] for r in load_rows)}. Áp dụng bộ lọc native ({len(flt)} kịch bản, ảnh `filter_*.png`): "
+              f"{vn(min(flt), 1)}–{vn(max(flt), 1)} s mỗi lần, đo từ lúc chuyển sang tab đích (đã áp bộ lọc) tới khi các chart "
+              "trong tab vẽ xong.", "",
+              "## 2. Theo chart, qua REST API (`superset_chart_latency.csv`)", "",
+              "Replay đúng payload `/api/v1/chart/data` mà trình duyệt gửi, xác thực bằng cookie phiên + header `X-CSRFToken`, "
+              "3 lần mỗi chế độ:", "",
+              f"- `force=true` (bỏ cache, Superset mở kết nối mới tới Neon và chạy SQL): trung vị **{vn(s['chart_force_median_ms'], 0)} ms**/chart "
+              f"({vn(min(force) / 1000, 1)}–{vn(max(force) / 1000, 1)} s).",
+              f"- Đọc từ cache Superset: trung vị **{vn(s['chart_cache_median_ms'], 0)} ms**/chart — nhanh hơn "
+              f"~{vn(s['chart_force_median_ms'] / s['chart_cache_median_ms'], 0)} lần.",
+              f"- {s['charts_ok']}/{s['charts_measured']} chart đo thành công (Country Map dùng endpoint legacy `explore_json` "
+              "nên không nằm trong phép replay).", "",
+              "## 3. Diễn giải", "",
+              "- Thời gian thực thi SQL phía Neon chỉ ~1 ms cho hầu hết view (`query_latency.md`); phần lớn thời gian mỗi chart là "
+              "bắt tay TLS kết nối mới + các round-trip mạng Việt Nam → Singapore, vì Superset dùng NullPool.",
+              f"- Tab cold chậm nhất ({TAB_VI[tabs.index(worst)]}, {vn(worst['cold_s'], 1)} s) là do các chart xếp hàng chờ kết nối, "
+              "không phải do truy vấn nặng."]
+    if prev:
+        lines.append(f"- So với lần đo trước: tab cold trung vị {vn(prev['tab_cold_median_s'])} → {vn(s['tab_cold_median_s'])} s, "
+                     f"có cache {vn(prev['tab_warm_median_s'])} → {vn(s['tab_warm_median_s'])} s; chart bỏ cache "
+                     f"{vn(prev['chart_force_median_ms'], 0)} → {vn(s['chart_force_median_ms'], 0)} ms, từ cache "
+                     f"{vn(prev['chart_cache_median_ms'], 0)} → {vn(s['chart_cache_median_ms'], 0)} ms (dao động chủ yếu do đường truyền).")
+    warm = [r["warm_s"] for r in tabs]
+    lines += [f"- Cache kết quả đưa thời gian mở tab về ~{vn(min(warm), 1)}–{vn(max(warm), 1)} s, đủ cho người dùng nghiệp vụ; muốn cold nhanh hơn: đặt Superset "
+              "cùng region với Neon, bật pool kết nối, hoặc làm nóng cache định kỳ (Celery beat).", ""]
+    (EVID / "dashboard_load_latency.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 if __name__ == "__main__":

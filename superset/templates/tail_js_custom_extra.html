@@ -44,6 +44,8 @@
     font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
   }
   #main-menu .navbar-brand-text span { color: var(--oi-muted) !important; }
+  /* Màn hình hẹp: bỏ dòng mô tả cạnh logo để thanh menu không xuống 2 hàng */
+  @media (max-width: 1499px) { #main-menu .navbar-brand-text { display: none !important; } }
   /* DOCUMENTATION_URL = landing page: Superset chỉ vẽ icon, thêm nhãn chữ như nút .btn-ghost của landing */
   #main-menu a[title="Trang giới thiệu"] {
     display: inline-flex !important; align-items: center; gap: 6px; height: 32px; margin: 0 6px;
@@ -90,3 +92,65 @@
   }
   #loginbox .btn-primary:hover { filter: brightness(1.08); }
 </style>
+<script nonce="{% if csp_nonce is defined %}{{ csp_nonce() }}{% endif %}">
+/* Đổi ngôn ngữ mà vẫn ở nguyên trang: FAB /lang/<mã> ghi locale vào session rồi chuyển hướng về trang server ghi nhận
+   gần nhất (thường là trang chủ/danh sách) chứ không phải trang React đang mở. Gọi /lang/<mã> ngầm rồi tải lại đúng
+   URL hiện tại (giữ native_filters_key, permalink); tab dashboard đang mở và vị trí cuộn được khôi phục sau khi tải lại. */
+(function () {
+  var KEY = "olist-lang-restore";
+  var LANG_RE = /\/lang\/([A-Za-z_-]+)\/?$/;
+
+  function langLink(el) {
+    if (!el || !el.closest) return null;
+    var a = el.closest('a[href*="/lang/"]');
+    if (!a) {
+      var item = el.closest('li, [role="menuitem"]');
+      a = item && item.querySelector('a[href*="/lang/"]');
+    }
+    return a && LANG_RE.test(new URL(a.href, location.href).pathname) ? a : null;
+  }
+
+  function switchLang(a, ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    var href = a.href;
+    var tabs = Array.prototype.map.call(
+      document.querySelectorAll('[role="tab"][aria-selected="true"][id]'), function (t) { return t.id; });
+    try {
+      sessionStorage.setItem(KEY, JSON.stringify({ url: location.href, tabs: tabs, y: window.scrollY }));
+    } catch (e) { /* sessionStorage bị chặn: vẫn đổi ngôn ngữ, chỉ không khôi phục tab */ }
+    fetch(href, { credentials: "same-origin", redirect: "manual", cache: "no-store" })
+      .then(function (r) {
+        if (r.type === "opaqueredirect" || r.ok) location.reload();
+        else throw new Error("HTTP " + r.status);
+      })
+      .catch(function () { sessionStorage.removeItem(KEY); location.href = href; });
+  }
+
+  document.addEventListener("click", function (ev) {
+    var a = langLink(ev.target);
+    if (a && ev.button === 0 && !ev.ctrlKey && !ev.metaKey && !ev.shiftKey) switchLang(a, ev);
+  }, true);
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key !== "Enter" && ev.key !== " ") return;
+    var a = langLink(ev.target);
+    if (a) switchLang(a, ev);
+  }, true);
+
+  var saved;
+  try { saved = JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch (e) { saved = null; }
+  if (!saved || saved.url !== location.href) return;
+  sessionStorage.removeItem(KEY);
+  var pending = (saved.tabs || []).slice(), started = Date.now();
+  (function restore() {
+    while (pending.length) {
+      var t = document.getElementById(pending[0]);
+      if (!t) break;
+      if (t.getAttribute("aria-selected") !== "true") t.click();
+      pending.shift();
+    }
+    if (pending.length && Date.now() - started < 30000) { setTimeout(restore, 300); return; }
+    if (saved.y) setTimeout(function () { window.scrollTo(0, saved.y); }, 800);
+  })();
+})();
+</script>
